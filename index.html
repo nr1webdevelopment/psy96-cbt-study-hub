@@ -412,10 +412,23 @@ h1{color:var(--fg)}
 .brand .mark{flex:none;border-radius:6px;box-shadow:0 0 0 1px rgb(255 255 255 / .35)}
 body{padding-bottom:0}
 .idbar.foot{margin-top:48px;padding-block:14px}
+
+/* language switcher in the identity strip */
+.idbar .in{display:flex;justify-content:space-between;align-items:center;gap:6px 16px;flex-wrap:wrap}
+.langs{display:flex;gap:2px;margin-left:auto}
+.langs a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;color:#fff;opacity:.8;text-decoration:none;padding:3px 9px;border-radius:4px;border:1px solid transparent}
+.langs a:hover{opacity:1;border-color:rgb(255 255 255 / .5)}
+.langs a[aria-current="true"]{opacity:1;background:rgb(0 0 0 / .25);border-color:rgb(255 255 255 / .6)}
+.idbar.foot .langs{display:none}
+@media (max-width:640px){.idbar .in{flex-wrap:nowrap;align-items:flex-start}.idbar .in > span{flex:1;min-width:0;font-size:.82rem;line-height:1.35}.langs a{padding:2px 6px}}
 </style>
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="zh-Hant" href="zh-hant/index.html">
+<link rel="alternate" hreflang="es" href="es/index.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
 </head>
 <body>
-<div class="idbar"><div class="in">Stanford University · PSY96: Managing Emotions with Skill</div></div>
+<div class="idbar"><div class="in"><span>Stanford University · PSY96: Managing Emotions with Skill</span><nav class="langs" aria-label="Language"><a href="index.html" hreflang="en" lang="en" title="English" aria-current="true">EN</a><a href="zh-hant/index.html" hreflang="zh-Hant" lang="zh-Hant" title="繁體中文">繁中</a><a href="es/index.html" hreflang="es" lang="es" title="Español">ES</a></nav></div></div>
 <div class="appbar"><div class="in">
   <a class="brand" href="#guide"><svg class="mark" width="26" height="26" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#8C1515"/><path d="M32 15 L50 46 H14 Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/><circle cx="32" cy="15" r="7" fill="#fff"/><circle cx="14" cy="46" r="7" fill="#fff"/><circle cx="50" cy="46" r="7" fill="#fff"/></svg>PSY96 · CBT Study Hub</a>
   <nav class="tabs" aria-label="Pages">
@@ -1371,11 +1384,14 @@ body{padding-bottom:0}
 </div>
 <div class="idbar foot"><div class="in">Unofficial student notes for PSY96: Managing Emotions with Skill · not affiliated with or endorsed by Stanford University</div></div>
 <script>
+window.PSY96_DATA={"locale": "en-US", "lec": {"l1": "Lecture 1", "l2": "Lecture 2", "l3": "Lecture 3", "l4": "Lecture 4", "l5": "Lecture 5", "toolkit": "Wrap-up"}, "secname": {"l1": "Lecture 1 · What therapy is", "l2": "Lecture 2 · Noticing thoughts", "l3": "Lecture 3 · Updating thoughts", "l4": "Lecture 4 · Core beliefs", "l5": "Lecture 5 · Activation & exposure", "toolkit": "Wrap-up · The toolkit"}, "titles": {"guide": "Study Guide", "cards": "Study Flash Cards", "quiz": "Practice Quiz", "journal": "My CBT Journal"}, "cards": [{"k": "l1", "q": "What is the CBT triangle?", "a": "Thoughts, feelings and behaviors, each affecting the others in both directions.", "x": "To feel differently, change what you think or change what you do."}, {"k": "l1", "q": "What is the main goal of CBT?", "a": "To teach practical skills, short-term, so that eventually you become your own therapist."}, {"k": "l1", "q": "Where does CBT have the strongest evidence?", "a": "Anxiety (general, social, phobias), depression, OCD and bulimia.", "x": "From a review of about 270 meta-analyses."}, {"k": "l1", "q": "Where does CBT help, but other treatments do better?", "a": "ADHD, psychosis, substance use and self-injury."}, {"k": "l1", "q": "What is the biggest predictor of success in any therapy?", "a": "The therapeutic alliance: trust, comfort and connection with the therapist."}, {"k": "l1", "q": "Name the other “common factors” in therapy.", "a": "Positive expectations, being observed (accountability, the Hawthorne effect) and protected time to face the problem."}, {"k": "l1", "q": "What is the Socratic method?", "a": "Asking questions instead of giving advice, so the person reaches their own conclusion.", "x": "“Has that ever happened to you, or to someone you know?”"}, {"k": "l1", "q": "What is a coping card?", "a": "A written card that captures an insight from a session, so you can come back to it when you need it."}, {"k": "l1", "q": "What do O, A and R stand for in OARS?", "a": "Open-ended questions, Affirmations, Reflections.", "x": "A reflection, then an affirmation, then an open question tends to work well."}, {"k": "l2", "q": "What are automatic thoughts?", "a": "Thoughts that run constantly, aren’t chosen, can contradict each other and are often distorted.", "x": "Like a fun-house mirror: based on something real, but stretched."}, {"k": "l2", "q": "What does ABC stand for?", "a": "Activating event → Belief → Consequences.", "x": "It’s the interpretation (B), not the event (A), that drives the feeling (C)."}, {"k": "l2", "q": "Sadness: what theme, and what urge?", "a": "Loss, looking back. The urge is to withdraw."}, {"k": "l2", "q": "Anxiety: what theme, and what urge?", "a": "Threat, looking ahead. The urge is to avoid."}, {"k": "l2", "q": "Anger: what theme, and what urge?", "a": "Unfairness. The urge is to lash out.", "x": "When anger shows up, ask what feels unfair."}, {"k": "l2", "q": "Guilt vs. shame?", "a": "Guilt: “I did something bad.” Shame: “I am bad.”", "x": "A dog can feel guilty, but not ashamed."}, {"k": "l2", "q": "Catastrophizing / fortune telling", "a": "Being sure the future will go badly.", "x": "“I just know I’m not going to get this job.”"}, {"k": "l2", "q": "Mind reading", "a": "Being sure you know what other people think.", "x": "“She didn’t wave back. She must be mad at me.”"}, {"k": "l2", "q": "All-or-nothing thinking", "a": "Seeing things in black-and-white, absolute terms.", "x": "“If I get a B, my law-school experience is ruined.”"}, {"k": "l2", "q": "Unfair comparisons", "a": "Comparing yourself to someone on just one domain.", "x": "“I’ll never be as charismatic as that comedian.”"}, {"k": "l2", "q": "Emotional reasoning", "a": "Treating a feeling as if it were proof.", "x": "Watch for “I feel like…” followed by a whole sentence."}, {"k": "l2", "q": "The seven columns of a thought record", "a": "Situation · Emotions · Automatic thoughts · Distortion · Evidence for · Evidence against · Balanced thought."}, {"k": "l2", "q": "What if a painful thought fits the facts?", "a": "Don’t argue with it. Problem-solve, accept, and plan next steps.", "x": "Test: would it hold up in court?"}, {"k": "l3", "q": "What is the “working zone” for thought records?", "a": "About 2–8 out of 10: enough emotion to work with, but you can still think clearly.", "x": "At 9–10, calm your body down first."}, {"k": "l3", "q": "Three dimensions of how we explain events", "a": "Internal vs. external · Stable vs. unstable · Global vs. specific.", "x": "“It’s me, it’s forever, it’s everywhere” hurts the most."}, {"k": "l3", "q": "Two lessons about anxiety from the cafeteria-tray video", "a": "We overestimate how likely bad outcomes are, and underestimate how well we’d cope."}, {"k": "l3", "q": "Questions that help find a better thought", "a": "What would you tell a friend? Has it ever not been true? What strengths are you ignoring? Worst, best, most realistic outcome? Could you cope? Is there another explanation?"}, {"k": "l3", "q": "Why say “and” instead of “but”?", "a": "“And” lets two true things stand together, so you don’t have to pick one.", "x": "“You’re competent and you struggle with some things.”"}, {"k": "l3", "q": "Four steps of a behavioral experiment", "a": "Prediction → Experiment → Outcome → Learning."}, {"k": "l3", "q": "Two ways to test a prediction", "a": "Do it, or poll people who will be honest with you."}, {"k": "l4", "q": "Three levels of cognition", "a": "Automatic thoughts (easy to notice) → Underlying assumptions (“if… then…”) → Core beliefs (about self, others and the world)."}, {"k": "l4", "q": "Give an example of an underlying assumption.", "a": "“If people really get to know me, they won’t like me.”", "x": "Others: “If I can’t do it well, it’s not worth doing.”"}, {"k": "l4", "q": "What is the downward arrow?", "a": "Repeatedly asking “If that were true, what would it mean?” to follow a thought down to its core belief.", "x": "Vary the wording so it doesn’t feel like an interrogation."}, {"k": "l4", "q": "Three ways to challenge a core belief", "a": "Look at the words (define them), use extreme contrasts, and weigh the evidence on both sides."}, {"k": "l4", "q": "What’s the realistic goal when challenging a core belief?", "a": "To weaken it, not erase it. Hannah’s belief dropped from 90 to 40 out of 100."}, {"k": "l4", "q": "The validation formula", "a": "“Given ___, it makes sense that you ___.”", "x": "Draw on past events, vulnerabilities, or what’s happening now."}, {"k": "l4", "q": "Is validation the same as agreeing?", "a": "No. You validate the reason, not the behavior: “it makes sense,” not “I agree.”", "x": "Acceptance comes before change."}, {"k": "l5", "q": "Rule of thumb: which behavioral tool for which problem?", "a": "Low mood → behavioral activation. Anxiety → exposure."}, {"k": "l5", "q": "What is behavioral activation?", "a": "Acting the way you would if you weren’t depressed, by scheduling activities that bring pleasure or mastery.", "x": "Change mood from the outside in."}, {"k": "l5", "q": "The Rat Park study", "a": "Rats in empty cages drank opioid-laced water; rats in an enriched park mostly avoided it.", "x": "Doing more of something good is the best way to do less of something unwanted."}, {"k": "l5", "q": "How do you “start tiny”?", "a": "Cut the goal in half, then in half again.", "x": "Put on your workout clothes. Open a blank document named “CV.”"}, {"k": "l5", "q": "Motivation scaling: what do you always ask?", "a": "“Why that number, and not lower?” so the person states their own reasons."}, {"k": "l5", "q": "What is the dive reflex?", "a": "The opposite of fight-or-flight: it calms the nervous system. Trigger it with cold water on your face or hands, or through your senses."}, {"k": "l5", "q": "Why does avoidance keep fear alive?", "a": "Escaping gives instant relief, so you never learn that the anxiety would have peaked and fallen on its own."}, {"k": "l5", "q": "What is habituation?", "a": "With repeated exposure, the anxiety peak gets lower each time."}, {"k": "l5", "q": "What is systematic desensitization?", "a": "Rank feared situations in a hierarchy, start at the bottom, and move up only when ready."}, {"k": "l5", "q": "How are fears learned?", "a": "Through modeling (picking them up from others) and association (Little Albert). Avoidance keeps them going."}], "quiz": [{"k": "l1", "q": "In the CBT triangle, which three things influence each other?", "o": ["Memories, dreams and habits", "Thoughts, feelings and behaviors", "Genes, upbringing and choices", "Past, present and future"], "a": 1, "e": "Each link runs both ways, so you can feel differently by changing what you think or what you do."}, {"k": "l1", "q": "According to the survey shown in class, roughly what share of US therapists practice CBT?", "o": ["About 15%", "About 25%", "About 50%", "About 90%"], "a": 2, "e": "About half. Integrative was around 25% and psychodynamic around 15%."}, {"k": "l1", "q": "Across all kinds of therapy, what is the biggest single predictor of a good outcome?", "o": ["The therapeutic alliance (trust and connection)", "The therapist’s years of experience", "The specific type of therapy used", "How many sessions are attended"], "a": 0, "e": "If the relationship is strong, the outcome is likely to be strong too. It’s one of the “common factors” that matter in any therapy."}, {"k": "l1", "q": "For which of these does CBT have the strongest evidence?", "o": ["ADHD", "Psychosis", "Substance use", "Social anxiety and depression"], "a": 3, "e": "Strong evidence: anxiety (general, social, phobias), depression, OCD and bulimia. For ADHD, psychosis and substance use, CBT helps but other treatments do better."}, {"k": "l1", "q": "What is the Socratic method in therapy?", "o": ["Giving clear, expert advice", "Reassuring the client that things will be fine", "Asking questions so the person reaches their own conclusion", "Interpreting the client’s childhood"], "a": 2, "e": "Reaching “I’ll most likely be fine” yourself works very differently from being told it."}, {"k": "l5", "q": "What did the Rat Park study suggest?", "o": ["Rats prefer opioid water whatever their surroundings", "Doing more of something good is the best way to do less of something unwanted", "Isolation has no effect on behavior", "Punishment is the fastest way to change a habit"], "a": 1, "e": "Rats in empty cages drank the opioid water until they died; rats in an enriched park mostly avoided it."}, {"k": "l1", "q": "Which of these is an open-ended question?", "o": ["“Did you have a good weekend?”", "“Was work busy today?”", "“Are you feeling better?”", "“Tell me about your weekend.”"], "a": 3, "e": "Open-ended questions invite a story instead of a yes or no. They’re the O in OARS."}, {"k": "l2", "q": "In the ABC model, what does the B stand for?", "o": ["Belief", "Behavior", "Body", "Boundary"], "a": 0, "e": "Activating event → Belief → Consequences. The belief (your interpretation) is what drives the feeling."}, {"k": "l2", "q": "What common myth does the ABC model correct?", "o": ["That beliefs cause events", "That the event (A) directly causes the consequence (C)", "That emotions are always rational", "That behavior never changes mood"], "a": 1, "e": "“I’m miserable because I got divorced” skips B: the belief about what the divorce means."}, {"k": "l5", "q": "Your emotion is at 9–10 out of 10. What did the class recommend doing first?", "o": ["Fill out a full thought record", "Argue with the thought until it goes away", "Calm your body first, using your senses or cold water", "Push through and make a big decision"], "a": 2, "e": "At that intensity it’s hard to think clearly. The dive reflex (cold water on face or hands) or naming one thing you see, hear, feel and smell calms the nervous system."}, {"k": "l2", "q": "Anxiety is linked to which theme?", "o": ["Loss, looking back", "Unfairness", "Comparison", "Threat, looking ahead"], "a": 3, "e": "Sadness looks back at loss; anxiety looks ahead at threat, and its urge is to avoid."}, {"k": "l2", "q": "What’s the difference between guilt and shame?", "o": ["Guilt is “I did something bad”; shame is “I am bad”", "Guilt is “I am bad”; shame is “I did something bad”", "They mean the same thing", "Guilt is about others; shame is about the future"], "a": 0, "e": "That’s why a dog can feel guilty, but not ashamed."}, {"k": "l2", "q": "“She didn’t wave back. She must be mad at me.” Which distortion is this?", "o": ["All-or-nothing thinking", "Mind reading", "Unfair comparison", "Emotional reasoning"], "a": 1, "e": "Mind reading means being sure you know what other people think."}, {"k": "l2", "q": "“If I get a B, my law-school experience is ruined.” Which distortion is this?", "o": ["Mind reading", "Emotional reasoning", "All-or-nothing thinking", "Unfair comparison"], "a": 2, "e": "Black-and-white, absolute terms: anything short of perfect counts as total failure."}, {"k": "l2", "q": "“I feel like I’m going to fail, so I will.” Which distortion is this?", "o": ["Catastrophizing", "Mind reading", "Unfair comparison", "Emotional reasoning"], "a": 3, "e": "Watch for “I feel like…” followed by a whole sentence. A feeling isn’t evidence."}, {"k": "l2", "q": "You check a painful thought and it fits the facts. What’s the best next step?", "o": ["Challenge it harder until it changes", "Problem-solve and accept it", "Pretend it’s distorted anyway", "Ignore it"], "a": 1, "e": "Don’t argue with the facts. Process it and plan next steps. Not every negative thought is distorted."}, {"k": "l2", "q": "What goes in the last column of the automatic thought record?", "o": ["A balanced thought", "The situation", "Your emotions", "The name of the distortion"], "a": 0, "e": "Situation → emotions → automatic thoughts → distortion → evidence for → evidence against → balanced thought."}, {"k": "l3", "q": "At what emotional intensity do thought records work best?", "o": ["0–1, when you feel almost nothing", "About 2–8, the working zone", "9–10, at the peak", "Only right after waking up"], "a": 1, "e": "Too low and there’s nothing to work with; too high and you need to calm down first."}, {"k": "l3", "q": "After a breakup, which explanation tends to bring the most sadness?", "o": ["“We grew apart; it happens.”", "“This relationship didn’t work.”", "“I can’t keep a relationship. I’ll always be alone. This always happens to me.”", "“I don’t know what the future holds.”"], "a": 2, "e": "Internal, stable and global explanations (all about me, permanent, everywhere) hurt the most."}, {"k": "l3", "q": "The cafeteria-tray video showed that anxiety makes us…", "o": ["underestimate how likely bad outcomes are", "overestimate how likely bad outcomes are, and underestimate how well we’d cope", "overestimate how well we’d cope", "remember past events accurately"], "a": 1, "e": "Gina guessed a 10% chance of dropping her tray; the real rate was closer to 1 in 10,000. And if it happened, she’d cope."}, {"k": "l3", "q": "Why use “and” instead of “but”?", "o": ["It sounds more formal", "It cancels out the first half of the sentence", "It lets two true things stand together", "It makes every statement positive"], "a": 2, "e": "“You’re competent and you struggle with some things.” You don’t have to pick one."}, {"k": "l3", "q": "What is the order of a behavioral experiment?", "o": ["Experiment → Prediction → Learning → Outcome", "Outcome → Prediction → Experiment → Learning", "Learning → Experiment → Outcome → Prediction", "Prediction → Experiment → Outcome → Learning"], "a": 3, "e": "Write the fearful prediction, test it, record what happened, then write down what you learned."}, {"k": "l3", "q": "What are the two ways to test a prediction, as taught in class?", "o": ["Do it, or poll people who’ll be honest with you", "Ignore it, or distract yourself", "Ask a therapist, or read about it", "Write it down, or say it out loud"], "a": 0, "e": "The class polled itself on how long yogurt can sit out of the fridge, with answers from 30 minutes to 24 hours."}, {"k": "l4", "q": "Which is the deepest, hardest-to-notice level of cognition?", "o": ["Automatic thoughts", "Underlying assumptions", "Coping cards", "Core beliefs"], "a": 3, "e": "Core beliefs about self, others and the world drive the assumptions and thoughts above them."}, {"k": "l4", "q": "Underlying assumptions usually take which form?", "o": ["A single word", "“If… then…” rules", "A question", "A memory"], "a": 1, "e": "For example: “If people really get to know me, then they won’t like me.”"}, {"k": "l4", "q": "Which question drives the downward arrow technique?", "o": ["“If that were true, what would it mean?”", "“What’s the evidence against that?”", "“How intense is that emotion, 0–10?”", "“What would you tell a friend?”"], "a": 0, "e": "Asked repeatedly (with varied wording), it follows a thought down to the core belief underneath."}, {"k": "l4", "q": "In Hannah’s session, her belief dropped from 90 to 40 out of 100. What does that show?", "o": ["The technique failed because it didn’t reach 0", "The realistic goal is to weaken a core belief, not erase it", "Core beliefs can be removed in one session", "Evidence doesn’t affect beliefs"], "a": 1, "e": "Core beliefs are learned over years, so unlearning them takes time too."}, {"k": "l4", "q": "What does validation mean?", "o": ["Agreeing with everything the person does", "Saying “Don’t worry, you’ll be great!”", "Fixing the problem as fast as possible", "Communicating “Given…, it makes sense that you…”"], "a": 3, "e": "You validate the reason, not the behavior. Acceptance comes before change."}, {"k": "l5", "q": "What’s the rule of thumb for choosing a behavioral tool?", "o": ["Low mood → exposure; anxiety → behavioral activation", "Low mood → behavioral activation; anxiety → exposure", "Use exposure for everything", "Only use behavioral tools after cognitive ones"], "a": 1, "e": "In real treatment, behavioral tools often come first because they bring relief fastest."}, {"k": "l5", "q": "When you repeat an exposure, the anxiety peak gets lower each time. What is this called?", "o": ["Catastrophizing", "Modeling", "Habituation", "Behavioral activation"], "a": 2, "e": "Escaping brings instant relief but keeps the fear alive; staying lets the anxiety peak and fall."}], "emo": [{"id": "Sadness", "label": "Sadness", "theme": "Sadness points to <b>loss</b> and looks back. Its urge is to withdraw, so notice if you’re pulling away from people or plans."}, {"id": "Anxiety", "label": "Anxiety", "theme": "Anxiety points to <b>threat</b> and looks ahead. Its urge is to avoid. Is there a prediction here you could test?"}, {"id": "Anger", "label": "Anger", "theme": "Anger points to <b>unfairness</b>. Ask yourself: what feels unfair right now?"}, {"id": "Guilt", "label": "Guilt", "theme": "Guilt says “I <b>did</b> something bad.” It’s about an action, which means it can be repaired."}, {"id": "Shame", "label": "Shame", "theme": "Shame says “I <b>am</b> bad.” That’s a core-belief-sized claim. Would it hold up in court?"}, {"id": "Embarrassment", "label": "Embarrassment", "theme": "Embarrassment is about <b>others knowing</b>. Remember the cafeteria tray: people usually go back to their lunch."}, {"id": "Frustration", "label": "Frustration", "theme": "Frustration means feeling <b>blocked</b>. What’s in the way, and what’s the tiniest next step around it?"}, {"id": "Envy", "label": "Envy", "theme": "Envy comes from <b>comparison</b>. Are you comparing yourself on just one domain?"}, {"id": "Regret", "label": "Regret", "theme": "Regret points to a <b>decision</b> that feels wrong. What would you tell a friend who’d made the same one?"}, {"id": "Calm", "label": "Calm", "theme": "A good feeling worth noticing. What helped it show up today? That might be worth doing again."}, {"id": "Content", "label": "Content", "theme": "A good feeling worth noticing. What helped it show up today? That might be worth doing again."}, {"id": "Hopeful", "label": "Hopeful", "theme": "Hope looks ahead too, in a kinder way. What are you looking forward to?"}, {"id": "Grateful", "label": "Grateful", "theme": "Worth savoring. Who or what are you grateful for, and could you let them know?"}], "dist": [{"id": "Catastrophizing / fortune telling", "label": "Catastrophizing / fortune telling"}, {"id": "Mind reading", "label": "Mind reading"}, {"id": "All-or-nothing", "label": "All-or-nothing"}, {"id": "Unfair comparison", "label": "Unfair comparison"}, {"id": "Emotional reasoning", "label": "Emotional reasoning"}, {"id": "None: it fits the facts", "label": "None: it fits the facts"}], "reflect": [{"k": "l1", "q": "Which corner of the triangle feels easiest for you to change this week: a thought, or something you do?"}, {"k": "l1", "q": "Who in your life is a good listener? What do they do that helps you feel heard?"}, {"k": "l2", "q": "Pick one feeling from today. What theme does it point to: loss, threat, unfairness, being blocked, or something else?"}, {"k": "l2", "q": "When did you last feel angry? What felt unfair about it?"}, {"k": "l2", "q": "Think of a moment today when your interpretation shaped how you felt. What’s another way you could have read the situation?"}, {"k": "l3", "q": "Describe a recent setback. Now rewrite your explanation of it so it’s more specific and less permanent."}, {"k": "l3", "q": "Write two true things about yourself, joined by “and.”"}, {"k": "l3", "q": "Is there a prediction you’re making about the future that you could test, either by trying it or by asking someone honest?"}, {"k": "l3", "q": "What would a kind, honest friend say about how you handled today?"}, {"k": "l4", "q": "Write down a rule you live by in “If… then…” form. Where did you learn it, and is it still helping you?"}, {"k": "l4", "q": "What’s one belief about yourself you’d like to loosen? How strongly do you believe it, 0–100? Write one piece of evidence against it."}, {"k": "l4", "q": "Given everything going on in your life right now, what makes sense about how you’ve been feeling lately?"}, {"k": "l5", "q": "Which activities reliably give you a sense of pleasure? Which give you a sense of mastery? When could you fit one in this week?"}, {"k": "l5", "q": "Think of something you avoided recently. What did avoiding it protect you from, and what did it cost you?"}, {"k": "l5", "q": "Recall a fear you’ve outgrown. What helped you get past it?"}, {"k": "l5", "q": "What did you do today that the “how to be miserable” video would disapprove of?"}], "fields": [["reflection", "Reflection"], ["situation", "What happened"], ["thought", "Automatic thought"], ["evFor", "Evidence for"], ["evAgainst", "Evidence against"], ["balanced", "Balanced thought"], ["validation", "Self-validation"], ["friend", "What I’d tell a friend"], ["strength", "A strength I showed"], ["pleasure", "Pleasure activity"], ["mastery", "Mastery activity"], ["tiny", "Tiny first step"], ["whyNotLower", "Why that importance number, not lower"], ["approach", "Something I’ve been avoiding"], ["wentOk", "Something that went okay"], ["learned", "What I learned about myself"]], "ui": {"toFlash": "Test yourself with flash cards", "cardsMarked": "{n} of {t} marked “got it”", "noCards": "No cards left", "cardPos": "Card {i} of {t}", "gotIt": "✓ Got it", "best": "Best score so far: {n} / {t}", "qPos": "Question {i} of {t}", "score": "Score {c} / {n}", "choices": "Answer choices", "seeResults": "See my results", "nextQ": "Next question", "back": "← Back", "correctMk": "Correct", "yourPick": "Your pick", "correct": "Correct. ", "notQuite": "Not quite. The answer is {L}. ", "msg27": "Excellent. You’ve got the toolkit down.", "msg21": "Solid work. Look over the ones you missed below.", "msg15": "A good start. The flash cards will help close the gaps.", "msg0": "Worth another pass through the study guide, then try again. You’ll see the difference.", "yourResult": "Your result", "retake": "Retake quiz", "shuffleRetake": "Shuffle and retake", "practiceCards": "Practice with flash cards", "byLecture": "Score by lecture", "toReview": "Questions to review ({n})", "yourAnswer": "Your answer: ", "correctAns": "Correct: ", "perfect": "A perfect score. Nothing to review.", "themeDefault": "In class, each emotion pointed to a theme. Pick one to see what it might be telling you.", "zoneHigh": "<b>That’s very intense. Pause before writing.</b> Calm your body first: name one thing you can see, hear, feel and smell, or run cold water over your hands or face (the dive reflex). Come back to the thought once it eases below 9.", "zoneWork": "<b>You’re in the working zone (about 2–8).</b> This is when the thought tools work best, so section 3 is a good place to spend a few minutes.", "zoneLow": "<b>Low charge right now.</b> A good moment for section 5: plan something pleasant or satisfying, or note what’s going well.", "draftSaved": "Draft saved {t}", "draftsAuto": "Drafts save automatically", "draftRestored": "Draft restored", "from": "From {lec}", "validation": "Given {a}, it makes sense that I {b}.", "clear": "Clear", "clearArm": "Tap again to clear", "cleared": "Form cleared", "writeFirst": "Write something first, even one line", "cantSave": "Couldn’t save in this browser. Use Export.", "saved": "Entry saved ✓", "entry1": "{n} entry", "entryN": "{n} entries", "noEntries": "No entries yet. When you save one, it shows up here.", "feelings": "Feelings", "distSpotted": "Distortion spotted", "moodLine": "Mood {a} → {b} · Intensity {c}", "del": "Delete entry", "delArm": "Tap again to delete", "deleted": "Entry deleted", "nothingExport": "Nothing to export yet", "exported": "Exported psy96-journal.md", "mdTitle": "# My CBT Journal (PSY96)", "mdMood": "Mood", "mdIntensity": "Strongest feeling intensity", "listSep": ", "}};
 (function(){
 'use strict';
+const D=window.PSY96_DATA, U=D.ui;
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=(s,v)=>String(s).replace(/\{(\w+)\}/g,(m,k)=>v[k]!=null?v[k]:m);
 let storageOK=true;
 try{localStorage.setItem('psy96.t','1');localStorage.removeItem('psy96.t')}catch(e){storageOK=false}
 const store={
@@ -1383,14 +1399,17 @@ const store={
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){storageOK=false;return false}},
   del(k){try{localStorage.removeItem(k)}catch(e){}}
 };
-const LEC={l1:'Lecture 1',l2:'Lecture 2',l3:'Lecture 3',l4:'Lecture 4',l5:'Lecture 5',toolkit:'Wrap-up'};
+const LOCALE=D.locale;
+const LEC=D.lec;
 const PILL={l1:'pill t',l2:'pill',l3:'pill',l4:'pill',l5:'pill b',toolkit:'pill t'};
+
+/* ============ LANGUAGE LINKS keep the current hash ============ */
+$$('.langs a').forEach(a=>a.addEventListener('click',e=>{if(location.hash){e.preventDefault();location.href=a.getAttribute('href')+location.hash}}));
 
 /* ============ ROUTER ============ */
 const PAGES=['guide','cards','quiz','journal'];
 const SECS=['l1','l2','l3','l4','l5','toolkit'];
-const SECNAME={l1:'Lecture 1 · What therapy is',l2:'Lecture 2 · Noticing thoughts',l3:'Lecture 3 · Updating thoughts',l4:'Lecture 4 · Core beliefs',l5:'Lecture 5 · Activation & exposure',toolkit:'Wrap-up · The toolkit'};
-const TITLES={guide:'Study Guide',cards:'Study Flash Cards',quiz:'Practice Quiz',journal:'My CBT Journal'};
+const SECNAME=D.secname, TITLES=D.titles;
 let curPage=null,curSec=null;
 function showSec(s){
   if(s===curSec)return false;curSec=s;
@@ -1400,7 +1419,7 @@ function showSec(s){
   if(i>0){prev.href='#guide/'+SECS[i-1];prev.querySelector('span').textContent=SECNAME[SECS[i-1]];prev.style.visibility=''}
   else prev.style.visibility='hidden';
   if(i<SECS.length-1){next.href='#guide/'+SECS[i+1];next.querySelector('span').textContent=SECNAME[SECS[i+1]]}
-  else{next.href='#cards';next.querySelector('span').textContent='Test yourself with flash cards'}
+  else{next.href='#cards';next.querySelector('span').textContent=U.toFlash}
   return true;
 }
 function route(){
@@ -1421,55 +1440,7 @@ function route(){
 window.addEventListener('hashchange',route);
 
 /* ============ FLASH CARDS ============ */
-const CARDS=[
- {k:'l1',q:'What is the CBT triangle?',a:'Thoughts, feelings and behaviors, each affecting the others in both directions.',x:'To feel differently, change what you think or change what you do.'},
- {k:'l1',q:'What is the main goal of CBT?',a:'To teach practical skills, short-term, so that eventually you become your own therapist.'},
- {k:'l1',q:'Where does CBT have the strongest evidence?',a:'Anxiety (general, social, phobias), depression, OCD and bulimia.',x:'From a review of about 270 meta-analyses.'},
- {k:'l1',q:'Where does CBT help, but other treatments do better?',a:'ADHD, psychosis, substance use and self-injury.'},
- {k:'l1',q:'What is the biggest predictor of success in any therapy?',a:'The therapeutic alliance: trust, comfort and connection with the therapist.'},
- {k:'l1',q:'Name the other “common factors” in therapy.',a:'Positive expectations, being observed (accountability, the Hawthorne effect) and protected time to face the problem.'},
- {k:'l1',q:'What is the Socratic method?',a:'Asking questions instead of giving advice, so the person reaches their own conclusion.',x:'“Has that ever happened to you, or to someone you know?”'},
- {k:'l1',q:'What is a coping card?',a:'A written card that captures an insight from a session, so you can come back to it when you need it.'},
- {k:'l1',q:'What do O, A and R stand for in OARS?',a:'Open-ended questions, Affirmations, Reflections.',x:'A reflection, then an affirmation, then an open question tends to work well.'},
- {k:'l2',q:'What are automatic thoughts?',a:'Thoughts that run constantly, aren’t chosen, can contradict each other and are often distorted.',x:'Like a fun-house mirror: based on something real, but stretched.'},
- {k:'l2',q:'What does ABC stand for?',a:'Activating event → Belief → Consequences.',x:'It’s the interpretation (B), not the event (A), that drives the feeling (C).'},
- {k:'l2',q:'Sadness: what theme, and what urge?',a:'Loss, looking back. The urge is to withdraw.'},
- {k:'l2',q:'Anxiety: what theme, and what urge?',a:'Threat, looking ahead. The urge is to avoid.'},
- {k:'l2',q:'Anger: what theme, and what urge?',a:'Unfairness. The urge is to lash out.',x:'When anger shows up, ask what feels unfair.'},
- {k:'l2',q:'Guilt vs. shame?',a:'Guilt: “I did something bad.” Shame: “I am bad.”',x:'A dog can feel guilty, but not ashamed.'},
- {k:'l2',q:'Catastrophizing / fortune telling',a:'Being sure the future will go badly.',x:'“I just know I’m not going to get this job.”'},
- {k:'l2',q:'Mind reading',a:'Being sure you know what other people think.',x:'“She didn’t wave back. She must be mad at me.”'},
- {k:'l2',q:'All-or-nothing thinking',a:'Seeing things in black-and-white, absolute terms.',x:'“If I get a B, my law-school experience is ruined.”'},
- {k:'l2',q:'Unfair comparisons',a:'Comparing yourself to someone on just one domain.',x:'“I’ll never be as charismatic as that comedian.”'},
- {k:'l2',q:'Emotional reasoning',a:'Treating a feeling as if it were proof.',x:'Watch for “I feel like…” followed by a whole sentence.'},
- {k:'l2',q:'The seven columns of a thought record',a:'Situation · Emotions · Automatic thoughts · Distortion · Evidence for · Evidence against · Balanced thought.'},
- {k:'l2',q:'What if a painful thought fits the facts?',a:'Don’t argue with it. Problem-solve, accept, and plan next steps.',x:'Test: would it hold up in court?'},
- {k:'l3',q:'What is the “working zone” for thought records?',a:'About 2–8 out of 10: enough emotion to work with, but you can still think clearly.',x:'At 9–10, calm your body down first.'},
- {k:'l3',q:'Three dimensions of how we explain events',a:'Internal vs. external · Stable vs. unstable · Global vs. specific.',x:'“It’s me, it’s forever, it’s everywhere” hurts the most.'},
- {k:'l3',q:'Two lessons about anxiety from the cafeteria-tray video',a:'We overestimate how likely bad outcomes are, and underestimate how well we’d cope.'},
- {k:'l3',q:'Questions that help find a better thought',a:'What would you tell a friend? Has it ever not been true? What strengths are you ignoring? Worst, best, most realistic outcome? Could you cope? Is there another explanation?'},
- {k:'l3',q:'Why say “and” instead of “but”?',a:'“And” lets two true things stand together, so you don’t have to pick one.',x:'“You’re competent and you struggle with some things.”'},
- {k:'l3',q:'Four steps of a behavioral experiment',a:'Prediction → Experiment → Outcome → Learning.'},
- {k:'l3',q:'Two ways to test a prediction',a:'Do it, or poll people who will be honest with you.'},
- {k:'l4',q:'Three levels of cognition',a:'Automatic thoughts (easy to notice) → Underlying assumptions (“if… then…”) → Core beliefs (about self, others and the world).'},
- {k:'l4',q:'Give an example of an underlying assumption.',a:'“If people really get to know me, they won’t like me.”',x:'Others: “If I can’t do it well, it’s not worth doing.”'},
- {k:'l4',q:'What is the downward arrow?',a:'Repeatedly asking “If that were true, what would it mean?” to follow a thought down to its core belief.',x:'Vary the wording so it doesn’t feel like an interrogation.'},
- {k:'l4',q:'Three ways to challenge a core belief',a:'Look at the words (define them), use extreme contrasts, and weigh the evidence on both sides.'},
- {k:'l4',q:'What’s the realistic goal when challenging a core belief?',a:'To weaken it, not erase it. Hannah’s belief dropped from 90 to 40 out of 100.'},
- {k:'l4',q:'The validation formula',a:'“Given ___, it makes sense that you ___.”',x:'Draw on past events, vulnerabilities, or what’s happening now.'},
- {k:'l4',q:'Is validation the same as agreeing?',a:'No. You validate the reason, not the behavior: “it makes sense,” not “I agree.”',x:'Acceptance comes before change.'},
- {k:'l5',q:'Rule of thumb: which behavioral tool for which problem?',a:'Low mood → behavioral activation. Anxiety → exposure.'},
- {k:'l5',q:'What is behavioral activation?',a:'Acting the way you would if you weren’t depressed, by scheduling activities that bring pleasure or mastery.',x:'Change mood from the outside in.'},
- {k:'l5',q:'The Rat Park study',a:'Rats in empty cages drank opioid-laced water; rats in an enriched park mostly avoided it.',x:'Doing more of something good is the best way to do less of something unwanted.'},
- {k:'l5',q:'How do you “start tiny”?',a:'Cut the goal in half, then in half again.',x:'Put on your workout clothes. Open a blank document named “CV.”'},
- {k:'l5',q:'Motivation scaling: what do you always ask?',a:'“Why that number, and not lower?” so the person states their own reasons.'},
- {k:'l5',q:'What is the dive reflex?',a:'The opposite of fight-or-flight: it calms the nervous system. Trigger it with cold water on your face or hands, or through your senses.'},
- {k:'l5',q:'Why does avoidance keep fear alive?',a:'Escaping gives instant relief, so you never learn that the anxiety would have peaked and fallen on its own.'},
- {k:'l5',q:'What is habituation?',a:'With repeated exposure, the anxiety peak gets lower each time.'},
- {k:'l5',q:'What is systematic desensitization?',a:'Rank feared situations in a hierarchy, start at the bottom, and move up only when ready.'},
- {k:'l5',q:'How are fears learned?',a:'Through modeling (picking them up from others) and association (Little Albert). Avoidance keeps them going.'}
-].map((c,i)=>Object.assign(c,{id:i}));
-
+const CARDS=D.cards.map((c,i)=>Object.assign({},c,{id:i}));
 let fcFilter='all',fcOnly=false,fcDeck=[],fcI=0;
 let known=new Set(store.get('psy96.cards.known',[]));
 const fcEl=$('#fc');
@@ -1480,17 +1451,17 @@ function unflip(){fcEl.classList.add('instant');fcEl.classList.remove('flipped')
 function fcRender(){
   unflip();
   const set=fcSet(),kn=set.filter(c=>known.has(c.id)).length,total=fcDeck.length;
-  $('#fc-known').textContent=kn+' of '+set.length+' marked “got it”';
+  $('#fc-known').textContent=fmt(U.cardsMarked,{n:kn,t:set.length});
   const empty=!total;
   $('#fc-empty').hidden=!empty;$('#fc-stage').hidden=empty;$('#fc-controls').hidden=empty;
-  if(empty){$('#fc-pos').textContent='No cards left';$('#fc-bar').style.width='100%';return}
+  if(empty){$('#fc-pos').textContent=U.noCards;$('#fc-bar').style.width='100%';return}
   if(fcI>=total)fcI=0;
   const c=fcDeck[fcI];
-  $('#fc-pos').textContent='Card '+(fcI+1)+' of '+total;
+  $('#fc-pos').textContent=fmt(U.cardPos,{i:fcI+1,t:total});
   $('#fc-bar').style.width=((fcI+1)/total*100)+'%';
   ['#fc-k1','#fc-k2'].forEach(s=>{const p=$(s);p.className=PILL[c.k];p.textContent=LEC[c.k]});
   $('#fc-q').textContent=c.q;$('#fc-a').textContent=c.a;$('#fc-x').textContent=c.x||'';
-  $('#fc-state').textContent=known.has(c.id)?'✓ Got it':'';
+  $('#fc-state').textContent=known.has(c.id)?U.gotIt:'';
 }
 function fcFlip(){fcEl.classList.toggle('flipped');$('.fc-back').setAttribute('aria-hidden',fcEl.classList.contains('flipped')?'false':'true')}
 function fcMove(d){if(!fcDeck.length)return;fcI=(fcI+d+fcDeck.length)%fcDeck.length;fcRender()}
@@ -1510,86 +1481,55 @@ $('#fc-filter').addEventListener('click',e=>{const b=e.target.closest('.chip');i
 $('#fc-count').textContent=CARDS.length;
 
 /* ============ QUIZ ============ */
-const QUIZ=[
- {k:'l1',q:'In the CBT triangle, which three things influence each other?',o:['Memories, dreams and habits','Thoughts, feelings and behaviors','Genes, upbringing and choices','Past, present and future'],a:1,e:'Each link runs both ways, so you can feel differently by changing what you think or what you do.'},
- {k:'l1',q:'According to the survey shown in class, roughly what share of US therapists practice CBT?',o:['About 15%','About 25%','About 50%','About 90%'],a:2,e:'About half. Integrative was around 25% and psychodynamic around 15%.'},
- {k:'l1',q:'Across all kinds of therapy, what is the biggest single predictor of a good outcome?',o:['The therapeutic alliance (trust and connection)','The therapist’s years of experience','The specific type of therapy used','How many sessions are attended'],a:0,e:'If the relationship is strong, the outcome is likely to be strong too. It’s one of the “common factors” that matter in any therapy.'},
- {k:'l1',q:'For which of these does CBT have the strongest evidence?',o:['ADHD','Psychosis','Substance use','Social anxiety and depression'],a:3,e:'Strong evidence: anxiety (general, social, phobias), depression, OCD and bulimia. For ADHD, psychosis and substance use, CBT helps but other treatments do better.'},
- {k:'l1',q:'What is the Socratic method in therapy?',o:['Giving clear, expert advice','Reassuring the client that things will be fine','Asking questions so the person reaches their own conclusion','Interpreting the client’s childhood'],a:2,e:'Reaching “I’ll most likely be fine” yourself works very differently from being told it.'},
- {k:'l5',q:'What did the Rat Park study suggest?',o:['Rats prefer opioid water whatever their surroundings','Doing more of something good is the best way to do less of something unwanted','Isolation has no effect on behavior','Punishment is the fastest way to change a habit'],a:1,e:'Rats in empty cages drank the opioid water until they died; rats in an enriched park mostly avoided it.'},
- {k:'l1',q:'Which of these is an open-ended question?',o:['“Did you have a good weekend?”','“Was work busy today?”','“Are you feeling better?”','“Tell me about your weekend.”'],a:3,e:'Open-ended questions invite a story instead of a yes or no. They’re the O in OARS.'},
- {k:'l2',q:'In the ABC model, what does the B stand for?',o:['Belief','Behavior','Body','Boundary'],a:0,e:'Activating event → Belief → Consequences. The belief (your interpretation) is what drives the feeling.'},
- {k:'l2',q:'What common myth does the ABC model correct?',o:['That beliefs cause events','That the event (A) directly causes the consequence (C)','That emotions are always rational','That behavior never changes mood'],a:1,e:'“I’m miserable because I got divorced” skips B: the belief about what the divorce means.'},
- {k:'l5',q:'Your emotion is at 9–10 out of 10. What did the class recommend doing first?',o:['Fill out a full thought record','Argue with the thought until it goes away','Calm your body first, using your senses or cold water','Push through and make a big decision'],a:2,e:'At that intensity it’s hard to think clearly. The dive reflex (cold water on face or hands) or naming one thing you see, hear, feel and smell calms the nervous system.'},
- {k:'l2',q:'Anxiety is linked to which theme?',o:['Loss, looking back','Unfairness','Comparison','Threat, looking ahead'],a:3,e:'Sadness looks back at loss; anxiety looks ahead at threat, and its urge is to avoid.'},
- {k:'l2',q:'What’s the difference between guilt and shame?',o:['Guilt is “I did something bad”; shame is “I am bad”','Guilt is “I am bad”; shame is “I did something bad”','They mean the same thing','Guilt is about others; shame is about the future'],a:0,e:'That’s why a dog can feel guilty, but not ashamed.'},
- {k:'l2',q:'“She didn’t wave back. She must be mad at me.” Which distortion is this?',o:['All-or-nothing thinking','Mind reading','Unfair comparison','Emotional reasoning'],a:1,e:'Mind reading means being sure you know what other people think.'},
- {k:'l2',q:'“If I get a B, my law-school experience is ruined.” Which distortion is this?',o:['Mind reading','Emotional reasoning','All-or-nothing thinking','Unfair comparison'],a:2,e:'Black-and-white, absolute terms: anything short of perfect counts as total failure.'},
- {k:'l2',q:'“I feel like I’m going to fail, so I will.” Which distortion is this?',o:['Catastrophizing','Mind reading','Unfair comparison','Emotional reasoning'],a:3,e:'Watch for “I feel like…” followed by a whole sentence. A feeling isn’t evidence.'},
- {k:'l2',q:'You check a painful thought and it fits the facts. What’s the best next step?',o:['Challenge it harder until it changes','Problem-solve and accept it','Pretend it’s distorted anyway','Ignore it'],a:1,e:'Don’t argue with the facts. Process it and plan next steps. Not every negative thought is distorted.'},
- {k:'l2',q:'What goes in the last column of the automatic thought record?',o:['A balanced thought','The situation','Your emotions','The name of the distortion'],a:0,e:'Situation → emotions → automatic thoughts → distortion → evidence for → evidence against → balanced thought.'},
- {k:'l3',q:'At what emotional intensity do thought records work best?',o:['0–1, when you feel almost nothing','About 2–8, the working zone','9–10, at the peak','Only right after waking up'],a:1,e:'Too low and there’s nothing to work with; too high and you need to calm down first.'},
- {k:'l3',q:'After a breakup, which explanation tends to bring the most sadness?',o:['“We grew apart; it happens.”','“This relationship didn’t work.”','“I can’t keep a relationship. I’ll always be alone. This always happens to me.”','“I don’t know what the future holds.”'],a:2,e:'Internal, stable and global explanations (all about me, permanent, everywhere) hurt the most.'},
- {k:'l3',q:'The cafeteria-tray video showed that anxiety makes us…',o:['underestimate how likely bad outcomes are','overestimate how likely bad outcomes are, and underestimate how well we’d cope','overestimate how well we’d cope','remember past events accurately'],a:1,e:'Gina guessed a 10% chance of dropping her tray; the real rate was closer to 1 in 10,000. And if it happened, she’d cope.'},
- {k:'l3',q:'Why use “and” instead of “but”?',o:['It sounds more formal','It cancels out the first half of the sentence','It lets two true things stand together','It makes every statement positive'],a:2,e:'“You’re competent and you struggle with some things.” You don’t have to pick one.'},
- {k:'l3',q:'What is the order of a behavioral experiment?',o:['Experiment → Prediction → Learning → Outcome','Outcome → Prediction → Experiment → Learning','Learning → Experiment → Outcome → Prediction','Prediction → Experiment → Outcome → Learning'],a:3,e:'Write the fearful prediction, test it, record what happened, then write down what you learned.'},
- {k:'l3',q:'What are the two ways to test a prediction, as taught in class?',o:['Do it, or poll people who’ll be honest with you','Ignore it, or distract yourself','Ask a therapist, or read about it','Write it down, or say it out loud'],a:0,e:'The class polled itself on how long yogurt can sit out of the fridge, with answers from 30 minutes to 24 hours.'},
- {k:'l4',q:'Which is the deepest, hardest-to-notice level of cognition?',o:['Automatic thoughts','Underlying assumptions','Coping cards','Core beliefs'],a:3,e:'Core beliefs about self, others and the world drive the assumptions and thoughts above them.'},
- {k:'l4',q:'Underlying assumptions usually take which form?',o:['A single word','“If… then…” rules','A question','A memory'],a:1,e:'For example: “If people really get to know me, then they won’t like me.”'},
- {k:'l4',q:'Which question drives the downward arrow technique?',o:['“If that were true, what would it mean?”','“What’s the evidence against that?”','“How intense is that emotion, 0–10?”','“What would you tell a friend?”'],a:0,e:'Asked repeatedly (with varied wording), it follows a thought down to the core belief underneath.'},
- {k:'l4',q:'In Hannah’s session, her belief dropped from 90 to 40 out of 100. What does that show?',o:['The technique failed because it didn’t reach 0','The realistic goal is to weaken a core belief, not erase it','Core beliefs can be removed in one session','Evidence doesn’t affect beliefs'],a:1,e:'Core beliefs are learned over years, so unlearning them takes time too.'},
- {k:'l4',q:'What does validation mean?',o:['Agreeing with everything the person does','Saying “Don’t worry, you’ll be great!”','Fixing the problem as fast as possible','Communicating “Given…, it makes sense that you…”'],a:3,e:'You validate the reason, not the behavior. Acceptance comes before change.'},
- {k:'l5',q:'What’s the rule of thumb for choosing a behavioral tool?',o:['Low mood → exposure; anxiety → behavioral activation','Low mood → behavioral activation; anxiety → exposure','Use exposure for everything','Only use behavioral tools after cognitive ones'],a:1,e:'In real treatment, behavioral tools often come first because they bring relief fastest.'},
- {k:'l5',q:'When you repeat an exposure, the anxiety peak gets lower each time. What is this called?',o:['Catastrophizing','Modeling','Habituation','Behavioral activation'],a:2,e:'Escaping brings instant relief but keeps the fear alive; staying lets the anxiety peak and fall.'}
-];
+const QUIZ=D.quiz;
 const L='ABCD';
 let qz={order:QUIZ.map((_,i)=>i),pos:0,ans:{}};
 const qzEl=$('#qz');
-function qzBest(){const b=store.get('psy96.quiz.best',null);$('#qz-best').textContent=b==null?'':'Best score so far: '+b+' / '+QUIZ.length}
+function qzBest(){const b=store.get('psy96.quiz.best',null);$('#qz-best').textContent=b==null?'':fmt(U.best,{n:b,t:QUIZ.length})}
 function qzCorrect(){return Object.keys(qz.ans).filter(i=>qz.ans[i]===QUIZ[i].a).length}
 function qzRender(){
   if(qz.pos>=qz.order.length)return qzResults();
   const qi=qz.order[qz.pos],q=QUIZ[qi],n=QUIZ.length,answered=Object.keys(qz.ans).length,last=qz.pos===n-1;
   qzEl.innerHTML=
-   '<div class="row"><span class="label">Question '+(qz.pos+1)+' of '+n+'</span><span class="label">Score '+qzCorrect()+' / '+answered+'</span></div>'+
+   '<div class="row"><span class="label">'+esc(fmt(U.qPos,{i:qz.pos+1,t:n}))+'</span><span class="label" id="qz-score">'+esc(fmt(U.score,{c:qzCorrect(),n:answered}))+'</span></div>'+
    '<div class="prog" aria-hidden="true"><i style="width:'+(qz.pos/n*100)+'%"></i></div>'+
-   '<div class="q-card"><div><span class="'+PILL[q.k]+'">'+LEC[q.k]+'</span></div><p class="q-text">'+esc(q.q)+'</p>'+
-   '<div class="opts" role="group" aria-label="Answer choices">'+q.o.map((o,j)=>'<button type="button" class="opt" data-j="'+j+'"><span class="k">'+L[j]+'</span><span>'+esc(o)+'</span><span class="mk"></span></button>').join('')+'</div>'+
+   '<div class="q-card"><div><span class="'+PILL[q.k]+'">'+esc(LEC[q.k])+'</span></div><p class="q-text">'+esc(q.q)+'</p>'+
+   '<div class="opts" role="group" aria-label="'+esc(U.choices)+'">'+q.o.map((o,j)=>'<button type="button" class="opt" data-j="'+j+'"><span class="k">'+L[j]+'</span><span>'+esc(o)+'</span><span class="mk"></span></button>').join('')+'</div>'+
    '<div class="explain" hidden></div></div>'+
-   '<div class="qz-nav"><button type="button" class="btn" id="qz-back"'+(qz.pos===0?' disabled':'')+'>← Back</button>'+
-   '<button type="button" class="btn primary" id="qz-next" disabled>'+(last?'See my results':'Next question')+' →</button></div>';
+   '<div class="qz-nav"><button type="button" class="btn" id="qz-back"'+(qz.pos===0?' disabled':'')+'>'+esc(U.back)+'</button>'+
+   '<button type="button" class="btn primary" id="qz-next" disabled>'+esc(last?U.seeResults:U.nextQ)+' →</button></div>';
   $$('.opt',qzEl).forEach(b=>b.onclick=()=>qzPick(+b.dataset.j));
   $('#qz-back').onclick=()=>{qz.pos--;qzRender()};
   $('#qz-next').onclick=()=>{qz.pos++;qzRender();window.scrollTo({top:qzEl.offsetTop-90})};
   if(qz.ans[qi]!==undefined)qzReveal(qi);
 }
 function qzPick(j){const qi=qz.order[qz.pos];if(qz.ans[qi]!==undefined)return;qz.ans[qi]=j;qzReveal(qi);
-  const r=$('.row .label:last-child',qzEl);if(r)r.textContent='Score '+qzCorrect()+' / '+Object.keys(qz.ans).length;$('#qz-next').focus()}
+  const r=$('#qz-score');if(r)r.textContent=fmt(U.score,{c:qzCorrect(),n:Object.keys(qz.ans).length});$('#qz-next').focus()}
 function qzReveal(qi){
   const q=QUIZ[qi],j=qz.ans[qi],ok=j===q.a;
   $$('.opt',qzEl).forEach(b=>{const k=+b.dataset.j;b.disabled=true;
-    if(k===q.a){b.classList.add('right');b.querySelector('.mk').textContent='Correct'}
-    else if(k===j){b.classList.add('wrong');b.querySelector('.mk').textContent='Your pick'}
+    if(k===q.a){b.classList.add('right');b.querySelector('.mk').textContent=U.correctMk}
+    else if(k===j){b.classList.add('wrong');b.querySelector('.mk').textContent=U.yourPick}
     else b.classList.add('dim')});
   const ex=$('.explain',qzEl);ex.hidden=false;
-  ex.innerHTML='<b class="'+(ok?'ans-right':'ans-wrong')+'">'+(ok?'Correct. ':'Not quite. The answer is '+L[q.a]+'. ')+'</b>'+esc(q.e);
+  ex.innerHTML='<b class="'+(ok?'ans-right':'ans-wrong')+'">'+esc(ok?U.correct:fmt(U.notQuite,{L:L[q.a]}))+'</b>'+esc(q.e);
   $('#qz-next').disabled=false;
 }
 function qzResults(){
   const n=QUIZ.length,c=qzCorrect(),pct=Math.round(c/n*100);
   const best=store.get('psy96.quiz.best',null);if(best==null||c>best)store.set('psy96.quiz.best',c);qzBest();
-  const msg=c>=27?'Excellent. You’ve got the toolkit down.':c>=21?'Solid work. Look over the ones you missed below.':c>=15?'A good start. The flash cards will help close the gaps.':'Worth another pass through the study guide, then try again. You’ll see the difference.';
+  const msg=c>=27?U.msg27:c>=21?U.msg21:c>=15?U.msg15:U.msg0;
   const bars=['l1','l2','l3','l4','l5'].map(k=>{const qs=QUIZ.map((q,i)=>[q,i]).filter(([q])=>q.k===k);const ok=qs.filter(([q,i])=>qz.ans[i]===q.a).length;
-    return '<div class="lec-bar"><a href="#guide/'+k+'">'+LEC[k]+'</a><div class="prog"><i style="width:'+(ok/qs.length*100)+'%"></i></div><span class="n">'+ok+'/'+qs.length+'</span></div>'}).join('');
+    return '<div class="lec-bar"><a href="#guide/'+k+'">'+esc(LEC[k])+'</a><div class="prog"><i style="width:'+(ok/qs.length*100)+'%"></i></div><span class="n">'+ok+'/'+qs.length+'</span></div>'}).join('');
   const missed=QUIZ.map((q,i)=>[q,i]).filter(([q,i])=>qz.ans[i]!==q.a);
   qzEl.innerHTML=
-   '<div class="q-card"><span class="label">Your result</span><div class="score-big">'+c+'<small> / '+n+' · '+pct+'%</small></div><p>'+msg+'</p>'+
-   '<div class="row" style="justify-content:flex-start"><button type="button" class="btn primary" id="qz-again">Retake quiz</button><button type="button" class="btn" id="qz-shuf">Shuffle and retake</button><a class="btn ghost" href="#cards">Practice with flash cards</a></div></div>'+
-   '<h3 style="margin-top:12px">Score by lecture</h3><div class="lec-bars">'+bars+'</div>'+
-   (missed.length?'<h3 style="margin-top:12px">Questions to review ('+missed.length+')</h3><div class="missed">'+missed.map(([q,i])=>
-     '<div class="card"><span class="label">'+LEC[q.k]+'</span><p><b>'+esc(q.q)+'</b></p>'+
-     '<p class="ans-wrong">Your answer: '+esc(q.o[qz.ans[i]])+'</p><p class="ans-right">Correct: '+esc(q.o[q.a])+'</p><p class="muted">'+esc(q.e)+'</p></div>').join('')+'</div>'
-     :'<p class="note">A perfect score. Nothing to review.</p>');
+   '<div class="q-card"><span class="label">'+esc(U.yourResult)+'</span><div class="score-big">'+c+'<small> / '+n+' · '+pct+'%</small></div><p>'+esc(msg)+'</p>'+
+   '<div class="row" style="justify-content:flex-start"><button type="button" class="btn primary" id="qz-again">'+esc(U.retake)+'</button><button type="button" class="btn" id="qz-shuf">'+esc(U.shuffleRetake)+'</button><a class="btn ghost" href="#cards">'+esc(U.practiceCards)+'</a></div></div>'+
+   '<h3 style="margin-top:12px">'+esc(U.byLecture)+'</h3><div class="lec-bars">'+bars+'</div>'+
+   (missed.length?'<h3 style="margin-top:12px">'+esc(fmt(U.toReview,{n:missed.length}))+'</h3><div class="missed">'+missed.map(([q,i])=>
+     '<div class="card"><span class="label">'+esc(LEC[q.k])+'</span><p><b>'+esc(q.q)+'</b></p>'+
+     '<p class="ans-wrong">'+esc(U.yourAnswer)+esc(q.o[qz.ans[i]])+'</p><p class="ans-right">'+esc(U.correctAns)+esc(q.o[q.a])+'</p><p class="muted">'+esc(q.e)+'</p></div>').join('')+'</div>'
+     :'<p class="note">'+esc(U.perfect)+'</p>');
   const reset=shuffle=>{const o=QUIZ.map((_,i)=>i);if(shuffle)for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]]}qz={order:o,pos:0,ans:{}};qzRender();window.scrollTo(0,0)};
   $('#qz-again').onclick=()=>reset(false);$('#qz-shuf').onclick=()=>reset(true);
 }
@@ -1609,57 +1549,25 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ============ JOURNAL ============ */
-const EMO=['Sadness','Anxiety','Anger','Guilt','Shame','Embarrassment','Frustration','Envy','Regret','Calm','Content','Hopeful','Grateful'];
-const THEME={
- Sadness:'Sadness points to <b>loss</b> and looks back. Its urge is to withdraw, so notice if you’re pulling away from people or plans.',
- Anxiety:'Anxiety points to <b>threat</b> and looks ahead. Its urge is to avoid. Is there a prediction here you could test?',
- Anger:'Anger points to <b>unfairness</b>. Ask yourself: what feels unfair right now?',
- Guilt:'Guilt says “I <b>did</b> something bad.” It’s about an action, which means it can be repaired.',
- Shame:'Shame says “I <b>am</b> bad.” That’s a core-belief-sized claim. Would it hold up in court?',
- Embarrassment:'Embarrassment is about <b>others knowing</b>. Remember the cafeteria tray: people usually go back to their lunch.',
- Frustration:'Frustration means feeling <b>blocked</b>. What’s in the way, and what’s the tiniest next step around it?',
- Envy:'Envy comes from <b>comparison</b>. Are you comparing yourself on just one domain?',
- Regret:'Regret points to a <b>decision</b> that feels wrong. What would you tell a friend who’d made the same one?',
- Calm:'A good feeling worth noticing. What helped it show up today? That might be worth doing again.',
- Content:'A good feeling worth noticing. What helped it show up today? That might be worth doing again.',
- Hopeful:'Hope looks ahead too, in a kinder way. What are you looking forward to?',
- Grateful:'Worth savoring. Who or what are you grateful for, and could you let them know?'
-};
-const DIST=['Catastrophizing / fortune telling','Mind reading','All-or-nothing','Unfair comparison','Emotional reasoning','None: it fits the facts'];
-const REFLECT=[
- {k:'l1',q:'Which corner of the triangle feels easiest for you to change this week: a thought, or something you do?'},
- {k:'l1',q:'Who in your life is a good listener? What do they do that helps you feel heard?'},
- {k:'l2',q:'Pick one feeling from today. What theme does it point to: loss, threat, unfairness, being blocked, or something else?'},
- {k:'l2',q:'When did you last feel angry? What felt unfair about it?'},
- {k:'l2',q:'Think of a moment today when your interpretation shaped how you felt. What’s another way you could have read the situation?'},
- {k:'l3',q:'Describe a recent setback. Now rewrite your explanation of it so it’s more specific and less permanent.'},
- {k:'l3',q:'Write two true things about yourself, joined by “and.”'},
- {k:'l3',q:'Is there a prediction you’re making about the future that you could test, either by trying it or by asking someone honest?'},
- {k:'l3',q:'What would a kind, honest friend say about how you handled today?'},
- {k:'l4',q:'Write down a rule you live by in “If… then…” form. Where did you learn it, and is it still helping you?'},
- {k:'l4',q:'What’s one belief about yourself you’d like to loosen? How strongly do you believe it, 0–100? Write one piece of evidence against it.'},
- {k:'l4',q:'Given everything going on in your life right now, what makes sense about how you’ve been feeling lately?'},
- {k:'l5',q:'Which activities reliably give you a sense of pleasure? Which give you a sense of mastery? When could you fit one in this week?'},
- {k:'l5',q:'Think of something you avoided recently. What did avoiding it protect you from, and what did it cost you?'},
- {k:'l5',q:'Recall a fear you’ve outgrown. What helped you get past it?'},
- {k:'l5',q:'What did you do today that the “how to be miserable” video would disapprove of?'}
-];
-const FIELDS=[['reflection','Reflection'],['situation','What happened'],['thought','Automatic thought'],['evFor','Evidence for'],['evAgainst','Evidence against'],['balanced','Balanced thought'],
- ['validation','Self-validation'],['friend','What I’d tell a friend'],['strength','A strength I showed'],['pleasure','Pleasure activity'],['mastery','Mastery activity'],['tiny','Tiny first step'],
- ['whyNotLower','Why that importance number, not lower'],['approach','Something I’ve been avoiding'],['wentOk','Something that went okay'],['learned','What I learned about myself']];
+/* Feelings and distortions are stored by their English id, so entries read the same in every language. */
+const EMO=D.emo, EMOL={}, THEME={};EMO.forEach(e=>{EMOL[e.id]=e.label;THEME[e.id]=e.theme});
+const DIST=D.dist, DISTL={};DIST.forEach(d=>DISTL[d.id]=d.label);
+const REFLECT=D.reflect;
+const FIELDS=D.fields;
 const TEXTKEYS=['reflection','situation','thought','evFor','evAgainst','balanced','givenA','givenB','friend','strength','pleasure','mastery','tiny','whyNotLower','approach','wentOk','learned'];
 const jf=$('#jf');
-$('#j-emos').innerHTML=EMO.map(v=>'<button type="button" class="chip" data-v="'+v+'" aria-pressed="false">'+v+'</button>').join('');
-$('#j-dist').innerHTML=DIST.map(v=>'<button type="button" class="chip" data-v="'+v+'" aria-pressed="false">'+v+'</button>').join('');
+$('#j-emos').innerHTML=EMO.map(e=>'<button type="button" class="chip" data-v="'+esc(e.id)+'" aria-pressed="false">'+esc(e.label)+'</button>').join('');
+$('#j-dist').innerHTML=DIST.map(d=>'<button type="button" class="chip" data-v="'+esc(d.id)+'" aria-pressed="false">'+esc(d.label)+'</button>').join('');
 const today=new Date();
-$('#j-date').textContent=today.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+$('#j-date').textContent=today.toLocaleDateString(LOCALE,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
 const dayN=Math.floor((today-new Date(today.getFullYear(),0,0))/864e5);
 let rIdx=dayN%REFLECT.length,lastEmo=null;
-function setReflect(i){rIdx=(i+REFLECT.length)%REFLECT.length;const r=REFLECT[rIdx];$('#j-rq').textContent=r.q;const p=$('#j-rk');p.className=PILL[r.k];p.textContent='From '+LEC[r.k]}
+function setReflect(i){rIdx=(i+REFLECT.length)%REFLECT.length;const r=REFLECT[rIdx];$('#j-rq').textContent=r.q;const p=$('#j-rk');p.className=PILL[r.k];p.textContent=fmt(U.from,{lec:LEC[r.k]})}
+function validationText(a,b){return fmt(U.validation,{a:a||'…',b:b||'…'})}
 function collect(){const d={};$$('[data-f]',jf).forEach(el=>d[el.dataset.f]=el.value);
   $$('.chips[data-g]',jf).forEach(g=>d[g.dataset.g]=$$('.chip[aria-pressed="true"]',g).map(c=>c.dataset.v));
   d.rIdx=rIdx;d.reflectionQ=REFLECT[rIdx].q;
-  if(d.givenA.trim()||d.givenB.trim())d.validation='Given '+(d.givenA.trim()||'…')+', it makes sense that I '+(d.givenB.trim()||'…')+'.';
+  if(d.givenA.trim()||d.givenB.trim())d.validation=validationText(d.givenA.trim(),d.givenB.trim());
   return d}
 function fill(d){$$('[data-f]',jf).forEach(el=>{if(d[el.dataset.f]!=null)el.value=d[el.dataset.f]});
   $$('.chips[data-g]',jf).forEach(g=>{const v=d[g.dataset.g]||[];$$('.chip',g).forEach(c=>c.setAttribute('aria-pressed',v.includes(c.dataset.v)))});
@@ -1668,55 +1576,58 @@ function hasContent(d){return TEXTKEYS.some(k=>d[k]&&d[k].trim())||(d.emotions&&
 function syncUI(){
   $$('input[type="range"]',jf).forEach(r=>{const o=jf.querySelector('output[for="'+r.id+'"]');if(o)o.textContent=r.value});
   const v=+$('#j-int').value,z=$('#j-zone');
-  if(v>=9){z.className='zone-note high';z.innerHTML='<b>That’s very intense. Pause before writing.</b> Calm your body first: name one thing you can see, hear, feel and smell, or run cold water over your hands or face (the dive reflex). Come back to the thought once it eases below 9.'}
-  else if(v>=2){z.className='zone-note work';z.innerHTML='<b>You’re in the working zone (about 2–8).</b> This is when the thought tools work best, so section 3 is a good place to spend a few minutes.'}
-  else{z.className='zone-note';z.innerHTML='<b>Low charge right now.</b> A good moment for section 5: plan something pleasant or satisfying, or note what’s going well.'}
+  if(v>=9){z.className='zone-note high';z.innerHTML=U.zoneHigh}
+  else if(v>=2){z.className='zone-note work';z.innerHTML=U.zoneWork}
+  else{z.className='zone-note';z.innerHTML=U.zoneLow}
   const sel=$$('#j-emos .chip[aria-pressed="true"]').map(c=>c.dataset.v);
   const e=sel.includes(lastEmo)?lastEmo:sel[sel.length-1];
-  $('#j-theme').innerHTML=e?THEME[e]:'In class, each emotion pointed to a theme. Pick one to see what it might be telling you.';
+  $('#j-theme').innerHTML=e?THEME[e]:U.themeDefault;
   const a=$('#j-ga').value.trim(),b=$('#j-gb').value.trim(),p=$('#j-vprev');
-  p.textContent='Given '+(a||'…')+', it makes sense that I '+(b||'…')+'.';p.classList.toggle('has',!!(a&&b));
+  p.textContent=validationText(a,b);p.classList.toggle('has',!!(a&&b));
 }
 let draftT;
+const timeFmt=d=>d.toLocaleTimeString(LOCALE,{hour:'numeric',minute:'2-digit'});
 function status(t){$('#j-status').textContent=t}
-function saveDraft(){clearTimeout(draftT);draftT=setTimeout(()=>{const d=collect();if(hasContent(d)){if(store.set('psy96.journal.draft',d))$('#j-draft').textContent='Draft saved '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}else store.del('psy96.journal.draft')},400)}
+function saveDraft(){clearTimeout(draftT);draftT=setTimeout(()=>{const d=collect();if(hasContent(d)){if(store.set('psy96.journal.draft',d))$('#j-draft').textContent=fmt(U.draftSaved,{t:timeFmt(new Date())})}else store.del('psy96.journal.draft')},400)}
 jf.addEventListener('input',()=>{syncUI();saveDraft()});
 jf.addEventListener('click',e=>{const c=e.target.closest('.chips[data-g] .chip');if(!c)return;const on=c.getAttribute('aria-pressed')!=='true';c.setAttribute('aria-pressed',on);if(c.closest('#j-emos')&&on)lastEmo=c.dataset.v;syncUI();saveDraft()});
 $('#j-shuffle').onclick=()=>{setReflect(rIdx+1);saveDraft()};
-function clearForm(){jf.reset();$$('.chip',jf).forEach(c=>c.setAttribute('aria-pressed','false'));lastEmo=null;store.del('psy96.journal.draft');setReflect(dayN);syncUI();$('#j-draft').textContent='Drafts save automatically'}
+function clearForm(){jf.reset();$$('.chip',jf).forEach(c=>c.setAttribute('aria-pressed','false'));lastEmo=null;store.del('psy96.journal.draft');setReflect(dayN);syncUI();$('#j-draft').textContent=U.draftsAuto}
 function twoClick(btn,label,armedLabel,fn){let armed=false,t;btn.addEventListener('click',()=>{if(!armed){armed=true;btn.classList.add('armed');btn.textContent=armedLabel;t=setTimeout(()=>{armed=false;btn.classList.remove('armed');btn.textContent=label},3000)}else{clearTimeout(t);armed=false;btn.classList.remove('armed');btn.textContent=label;fn()}})}
-twoClick($('#j-clear'),'Clear','Tap again to clear',()=>{clearForm();status('Form cleared')});
-$('#j-save').onclick=()=>{const d=collect();if(!hasContent(d)){status('Write something first, even one line');return}
-  const list=store.get('psy96.journal.entries',[]);list.unshift({id:Date.now(),date:new Date().toISOString(),d});
-  if(!store.set('psy96.journal.entries',list)){$('#j-nostore').hidden=false;status('Couldn’t save in this browser. Use Export.');jMem=list;jRender();return}
-  clearForm();jRender();status('Entry saved ✓');$('#j-past').scrollIntoView({behavior:'smooth',block:'start'})};
+twoClick($('#j-clear'),U.clear,U.clearArm,()=>{clearForm();status(U.cleared)});
 let jMem=null;
 function entries(){return jMem||store.get('psy96.journal.entries',[])}
-function fmtDate(iso){const d=new Date(iso);return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'})+' · '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}
+$('#j-save').onclick=()=>{const d=collect();if(!hasContent(d)){status(U.writeFirst);return}
+  const list=entries();list.unshift({id:Date.now(),date:new Date().toISOString(),d});
+  if(!store.set('psy96.journal.entries',list)){$('#j-nostore').hidden=false;status(U.cantSave);jMem=list;jRender();return}
+  clearForm();jRender();status(U.saved);$('#j-past').scrollIntoView({behavior:'smooth',block:'start'})};
+function fmtDate(iso){const d=new Date(iso);return d.toLocaleDateString(LOCALE,{weekday:'short',month:'short',day:'numeric',year:'numeric'})+' · '+timeFmt(d)}
+const emoNames=v=>(v||[]).map(x=>EMOL[x]||x).join(U.listSep);
+const distNames=v=>(v||[]).map(x=>DISTL[x]||x).join(U.listSep);
 function jRender(){
   const list=entries(),el=$('#j-list');
-  $('#j-n').textContent=list.length?list.length+(list.length===1?' entry':' entries'):'';
-  if(!list.length){el.innerHTML='<p class="note">No entries yet. When you save one, it shows up here.</p>';return}
+  $('#j-n').textContent=list.length?fmt(list.length===1?U.entry1:U.entryN,{n:list.length}):'';
+  if(!list.length){el.innerHTML='<p class="note">'+esc(U.noEntries)+'</p>';return}
   el.innerHTML=list.map(e=>{const d=e.d;
     const rows=FIELDS.filter(([k])=>d[k]&&String(d[k]).trim()).map(([k,l])=>'<div><dt class="label">'+esc(l)+'</dt><dd>'+(k==='reflection'?'<span class="rq">'+esc(d.reflectionQ)+'</span>':'')+esc(d[k])+'</dd></div>').join('');
-    const tags=[d.emotions&&d.emotions.length?'<div><dt class="label">Feelings</dt><dd>'+esc(d.emotions.join(', '))+'</dd></div>':'',d.distortions&&d.distortions.length?'<div><dt class="label">Distortion spotted</dt><dd>'+esc(d.distortions.join(', '))+'</dd></div>':''].join('');
-    return '<details class="entry"><summary><b>'+esc(fmtDate(e.date))+'</b><span class="label">Mood '+esc(d.mood)+' → '+esc(d.moodAfter)+' · Intensity '+esc(d.intensity)+'</span></summary>'+
-      '<div class="body"><dl>'+tags+rows+'</dl><div><button type="button" class="btn sm ghost" data-del="'+e.id+'">Delete entry</button></div></div></details>'}).join('');
-  $$('[data-del]',el).forEach(b=>twoClick(b,'Delete entry','Tap again to delete',()=>{const id=+b.dataset.del;const l=entries().filter(x=>x.id!==id);if(jMem)jMem=l;else store.set('psy96.journal.entries',l);jRender();status('Entry deleted')}));
+    const tags=[d.emotions&&d.emotions.length?'<div><dt class="label">'+esc(U.feelings)+'</dt><dd>'+esc(emoNames(d.emotions))+'</dd></div>':'',d.distortions&&d.distortions.length?'<div><dt class="label">'+esc(U.distSpotted)+'</dt><dd>'+esc(distNames(d.distortions))+'</dd></div>':''].join('');
+    return '<details class="entry"><summary><b>'+esc(fmtDate(e.date))+'</b><span class="label">'+esc(fmt(U.moodLine,{a:d.mood,b:d.moodAfter,c:d.intensity}))+'</span></summary>'+
+      '<div class="body"><dl>'+tags+rows+'</dl><div><button type="button" class="btn sm ghost" data-del="'+e.id+'">'+esc(U.del)+'</button></div></div></details>'}).join('');
+  $$('[data-del]',el).forEach(b=>twoClick(b,U.del,U.delArm,()=>{const id=+b.dataset.del;const l=entries().filter(x=>x.id!==id);if(jMem)jMem=l;else store.set('psy96.journal.entries',l);jRender();status(U.deleted)}));
 }
-$('#j-export').onclick=()=>{const list=entries();if(!list.length){status('Nothing to export yet');return}
-  let md='# My CBT Journal (PSY96)\n\n';
-  list.slice().reverse().forEach(e=>{const d=e.d;md+='## '+fmtDate(e.date)+'\n\n- Mood: '+d.mood+'/10 → '+d.moodAfter+'/10\n- Strongest feeling intensity: '+d.intensity+'/10\n';
-    if(d.emotions&&d.emotions.length)md+='- Feelings: '+d.emotions.join(', ')+'\n';
-    if(d.distortions&&d.distortions.length)md+='- Distortion spotted: '+d.distortions.join(', ')+'\n';
+$('#j-export').onclick=()=>{const list=entries();if(!list.length){status(U.nothingExport);return}
+  let md=U.mdTitle+'\n\n';
+  list.slice().reverse().forEach(e=>{const d=e.d;md+='## '+fmtDate(e.date)+'\n\n- '+U.mdMood+': '+d.mood+'/10 → '+d.moodAfter+'/10\n- '+U.mdIntensity+': '+d.intensity+'/10\n';
+    if(d.emotions&&d.emotions.length)md+='- '+U.feelings+': '+emoNames(d.emotions)+'\n';
+    if(d.distortions&&d.distortions.length)md+='- '+U.distSpotted+': '+distNames(d.distortions)+'\n';
     md+='\n';FIELDS.forEach(([k,l])=>{if(d[k]&&String(d[k]).trim())md+='**'+l+'**'+(k==='reflection'?' — _'+d.reflectionQ+'_':'')+'\n\n'+d[k].trim()+'\n\n'});md+='---\n\n'});
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='psy96-journal.md';document.body.appendChild(a);a.click();
-  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);status('Exported psy96-journal.md')};
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);status(U.exported)};
 
 /* ============ INIT ============ */
 if(!storageOK)$('#j-nostore').hidden=false;
 setReflect(rIdx);
-const draft=store.get('psy96.journal.draft',null);if(draft){fill(draft);$('#j-draft').textContent='Draft restored'}else syncUI();
+const draft=store.get('psy96.journal.draft',null);if(draft){fill(draft);$('#j-draft').textContent=U.draftRestored}else syncUI();
 jRender();fcBuild();qzBest();qzRender();route();
 })();
 

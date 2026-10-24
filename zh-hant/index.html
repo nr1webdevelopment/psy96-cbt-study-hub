@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PSY96 CBT 學習中心</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%238C1515'/%3E%3Cpath d='M32 15 L50 46 H14 Z' fill='none' stroke='%23fff' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='15' r='7' fill='%23fff'/%3E%3Ccircle cx='14' cy='46' r='7' fill='%23fff'/%3E%3Ccircle cx='50' cy='46' r='7' fill='%23fff'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#8C1515">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column like a course workbook; lecture sections stacked, each with worksheet-style figures. */
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --fg:#17202B; --muted:#5A6573; --line:#D3D9E1;
+  --accent:#2C55C9; --accent-soft:#E3EAFB; --hl:#E6A23C; --hl-soft:#FBF0DC;
+  --think:#2C55C9; --think-soft:#E3EAFB;
+  --feel:#B9436A; --feel-soft:#F8E4EB;
+  --act:#2F8357; --act-soft:#E0F1E7;
+  --warn:#C2512F; --warn-soft:#F9E5DE;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161D; --surface:#1A212B; --fg:#E6EAF0; --muted:#9AA5B4; --line:#2E3846;
+    --accent:#8CA8F5; --accent-soft:#223152; --hl:#EDB45E; --hl-soft:#3A2E1A;
+    --think:#8CA8F5; --think-soft:#223152;
+    --feel:#EB8FAE; --feel-soft:#43222F;
+    --act:#78C79A; --act-soft:#1D3A2A;
+    --warn:#EE8C6C; --warn-soft:#42261D;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161D; --surface:#1A212B; --fg:#E6EAF0; --muted:#9AA5B4; --line:#2E3846;
+  --accent:#8CA8F5; --accent-soft:#223152; --hl:#EDB45E; --hl-soft:#3A2E1A;
+  --think:#8CA8F5; --think-soft:#223152;
+  --feel:#EB8FAE; --feel-soft:#43222F;
+  --act:#78C79A; --act-soft:#1D3A2A;
+  --warn:#EE8C6C; --warn-soft:#42261D;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 64px}
+.wrap{max-width:880px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.55rem,3.6vw,2.1rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:700;margin-top:8px}
+h4{font-size:1rem;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.label{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--f-mono)}
+.muted{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:18px}
+.prose{max-width:66ch}
+
+/* header */
+header.top{padding-block:48px 28px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid var(--line)}
+header.top .lede{font-size:1.12rem;max-width:62ch;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px}
+
+/* roadmap */
+.roadmap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:28px}
+.road{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--fg);min-width:0}
+.road:hover{border-color:var(--accent)}
+.road .tag{font-family:var(--f-display);font-weight:700;font-size:1.5rem;line-height:1}
+.road .t-name{font-family:var(--f-display);font-weight:500;font-size:.95rem;line-height:1.25}
+.road.k-t .tag{color:var(--hl)} .road.k-c .tag{color:var(--think)} .road.k-b .tag{color:var(--act)}
+@media (max-width:720px){.roadmap{grid-template-columns:repeat(2,minmax(0,1fr))} .road:last-child{grid-column:span 2}}
+
+/* sections */
+section.lec{padding-block:56px 8px;display:flex;flex-direction:column;gap:22px}
+.lec-head{display:flex;flex-direction:column;gap:8px}
+.lec-head .kicker{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pill{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.pill.t{background:var(--hl-soft);color:var(--fg)} .pill.b{background:var(--act-soft);color:var(--act)}
+
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px}
+figcaption{font-size:.92rem;color:var(--muted);max-width:70ch}
+figcaption b{color:var(--fg);font-family:var(--f-display);font-weight:700}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scroll svg{display:block;width:100%;height:auto;min-width:560px}
+.scroll svg.narrow{min-width:440px}
+
+/* svg styles */
+.s-box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.s-soft{fill:var(--bg);stroke:var(--line);stroke-width:1.2}
+.s-think{fill:var(--think-soft);stroke:var(--think);stroke-width:2}
+.s-feel{fill:var(--feel-soft);stroke:var(--feel);stroke-width:2}
+.s-act{fill:var(--act-soft);stroke:var(--act);stroke-width:2}
+.s-hl{fill:var(--hl-soft);stroke:var(--hl);stroke-width:2}
+.s-warn{fill:var(--warn-soft);stroke:var(--warn);stroke-width:2}
+.s-line{stroke:var(--muted);stroke-width:1.6;fill:none}
+.s-dash{stroke:var(--muted);stroke-width:1.4;fill:none;stroke-dasharray:5 5}
+.s-grid{stroke:var(--line);stroke-width:1;fill:none}
+.ah{fill:var(--muted)}
+.ah-a{fill:var(--accent)} .ah-w{fill:var(--warn)} .ah-g{fill:var(--act)}
+.tx{fill:var(--fg);font-family:var(--f-body);font-size:14px}
+.tx-s{fill:var(--muted);font-family:var(--f-body);font-size:12.5px}
+.tx-h{fill:var(--fg);font-family:var(--f-display);font-weight:700;font-size:16px}
+.tx-m{fill:var(--muted);font-family:var(--f-mono);font-size:11px;letter-spacing:.04em}
+.tx-think{fill:var(--think)} .tx-feel{fill:var(--feel)} .tx-act{fill:var(--act)} .tx-warn{fill:var(--warn)} .tx-hl{fill:var(--hl)}
+.ln-a{stroke:var(--accent);stroke-width:3;fill:none;stroke-linecap:round}
+.ln-w{stroke:var(--warn);stroke-width:3;fill:none;stroke-linecap:round}
+.ln-g{stroke:var(--act);stroke-width:3;fill:none;stroke-linecap:round}
+
+/* cards / grids */
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:720px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.g2,.g3{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .q{font-style:italic;color:var(--muted);font-size:.95rem}
+.card.hl{background:var(--hl-soft);border-color:transparent}
+
+ul.tight{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.keypoints{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+
+/* OARS */
+.oars .letter{font-family:var(--f-display);font-weight:700;font-size:2.2rem;line-height:1;color:var(--accent)}
+
+/* dialogue */
+.dialogue{display:flex;flex-direction:column;gap:8px}
+.say{display:grid;grid-template-columns:5.2em minmax(0,1fr);gap:10px;align-items:baseline}
+.say .who{font-family:var(--f-mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.say.bad .line{color:var(--warn)}
+
+/* table */
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.new{background:var(--accent-soft)}
+td.new-l{background:var(--act-soft)}
+
+/* emotion intensity scale */
+.scale{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:3px}
+.scale div{font-family:var(--f-mono);font-size:.8rem;text-align:center;padding:10px 0;border-radius:5px;font-variant-numeric:tabular-nums}
+.z0{background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.z1{background:var(--act-soft);color:var(--act)}
+.z2{background:var(--warn-soft);color:var(--warn)}
+.zones{display:grid;grid-template-columns:2fr 7fr 2fr;gap:8px;font-size:.88rem}
+.zones > div{min-width:0}
+@media (max-width:560px){.zones{grid-template-columns:minmax(0,1fr)}}
+
+/* spectrum */
+.spec{display:grid;grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr);gap:10px;align-items:center}
+.spec .bar{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--warn),var(--line) 50%,var(--act))}
+.spec .l{text-align:right}
+.spec .side{display:flex;flex-direction:column;gap:2px}
+@media (max-width:560px){.spec{grid-template-columns:minmax(0,1fr)} .spec .l{text-align:left} .spec .bar{width:100%}}
+
+/* downward arrow */
+.chain{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.chain .step{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 14px;max-width:100%}
+.chain .arrow{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);padding:4px 0 4px 18px;border-left:2px dashed var(--line);margin-left:18px}
+.chain .step.core{background:var(--feel-soft);border-color:var(--feel);font-weight:600}
+
+/* formula */
+.formula{font-family:var(--f-display);font-size:clamp(1.25rem,3.2vw,1.7rem);font-weight:500;line-height:1.35}
+.formula .blank{display:inline-block;min-width:3.5em;border-bottom:3px solid var(--hl);color:var(--hl)}
+
+/* ladder */
+.ladder{display:flex;flex-direction:column-reverse;gap:6px}
+.rung{display:grid;grid-template-columns:2.4em minmax(0,1fr);gap:10px;align-items:center}
+.rung .n{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);text-align:right}
+.rung .b{padding:8px 12px;border-radius:6px;font-size:.95rem;color:var(--fg)}
+
+/* MI scale */
+.mi{display:flex;flex-direction:column;gap:6px}
+.mi .track{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}
+.mi .track span{font-family:var(--f-mono);font-size:.75rem;text-align:center;padding:6px 0;border-radius:4px;background:var(--bg);color:var(--muted);font-variant-numeric:tabular-nums}
+.mi .track span.on{background:var(--accent);color:var(--surface);font-weight:500}
+
+/* big stat compare */
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.compare .num{font-family:var(--f-display);font-weight:700;font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+@media (max-width:440px){.compare{grid-template-columns:minmax(0,1fr)}}
+
+/* which tool */
+.which{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.3fr);gap:8px 14px;align-items:center}
+.which .if{font-family:var(--f-display);font-weight:500}
+.which .arr{color:var(--muted);font-family:var(--f-mono)}
+.which .then{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+@media (max-width:520px){.which{grid-template-columns:minmax(0,1fr)} .which .arr{display:none} .which .then{margin-bottom:8px}}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* ================= APP SHELL (added) ================= */
+body{margin:0}
+.appbar{position:sticky;top:0;z-index:30;margin-inline:-16px;padding-inline:16px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)}
+.appbar .in{max-width:880px;margin:0 auto;display:flex;align-items:center;gap:16px;min-height:62px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:1.02rem;display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);white-space:nowrap}
+.brand .dot{width:24px;height:24px;border-radius:7px;background:conic-gradient(from 200deg,var(--think),var(--feel),var(--act),var(--think))}
+.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-family:var(--f-display);font-weight:500;font-size:.95rem;padding:8px 14px;border-radius:999px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.tab:hover{color:var(--fg);background:var(--surface)}
+.tab[aria-current="page"]{background:var(--fg);color:var(--bg)}
+@media (max-width:640px){
+  .appbar .in{flex-wrap:wrap;gap:6px;padding-block:10px}
+  .tabs{margin-left:0;width:100%}
+  .tab{flex:1 1 0;text-align:center;padding:8px 4px;font-size:.86rem}
+}
+.page{display:none}
+.page.on{display:block}
+section.lec{scroll-margin-top:80px}
+
+/* study guide: one section at a time */
+#page-guide section.lec{display:none}
+#page-guide section.lec.on{display:flex}
+.roadmap{grid-template-columns:repeat(6,minmax(0,1fr))}
+.road:last-child{grid-column:auto}
+.road[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.road.k-w .tag{color:var(--feel)}
+@media (max-width:720px){.roadmap{grid-template-columns:repeat(3,minmax(0,1fr))} .road:last-child{grid-column:auto}}
+@media (max-width:420px){.roadmap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:48px}
+.pager .btn{flex:0 1 auto;min-width:0}
+.pager .btn span{overflow:hidden;text-overflow:ellipsis}
+@media (max-width:520px){.pager{flex-direction:column-reverse} .pager .btn{justify-content:center}}
+.study-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.study-strip a{display:flex;flex-direction:column;gap:4px;padding:14px;border-radius:10px;border:1px dashed var(--line);text-decoration:none;color:var(--fg)}
+.study-strip a:hover{border-style:solid;border-color:var(--accent)}
+.study-strip b{font-family:var(--f-display)}
+.study-strip span{font-size:.9rem;color:var(--muted)}
+@media (max-width:560px){.study-strip{grid-template-columns:minmax(0,1fr)}}
+
+/* buttons, chips, progress */
+.btn{font-family:var(--f-display);font-weight:500;font-size:.95rem;line-height:1.2;border:1px solid var(--line);background:var(--surface);color:var(--fg);
+  padding:10px 16px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;white-space:nowrap}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.good{background:var(--act);border-color:var(--act);color:var(--surface)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 12px;font-size:.86rem}
+.btn.armed{background:var(--warn);border-color:var(--warn);color:var(--surface)}
+.btn:disabled{opacity:.4;cursor:default}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.chip:hover{color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog > i{display:block;height:100%;width:0;background:var(--accent);border-radius:3px;transition:width .3s ease}
+.tool{display:flex;flex-direction:column;gap:16px;padding-top:28px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.note{font-size:.95rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.note.warn{background:var(--warn-soft);border-color:transparent;color:var(--fg)}
+.toggle{display:inline-flex;gap:8px;align-items:center;font-size:.92rem;color:var(--muted);cursor:pointer}
+.toggle input{accent-color:var(--accent);width:16px;height:16px}
+
+/* ================= FLASH CARDS ================= */
+.fc-stage{perspective:1600px}
+.fc{display:block;width:100%;border:0;padding:0;margin:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;border-radius:18px}
+.fc-inner{display:grid;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.fc.flipped .fc-inner{transform:rotateY(180deg)}
+.fc.instant .fc-inner{transition:none}
+.fc-face{grid-area:1/1;min-height:320px;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);
+  background:var(--surface);padding:clamp(20px,4vw,34px);display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 0 var(--line),0 14px 34px -22px rgb(0 0 0 / .35)}
+.fc-back{transform:rotateY(180deg);background:var(--accent-soft);border-color:transparent}
+.fc-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.fc-q{font-family:var(--f-display);font-weight:700;font-size:clamp(1.4rem,3.6vw,2rem);line-height:1.22;letter-spacing:-.01em;margin-block:auto;text-wrap:balance}
+.fc-a{font-size:clamp(1.08rem,2.4vw,1.25rem);line-height:1.5;margin-top:auto}
+.fc-x{color:var(--muted);font-style:italic;margin-bottom:auto}
+.fc-hint{align-self:flex-start}
+.fc-state{color:var(--act)}
+.fc-controls{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fc-mark{display:flex;gap:8px}
+@media (max-width:560px){
+  .fc-face{min-height:280px}
+  .fc-controls{display:grid;grid-template-columns:1fr 1fr}
+  .fc-mark{grid-column:1/-1;order:-1;display:grid;grid-template-columns:1fr 1fr}
+  .fc-controls .btn{justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){.fc-inner{transition:none}}
+
+/* ================= QUIZ ================= */
+.q-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,30px);display:flex;flex-direction:column;gap:18px}
+.q-text{font-family:var(--f-display);font-weight:700;font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.28;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:10px;align-items:start;text-align:left;padding:13px 14px;border:1px solid var(--line);border-radius:12px;
+  background:var(--bg);color:var(--fg);font:inherit;font-size:1rem;line-height:1.45;cursor:pointer}
+.opt .k{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;text-align:center;padding:1px 0;margin-top:2px}
+.opt .mk{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;padding-top:3px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--act-soft);border-color:var(--act)} .opt.right .mk{color:var(--act)}
+.opt.wrong{background:var(--warn-soft);border-color:var(--warn)} .opt.wrong .mk{color:var(--warn)}
+.opt.dim{opacity:.55}
+.explain{border-left:3px solid var(--accent);padding:2px 0 2px 14px}
+.explain b{font-family:var(--f-display)}
+.qz-nav{display:flex;justify-content:space-between;gap:10px}
+.score-big{font-family:var(--f-display);font-weight:700;font-size:clamp(3rem,10vw,5rem);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.score-big small{font-size:.4em;color:var(--muted);letter-spacing:0}
+.lec-bars{display:flex;flex-direction:column;gap:10px}
+.lec-bar{display:grid;grid-template-columns:6.5em minmax(0,1fr) 3em;gap:10px;align-items:center;font-size:.92rem}
+.lec-bar .prog{height:10px}
+.lec-bar .n{font-family:var(--f-mono);font-size:.8rem;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.missed{display:flex;flex-direction:column;gap:10px}
+.missed .card p{margin:0}
+.ans-wrong{color:var(--warn)} .ans-right{color:var(--act)}
+
+/* ================= JOURNAL ================= */
+.jsec{display:flex;flex-direction:column;gap:12px;padding-top:30px}
+.jsec-head{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start}
+.jsec-head .num{width:36px;height:36px;border-radius:10px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--f-display);font-weight:700}
+.jsec-head h2{font-size:1.45rem}
+.jsec-head p{margin-top:4px}
+.prompt{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.prompt .q{font-family:var(--f-display);font-weight:500;font-size:1.05rem;line-height:1.35}
+.prompt .q.big{font-size:1.25rem;font-weight:700}
+.prompt .why{color:var(--muted);font-size:.93rem}
+.pr-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field > label{font-size:.95rem;font-weight:600}
+.field .hint{font-size:.85rem;color:var(--muted)}
+.j textarea,.j input[type="text"]{width:100%;font:inherit;font-size:1rem;line-height:1.5;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.j textarea{resize:vertical;min-height:80px}
+.j textarea::placeholder,.j input::placeholder{color:var(--muted);opacity:.75}
+.j textarea:focus,.j input[type="text"]:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.range{display:grid;grid-template-columns:auto minmax(0,1fr) auto 2.2em;gap:10px;align-items:center}
+.range input{width:100%;accent-color:var(--accent);margin:0}
+.rv{font-family:var(--f-display);font-weight:700;font-size:1.35rem;text-align:right;font-variant-numeric:tabular-nums}
+.zone-note{border-radius:10px;padding:12px 14px;font-size:.95rem;background:var(--bg)}
+.zone-note.work{background:var(--act-soft)}
+.zone-note.high{background:var(--warn-soft)}
+.zone-note b{font-family:var(--f-display)}
+.inline-f{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;font-family:var(--f-display);font-size:1.05rem}
+.inline-f input[type="text"]{flex:1 1 220px;width:auto}
+.preview{font-style:italic;color:var(--muted);font-size:.98rem}
+.preview.has{color:var(--fg)}
+.actions{position:sticky;bottom:12px;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:24px;
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px -14px rgb(0 0 0 / .3)}
+.actions .grp{display:flex;gap:8px;flex-wrap:wrap}
+.entries{display:flex;flex-direction:column;gap:10px}
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.entry summary{cursor:pointer;padding:14px 16px;display:flex;gap:6px 14px;justify-content:space-between;align-items:center;flex-wrap:wrap;list-style:none}
+.entry summary::-webkit-details-marker{display:none}
+.entry summary b{font-family:var(--f-display)}
+.entry[open] summary{border-bottom:1px solid var(--line)}
+.entry .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.entry dl{margin:0;display:flex;flex-direction:column;gap:12px}
+.entry dd{margin:2px 0 0;white-space:pre-wrap}
+.entry .rq{display:block;font-style:italic;color:var(--muted);white-space:normal}
+
+/* ================= STANFORD RED + BLACK THEME =================
+   Cardinal red #8C1515 · Black #2E2D29 · Cool grey #53565A · Fog #F4F4F4
+   Palo Alto green #175E54 (used only for "correct / behaviors")      */
+:root{
+  --bg:#F4F4F4; --surface:#FFFFFF; --fg:#2E2D29; --muted:#53565A; --line:#D5D5D4;
+  --accent:#8C1515; --accent-soft:#F6E8E8; --hl:#B83A4B; --hl-soft:#EFEDE6;
+  --think:#2E2D29; --think-soft:#EAEAEA;
+  --feel:#8C1515; --feel-soft:#F6E8E8;
+  --act:#175E54; --act-soft:#E2EEEB;
+  --warn:#B1040E; --warn-soft:#FBE7E8;
+  --bar-bg:#2E2D29; --bar-fg:#FFFFFF; --bar-muted:#C0C0BF; --cardinal:#8C1515;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1918; --surface:#262523; --fg:#F4F4F4; --muted:#ABABA9; --line:#43423E;
+    --accent:#EE6A72; --accent-soft:#3B1A1C; --hl:#E07F89; --hl-soft:#2F2C27;
+    --think:#EAEAEA; --think-soft:#353431;
+    --feel:#EE6A72; --feel-soft:#3B1A1C;
+    --act:#59B3A9; --act-soft:#17302C;
+    --warn:#FF7A7A; --warn-soft:#421C1D;
+    --bar-bg:#0F0E0D; --bar-fg:#FFFFFF; --bar-muted:#ABABA9; --cardinal:#8C1515;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1918; --surface:#262523; --fg:#F4F4F4; --muted:#ABABA9; --line:#43423E;
+  --accent:#EE6A72; --accent-soft:#3B1A1C; --hl:#E07F89; --hl-soft:#2F2C27;
+  --think:#EAEAEA; --think-soft:#353431;
+  --feel:#EE6A72; --feel-soft:#3B1A1C;
+  --act:#59B3A9; --act-soft:#17302C;
+  --warn:#FF7A7A; --warn-soft:#421C1D;
+  --bar-bg:#0F0E0D; --bar-fg:#FFFFFF; --bar-muted:#ABABA9; --cardinal:#8C1515;
+  color-scheme:dark;
+}
+/* identity strip + black nav bar, in the spirit of stanford.edu's header */
+.idbar{margin-inline:-16px;padding:7px 16px;background:var(--cardinal);color:#fff}
+.idbar .in{max-width:880px;margin:0 auto;font-family:var(--f-body);font-size:.92rem;font-weight:600;letter-spacing:.01em}
+.appbar{background:var(--bar-bg);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:4px solid var(--cardinal)}
+.brand{color:var(--bar-fg)}
+.brand .dot{background:var(--cardinal);border-radius:4px;box-shadow:inset 0 0 0 2px rgb(255 255 255 / .9)}
+.tab{color:var(--bar-muted);border-radius:6px}
+.tab:hover{color:var(--bar-fg);background:rgb(255 255 255 / .1)}
+.tab[aria-current="page"]{background:var(--cardinal);color:#fff}
+header.top > .label:first-child{color:var(--accent);font-weight:500}
+h1{color:var(--fg)}
+.btn{border-radius:6px}
+.btn.primary{color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--cardinal);border-color:var(--cardinal)}}
+:root[data-theme="dark"] .btn.primary{background:var(--cardinal);border-color:var(--cardinal)}
+.btn.good{color:#fff}
+.road{border-radius:6px;border-top:4px solid var(--line)}
+.road[aria-current="true"]{border-top-color:var(--accent)}
+.road.k-t .tag,.road.k-w .tag{color:var(--hl)}
+.fc-face,.q-card,.prompt,figure,.card{border-radius:8px}
+.fc-front{border-top:4px solid var(--accent)}
+.jsec-head .num{background:var(--cardinal);color:#fff;border-radius:6px}
+.prog > i{background:var(--accent)}
+.brand .mark{flex:none;border-radius:6px;box-shadow:0 0 0 1px rgb(255 255 255 / .35)}
+body{padding-bottom:0}
+.idbar.foot{margin-top:48px;padding-block:14px}
+
+/* language switcher in the identity strip */
+.idbar .in{display:flex;justify-content:space-between;align-items:center;gap:6px 16px;flex-wrap:wrap}
+.langs{display:flex;gap:2px;margin-left:auto}
+.langs a{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;color:#fff;opacity:.8;text-decoration:none;padding:3px 9px;border-radius:4px;border:1px solid transparent}
+.langs a:hover{opacity:1;border-color:rgb(255 255 255 / .5)}
+.langs a[aria-current="true"]{opacity:1;background:rgb(0 0 0 / .25);border-color:rgb(255 255 255 / .6)}
+.idbar.foot .langs{display:none}
+@media (max-width:640px){.idbar .in{flex-wrap:nowrap;align-items:flex-start}.idbar .in > span{flex:1;min-width:0;font-size:.82rem;line-height:1.35}.langs a{padding:2px 6px}}
+
+/* Traditional Chinese typography */
+:root{--f-display:"Bricolage Grotesque","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-body:"Source Serif 4","Noto Serif TC","PingFang TC","Microsoft JhengHei",serif;
+  --f-mono:"IBM Plex Mono","Noto Sans TC","PingFang TC",ui-monospace,monospace}
+body{line-height:1.75}
+i,em,.fc-x,.preview,.entry .rq,.card .q{font-style:normal}
+i,em{font-weight:600}
+svg text{font-style:normal!important}
+.label{letter-spacing:.04em}
+</style>
+<link rel="alternate" hreflang="en" href="../index.html">
+<link rel="alternate" hreflang="zh-Hant" href="../zh-hant/index.html">
+<link rel="alternate" hreflang="es" href="../es/index.html">
+<link rel="alternate" hreflang="x-default" href="../index.html">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700&family=Noto+Serif+TC:wght@400;600&display=swap">
+</head>
+<body>
+<div class="idbar"><div class="in"><span>Stanford University · PSY96: Managing Emotions with Skill</span><nav class="langs" aria-label="語言"><a href="../index.html" hreflang="en" lang="en" title="English">EN</a><a href="../zh-hant/index.html" hreflang="zh-Hant" lang="zh-Hant" title="繁體中文" aria-current="true">繁中</a><a href="../es/index.html" hreflang="es" lang="es" title="Español">ES</a></nav></div></div>
+<div class="appbar"><div class="in">
+  <a class="brand" href="#guide"><svg class="mark" width="26" height="26" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#8C1515"/><path d="M32 15 L50 46 H14 Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/><circle cx="32" cy="15" r="7" fill="#fff"/><circle cx="14" cy="46" r="7" fill="#fff"/><circle cx="50" cy="46" r="7" fill="#fff"/></svg>PSY96 · CBT 學習中心</a>
+  <nav class="tabs" aria-label="頁面">
+    <a class="tab" data-p="guide" href="#guide" aria-current="page">學習指南</a>
+    <a class="tab" data-p="cards" href="#cards">學習字卡</a>
+    <a class="tab" data-p="quiz" href="#quiz">測驗</a>
+    <a class="tab" data-p="journal" href="#journal">日記</a>
+  </nav>
+</div></div>
+<div class="wrap">
+<main class="page on" id="page-guide" aria-label="學習指南">
+<header class="top">
+  <span class="label">史丹佛進修學院 · PSY96 · 2026 年春季</span>
+  <h1>用技巧管理情緒</h1>
+  <p class="lede">這份圖解學習指南整理了認知行為治療（CBT）入門課程的五堂課，授課者為 Natalie Solomon 博士。課程依照 CBT 三個英文字母的順序進行：先談 <b>T</b>（治療，Therapy），再談 <b>C</b>（認知，Cognitive），最後談 <b>B</b>（行為，Behavioral）。</p>
+  <div class="meta">
+    <span class="label">共 5 堂課 · 每堂約 2 小時</span>
+    <span class="label">請在下方選擇一堂課</span>
+    <span class="label">根據課堂錄影整理</span>
+  </div>
+  <nav class="roadmap" aria-label="課程">
+    <a class="road k-t" href="#guide/l1"><span class="label">第 1 堂課</span><span class="tag">T</span><span class="t-name">什麼是治療，為什麼有效</span></a>
+    <a class="road k-c" href="#guide/l2"><span class="label">第 2 堂課</span><span class="tag">C</span><span class="t-name">覺察並檢驗想法</span></a>
+    <a class="road k-c" href="#guide/l3"><span class="label">第 3 堂課</span><span class="tag">C</span><span class="t-name">更新想法、檢驗預測</span></a>
+    <a class="road k-c" href="#guide/l4"><span class="label">第 4 堂課</span><span class="tag">C</span><span class="t-name">核心信念與認可</span></a>
+    <a class="road k-b" href="#guide/l5"><span class="label">第 5 堂課</span><span class="tag">B</span><span class="t-name">行為活化與暴露</span></a>
+      <a class="road k-w" href="#guide/toolkit"><span class="label">總結</span><span class="tag">✦</span><span class="t-name">工具箱：什麼情況用什麼工具</span></a>
+  </nav>
+
+  <div class="study-strip">
+    <a href="#cards"><b>學習字卡 →</b><span>46 張字卡，熟記重點觀念</span></a>
+    <a href="#quiz"><b>練習測驗 →</b><span>30 題選擇題</span></a>
+    <a href="#journal"><b>我的 CBT 日記 →</b><span>把工具用在你自己的一天</span></a>
+  </div>
+</header>
+
+<!-- ============ LECTURE 1 ============ -->
+<section class="lec" id="l1">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">第 1 堂課</span><span class="pill t">CBT 的 T</span></div>
+    <h2>什麼是治療，CBT 又位在哪裡</h2>
+    <p class="prose">第一堂課說明了現代心理治療是什麼、CBT 在各種取向中的位置，以及任何治療之所以有效的原因。這堂課也介紹了貫穿整個課程的三角模型。</p>
+  </div>
+
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 560 400" role="img" aria-labelledby="tri-t">
+      <title id="tri-t">CBT 三角：想法、感受與行為彼此雙向影響</title>
+      <defs>
+        <marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <!-- edges -->
+      <line class="s-line" x1="238" y1="122" x2="128" y2="270" marker-start="url(#m1)" marker-end="url(#m1)"/>
+      <line class="s-line" x1="322" y1="122" x2="432" y2="270" marker-start="url(#m1)" marker-end="url(#m1)"/>
+      <line class="s-line" x1="178" y1="318" x2="382" y2="318" marker-start="url(#m1)" marker-end="url(#m1)"/>
+      <!-- nodes -->
+      <rect class="s-think" x="185" y="30" width="190" height="92" rx="14"/>
+      <text class="tx-h tx-think" x="280" y="62" text-anchor="middle">想法</text>
+      <text class="tx-s" x="280" y="84" text-anchor="middle">「沒有人喜歡我。」</text>
+      <text class="tx-s" x="280" y="102" text-anchor="middle">「這些小考我會不及格。」</text>
+
+      <rect class="s-feel" x="20" y="272" width="160" height="92" rx="14"/>
+      <text class="tx-h tx-feel" x="100" y="304" text-anchor="middle">感受</text>
+      <text class="tx-s" x="100" y="326" text-anchor="middle">難過、低落</text>
+      <text class="tx-s" x="100" y="344" text-anchor="middle">焦慮、坐立難安</text>
+
+      <rect class="s-act" x="380" y="272" width="160" height="92" rx="14"/>
+      <text class="tx-h tx-act" x="460" y="304" text-anchor="middle">行為</text>
+      <text class="tx-s" x="460" y="326" text-anchor="middle">孤立自己、賴在床上</text>
+      <text class="tx-s" x="460" y="344" text-anchor="middle">逃避讀書</text>
+
+      <text class="tx-m" x="280" y="226" text-anchor="middle">改變其中一角</text>
+      <text class="tx-m" x="280" y="242" text-anchor="middle">其他兩角也會跟著改變</text>
+      <text class="tx-s" x="280" y="388" text-anchor="middle">退縮就得不到新的證據，「沒有人喜歡我」也就永遠沒被檢驗。</text>
+    </svg>
+    </div>
+    <figcaption><b>CBT 三角。</b>每一條連結都是雙向的，而且每一條都有研究支持。想要感覺不一樣，你有兩個切入點：改變你的想法，或改變你的行動。</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 440 200" role="img" aria-labelledby="ty-t">
+        <title id="ty-t">美國治療師使用的取向：CBT 約 50%、整合取向約 25%、心理動力取向約 15%</title>
+        <line class="s-grid" x1="130" y1="20" x2="130" y2="160"/>
+        <line class="s-grid" x1="250" y1="20" x2="250" y2="160"/>
+        <line class="s-grid" x1="370" y1="20" x2="370" y2="160"/>
+        <text class="tx-m" x="130" y="178" text-anchor="middle">0%</text>
+        <text class="tx-m" x="250" y="178" text-anchor="middle">25%</text>
+        <text class="tx-m" x="370" y="178" text-anchor="middle">50%</text>
+        <rect x="130" y="30" width="240" height="28" rx="4" style="fill:var(--accent)"/>
+        <text class="tx" x="120" y="49" text-anchor="end">CBT</text>
+        <text class="tx-m" x="378" y="49">~50%</text>
+        <rect x="130" y="74" width="120" height="28" rx="4" style="fill:var(--muted)"/>
+        <text class="tx" x="120" y="93" text-anchor="end">整合取向</text>
+        <text class="tx-m" x="258" y="93">~25%</text>
+        <rect x="130" y="118" width="72" height="28" rx="4" style="fill:var(--muted)"/>
+        <text class="tx" x="120" y="137" text-anchor="end">心理動力取向</text>
+        <text class="tx-m" x="210" y="137">~15%</text>
+      </svg>
+      </div>
+      <figcaption><b>美國治療師採用的取向</b>，依據課堂上展示的調查。加總不到 100%，因為有些治療師使用其他取向。</figcaption>
+    </figure>
+    <figure>
+      <div class="stack" style="gap:10px">
+        <h4>CBT 的效果如何</h4>
+        <div class="card" style="background:var(--act-soft);border-color:transparent"><span class="label" style="color:var(--act)">證據充分</span><span>焦慮（廣泛性焦慮、社交焦慮、恐懼症）、憂鬱、強迫症、暴食症</span></div>
+        <div class="card" style="background:var(--hl-soft);border-color:transparent"><span class="label">有幫助，但其他治療效果更好</span><span>ADHD、精神病、物質使用、自傷</span></div>
+      </div>
+      <figcaption><b>這些研究結果</b>來自一篇回顧約 270 項統合分析的研究。CBT 以技巧為本、屬於短期治療：目標是讓你最終成為自己的治療師。</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <h3>任何治療之所以有效的關鍵</h3>
+    <div class="scroll">
+    <svg class="narrow" viewBox="0 0 520 210" role="img" aria-labelledby="cf-t">
+      <title id="cf-t">治療中的共同因素，其中治療同盟是最大的預測因子</title>
+      <circle cx="140" cy="105" r="88" class="s-hl"/>
+      <text class="tx-h" x="140" y="96" text-anchor="middle">治療同盟</text>
+      <text class="tx-s" x="140" y="116" text-anchor="middle">信任、自在、</text>
+      <text class="tx-s" x="140" y="132" text-anchor="middle">連結</text>
+      <text class="tx-m" x="140" y="160" text-anchor="middle">最大的預測因子</text>
+      <rect class="s-box" x="270" y="18" width="232" height="50" rx="10"/>
+      <text class="tx" x="286" y="40">正向期待</text>
+      <text class="tx-s" x="286" y="58">「這也許對我有用」</text>
+      <rect class="s-box" x="270" y="80" width="232" height="50" rx="10"/>
+      <text class="tx" x="286" y="102">被關注</text>
+      <text class="tx-s" x="286" y="120">責任感（霍桑效應）</text>
+      <rect class="s-box" x="270" y="142" width="232" height="50" rx="10"/>
+      <text class="tx" x="286" y="164">面對問題</text>
+      <text class="tx-s" x="286" y="182">為困難議題保留的時間</text>
+    </svg>
+    </div>
+    <figcaption><b>共同因素。</b>不論採用哪一種治療，這些因素都很重要。關係越穩固，成效通常也越好。講師提到，AI 能否提供這種人與人之間的連結，目前研究仍沒有定論。</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <h3>蘇格拉底式提問：用問題，而不是建議</h3>
+      <div class="dialogue">
+        <div class="say bad"><span class="who">出於好意</span><span class="line">「別傻了，你會沒事的。」</span></div>
+        <div class="say"><span class="who">治療師</span><span>你擔心在高速公路上會發生什麼事？</span></div>
+        <div class="say"><span class="who">個案</span><span>我會恐慌、失控，然後衝出車道。</span></div>
+        <div class="say"><span class="who">治療師</span><span>這種事曾經發生在你或你認識的人身上嗎？</span></div>
+        <div class="say"><span class="who">個案</span><span>沒有……只在電影裡看過。我多半會沒事。</span></div>
+      </div>
+      <figcaption>自己想通「我會沒事」，和被別人告知，效果非常不同。在求職的影片中，個案發現自己只寄出 4 份履歷，接著寫了一張<b>因應卡</b>，把這個領悟記下來。</figcaption>
+    </figure>
+    <figure class="oars">
+      <h3>OARS：建立關係</h3>
+      <div class="stack" style="gap:12px">
+        <div style="display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:10px"><span class="letter">O</span><div><b>開放式問題（Open-ended）</b><br><span class="muted">說「跟我聊聊你的週末」，而不是「你週末過得好嗎？」</span></div></div>
+        <div style="display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:10px"><span class="letter">A</span><div><b>肯定（Affirmations）</b><br><span class="muted">說出對方真實的優點。找出對方在乎的地方：「聽起來你很在乎你媽媽。」</span></div></div>
+        <div style="display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:10px"><span class="letter">R</span><div><b>反映（Reflections）</b><br><span class="muted">「聽起來你很氣你的室友沒有分擔該做的事。」</span></div></div>
+      </div>
+      <figcaption>先反映、再肯定、接著問一個開放式問題，通常效果不錯。肯定可以很含蓄，也應該符合對方的文化：「你晚餐吃了什麼？」也可能代表「我愛你」。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ LECTURE 2 ============ -->
+<section class="lec" id="l2">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">第 2 堂課</span><span class="pill">CBT 的 C · 第一部分</span></div>
+    <h2>覺察想法，並加以檢驗</h2>
+    <p class="prose"><b>自動化思考</b>不斷在運作、不是我們選擇的、可能彼此矛盾，而且常常是扭曲的。扭曲的想法就像哈哈鏡：以真實的東西為基礎，卻被拉長變形。這堂課說明了這些想法如何深深影響我們的感受，以及如何檢驗它們。</p>
+  </div>
+
+  <figure>
+    <h3>ABC 模式</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 300" role="img" aria-labelledby="abc-t">
+      <title id="abc-t">ABC 模式：同一個誘發事件，會因信念不同而帶來不同的結果</title>
+      <defs>
+        <marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <text class="tx-m" x="100" y="22" text-anchor="middle">A · 誘發事件</text>
+      <text class="tx-m" x="390" y="22" text-anchor="middle">B · 信念</text>
+      <text class="tx-m" x="670" y="22" text-anchor="middle">C · 結果</text>
+
+      <rect class="s-hl" x="20" y="112" width="160" height="70" rx="12"/>
+      <text class="tx-h" x="100" y="144" text-anchor="middle">離婚</text>
+      <text class="tx-s" x="100" y="164" text-anchor="middle">發生了一件難熬的事</text>
+
+      <rect class="s-act" x="270" y="40" width="240" height="90" rx="12"/>
+      <text class="tx-m tx-act" x="286" y="62">理性</text>
+      <text class="tx" x="286" y="86">「這真的很不幸，</text>
+      <text class="tx" x="286" y="106">也很痛，但我會好起來的。」</text>
+
+      <rect class="s-warn" x="270" y="170" width="240" height="90" rx="12"/>
+      <text class="tx-m tx-warn" x="286" y="192">非理性（扭曲）</text>
+      <text class="tx" x="286" y="216">「我再也不會擁有愛了。」</text>
+      <text class="tx-s" x="286" y="238">預言未來：沒有人知道這件事</text>
+
+      <rect class="s-box" x="580" y="40" width="180" height="90" rx="12"/>
+      <text class="tx" x="596" y="66">懷抱希望，也有些悲傷</text>
+      <text class="tx-s" x="596" y="88">為未來做打算，</text>
+      <text class="tx-s" x="596" y="106">主動與人聯繫</text>
+
+      <rect class="s-box" x="580" y="170" width="180" height="90" rx="12"/>
+      <text class="tx" x="596" y="196">絕望、憂鬱</text>
+      <text class="tx-s" x="596" y="218">孤立自己、退縮，</text>
+      <text class="tx-s" x="596" y="236">覺得卡住了</text>
+
+      <path class="s-line" d="M180,135 C220,135 230,85 266,85" marker-end="url(#m2)"/>
+      <path class="s-line" d="M180,160 C220,160 230,215 266,215" marker-end="url(#m2)"/>
+      <line class="s-line" x1="510" y1="85" x2="576" y2="85" marker-end="url(#m2)"/>
+      <line class="s-line" x1="510" y1="215" x2="576" y2="215" marker-end="url(#m2)"/>
+      <text class="tx-s" x="390" y="290" text-anchor="middle">常見的迷思是 A 直接造成 C（「我很痛苦，因為我離婚了」），這跳過了 B。</text>
+    </svg>
+    </div>
+    <figcaption><b>帶動感受的是詮釋。</b>更簡單的例子：半夜一聲巨響。如果你想「有小偷」，你會害怕；如果你想「是貓把東西撞倒了」，你會覺得煩。這不是要你強迫自己正向思考，而是要你注意自己的詮釋。</figcaption>
+  </figure>
+
+  <figure>
+    <h3>情緒指向不同的主題</h3>
+    <div class="grid g3">
+      <div class="card"><span class="label" style="color:var(--feel)">悲傷</span><span>失落 · <i>回顧過去</i></span><span class="mono muted" style="font-size:.78rem">衝動 → 退縮</span></div>
+      <div class="card"><span class="label" style="color:var(--feel)">焦慮</span><span>威脅 · <i>展望未來</i></span><span class="mono muted" style="font-size:.78rem">衝動 → 逃避</span></div>
+      <div class="card"><span class="label" style="color:var(--feel)">憤怒</span><span>不公平</span><span class="mono muted" style="font-size:.78rem">衝動 → 發洩</span></div>
+      <div class="card"><span class="label">內疚</span><span>「我<i>做了</i>壞事」</span></div>
+      <div class="card"><span class="label">羞愧</span><span>「我<i>是</i>壞人」</span></div>
+      <div class="card"><span class="label">尷尬</span><span>別人會知道</span></div>
+      <div class="card"><span class="label">挫折</span><span>覺得受阻</span></div>
+      <div class="card"><span class="label">嫉妒</span><span>比較</span></div>
+      <div class="card"><span class="label">後悔</span><span>錯誤的決定</span></div>
+    </div>
+    <figcaption><b>狗會內疚，但不會羞愧。</b>當憤怒出現時，問問自己什麼讓你覺得不公平。這裡列出的衝動會在第 5 堂課再出現，屆時行為工具的目標就是打破它們。</figcaption>
+  </figure>
+
+  <figure>
+    <h3>這個想法扭曲了嗎？決策流程</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 420" role="img" aria-labelledby="ev-t">
+      <title id="ev-t">評估一個想法的流程圖</title>
+      <defs>
+        <marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="s-think" x="270" y="14" width="240" height="56" rx="12"/>
+      <text class="tx-h" x="390" y="40" text-anchor="middle">覺察這個想法</text>
+      <text class="tx-s" x="390" y="58" text-anchor="middle">「我姊姊不想跟我聯絡」</text>
+
+      <line class="s-line" x1="390" y1="70" x2="390" y2="102" marker-end="url(#m3)"/>
+      <polygon class="s-hl" points="390,106 510,150 390,194 270,150"/>
+      <text class="tx-h" x="390" y="146" text-anchor="middle">它符合</text>
+      <text class="tx-h" x="390" y="166" text-anchor="middle">事實嗎？</text>
+
+      <path class="s-line" d="M270,150 L130,150 L130,224" marker-end="url(#m3)"/>
+      <text class="tx-m" x="200" y="142" text-anchor="middle">不符合，它被扭曲了</text>
+      <line class="s-line" x1="390" y1="194" x2="390" y2="224" marker-end="url(#m3)"/>
+      <text class="tx-m" x="398" y="214">無法判斷</text>
+      <path class="s-line" d="M510,150 L650,150 L650,224" marker-end="url(#m3)"/>
+      <text class="tx-m" x="580" y="142" text-anchor="middle">符合事實</text>
+
+      <rect class="s-box" x="30" y="228" width="200" height="118" rx="12"/>
+      <text class="tx-h" x="46" y="254">挑戰它</text>
+      <text class="tx-s" x="46" y="276">列出支持與反對的證據</text>
+      <text class="tx-s" x="46" y="294">寫下一個平衡的想法</text>
+      <text class="tx-s" x="46" y="318" style="font-style:italic">「我們平常聯絡比較多，</text>
+      <text class="tx-s" x="46" y="334" style="font-style:italic">但她說她最近很忙。」</text>
+
+      <rect class="s-box" x="290" y="228" width="200" height="118" rx="12"/>
+      <text class="tx-h" x="306" y="254">它有用嗎？</text>
+      <text class="tx-s" x="306" y="276">如果它對你沒有幫助，</text>
+      <text class="tx-s" x="306" y="294">還是更新它</text>
+      <text class="tx-s" x="306" y="318" style="font-style:italic">「我對我的病人感到抱歉，</text>
+      <text class="tx-s" x="306" y="334" style="font-style:italic">我是最沒經驗的。」</text>
+
+      <rect class="s-box" x="550" y="228" width="200" height="118" rx="12"/>
+      <text class="tx-h" x="566" y="254">解決並接納</text>
+      <text class="tx-s" x="566" y="276">不要和事實爭辯。</text>
+      <text class="tx-s" x="566" y="294">消化它，計畫下一步</text>
+      <text class="tx-s" x="566" y="318" style="font-style:italic">「她告訴我她不想再</text>
+      <text class="tx-s" x="566" y="334" style="font-style:italic">聯絡，還封鎖了我。」</text>
+
+      <text class="tx-s" x="390" y="392" text-anchor="middle">檢驗方法：這在法庭上站得住腳嗎？壓力越大，想法越容易扭曲。</text>
+    </svg>
+    </div>
+    <figcaption><b>不要預設想法是錯的。</b>例如，因真實經歷過種族歧視或性別歧視而形成的想法，可能是符合事實的。下判斷之前，先看證據。</figcaption>
+  </figure>
+
+  <div class="stack" style="gap:12px">
+    <h3>常見的思考扭曲</h3>
+    <div class="grid g2">
+      <div class="card"><h4>災難化／預言未來</h4><span class="q">「我就是知道我拿不到這份工作。」</span><span class="muted" style="font-size:.9rem">認定未來一定會很糟。</span></div>
+      <div class="card"><h4>讀心術</h4><span class="q">「她沒有跟我揮手，她一定在生我的氣。」</span><span class="muted" style="font-size:.9rem">認定自己知道別人在想什麼。</span></div>
+      <div class="card"><h4>全有全無思考</h4><span class="q">「如果我拿到 B，我的法學院生涯就毀了。」</span><span class="muted" style="font-size:.9rem">非黑即白、絕對化的說法。</span></div>
+      <div class="card"><h4>不公平的比較</h4><span class="q">「我永遠不會像那個喜劇演員那麼有魅力。」</span><span class="muted" style="font-size:.9rem">只拿單一面向和別人比較。</span></div>
+      <div class="card"><h4>情緒化推理</h4><span class="q">「我覺得我會失敗，所以我一定會失敗。」</span><span class="muted" style="font-size:.9rem">留意「我覺得……」後面接著一整句話的情況。</span></div>
+      <div class="card"><h4>它們會重疊</h4><span class="q">「如果我再恐慌發作一次，我就會崩潰。」</span><span class="muted" style="font-size:.9rem">同時是全有全無思考和預言未來。</span></div>
+    </div>
+  </div>
+
+  <figure>
+    <h3>自動化思考紀錄表</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>情境</th><th>情緒</th><th>自動化思考</th><th>扭曲類型</th><th>支持的證據</th><th>反對的證據</th><th>平衡的想法</th></tr></thead>
+        <tbody><tr>
+          <td>一段數學課文讀了一遍又一遍</td>
+          <td>難過、焦慮、羞愧</td>
+          <td>「我好笨。我考試會不及格。別人會評斷我。」</td>
+          <td>預言未來、讀心術</td>
+          <td class="new">以前數學考試不及格過；上次拿了 C</td>
+          <td class="new">其他考試都及格；這段課文很難；當時很累；其他章節都懂</td>
+          <td class="new-l">「我有一次考試不及格，<i>也</i>通過了很多次。這段課文很難，我又很累。這不代表我很笨。」</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <figcaption><b>回家作業的表單。</b>有底色的欄位是這堂課新加入的。平衡的想法可以直接把支持與反對的證據結合起來。</figcaption>
+  </figure>
+</section>
+
+<!-- ============ LECTURE 3 ============ -->
+<section class="lec" id="l3">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">第 3 堂課</span><span class="pill">CBT 的 C · 第二部分</span></div>
+    <h2>更新想法，檢驗預測</h2>
+    <p class="prose">這堂課談到何時使用思考紀錄表、我們解釋事件的方式如何影響自己、如何想出更好的想法，以及如何在真實生活中檢驗讓人害怕的預測。</p>
+  </div>
+
+  <figure>
+    <h3>什麼時候做思考紀錄表</h3>
+    <div class="scale" aria-label="情緒強度量表 0 到 10">
+      <div class="z0">0</div><div class="z0">1</div>
+      <div class="z1">2</div><div class="z1">3</div><div class="z1">4</div><div class="z1">5</div><div class="z1">6</div><div class="z1">7</div><div class="z1">8</div>
+      <div class="z2">9</div><div class="z2">10</div>
+    </div>
+    <div class="zones">
+      <div><span class="label">太低</span><br><span class="muted">沒有情緒可以處理</span></div>
+      <div><span class="label" style="color:var(--act)">工作區間</span><br>有一些情緒，但仍能清楚思考。思考紀錄表和其他認知工具在這裡最有效。</div>
+      <div><span class="label" style="color:var(--warn)">太高</span><br><span class="muted">恐慌、大哭、暴怒。先讓自己平靜下來（見第 5 堂課）。</span></div>
+    </div>
+    <figcaption><b>情緒強度，0–10。</b>第 3 堂課的工作區間大約是 2–8，第 5 堂課則把上限定在 9 左右。</figcaption>
+  </figure>
+
+  <figure>
+    <h3>我們如何解釋事件：三個向度</h3>
+    <div class="stack" style="gap:16px">
+      <div class="spec">
+        <div class="side l"><b>內在</b><span class="q muted" style="font-style:italic;font-size:.9rem">「我沒辦法維持一段感情。」</span></div>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="side"><b>外在</b><span class="muted" style="font-style:italic;font-size:.9rem">「我們漸行漸遠；一半的婚姻都會這樣。」</span></div>
+      </div>
+      <div class="spec">
+        <div class="side l"><b>穩定</b><span class="muted" style="font-style:italic;font-size:.9rem">「我永遠都會是一個人。」</span></div>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="side"><b>不穩定</b><span class="muted" style="font-style:italic;font-size:.9rem">「我不知道未來會怎樣。」</span></div>
+      </div>
+      <div class="spec">
+        <div class="side l"><b>全面</b><span class="muted" style="font-style:italic;font-size:.9rem">「這種事總是發生在我身上。」</span></div>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="side"><b>特定</b><span class="muted" style="font-style:italic;font-size:.9rem">「這段感情沒有成功。」</span></div>
+      </div>
+    </div>
+    <figcaption><b>左邊的解釋會帶來更多悲傷與焦慮。</b>把挫折看成全是自己的錯、永遠如此、處處如此，傷害最大。目標不是把一切都怪到外在因素，而是在你明顯偏向左邊時能夠察覺。有位同學指出，這與塞利格曼的「3P」（個人化、永久性、普遍性）相呼應。</figcaption>
+  </figure>
+
+  <figure>
+    <h3>餐廳托盤影片：關於焦慮的兩個教訓</h3>
+    <div class="compare">
+      <div class="card"><span class="label">Gina 一開始的猜測</span><span class="num" style="color:var(--warn)">10%</span><span class="muted">打翻托盤的機率</span></div>
+      <div class="card"><span class="label">實際算過她吃過的午餐後</span><span class="num" style="color:var(--act)">約萬分之一</span><span class="muted">課堂上的粗略估計</span></div>
+    </div>
+    <div class="grid g2">
+      <div class="card hl"><h4>1. 我們高估了壞結果發生的可能性</h4><span>吃過幾千次午餐，她從來沒有打翻過托盤。</span></div>
+      <div class="card hl"><h4>2. 我們低估了自己的因應能力</h4><span>就算真的發生了：一團亂、有幾個人看過來，然後大家繼續吃飯。</span></div>
+    </div>
+    <figcaption><b>課堂反應：</b>機率計算的方式感覺有點生硬。探討背後的社交恐懼（「別人打翻托盤時，<i>你</i>會怎麼做？」）似乎更有幫助。沒有人喜歡被說不合邏輯。</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <div class="keypoints">
+      <h3>找到更好想法的提問</h3>
+      <ul class="tight">
+        <li>如果朋友遇到這種情況，你會對他說什麼？</li>
+        <li>有沒有哪些時候，這個想法並不成立？</li>
+        <li>你是否忽略了自己的某些優點？</li>
+        <li><b>最壞、最好和最實際</b>的結果分別是什麼？</li>
+        <li>如果最壞的情況發生了，你能應付嗎？</li>
+        <li>有沒有其他的解釋？</li>
+        <li>你是否在為自己無法控制的事責怪自己？</li>
+      </ul>
+    </div>
+    <div class="keypoints">
+      <h3>用「而且」代替「但是」</h3>
+      <p><span class="muted">「你很能幹，<s>但是</s>有些事你做起來很吃力。」</span></p>
+      <p><b>「你很能幹，<span style="color:var(--accent)">而且</span>有些事你做起來很吃力。」</b></p>
+      <p class="muted" style="font-size:.95rem">「而且」讓兩件真實的事可以並存，你不必二選一。這也是即興表演的核心規則，在職場上也很好用。在現場角色扮演中，一個新的想法（「人生是一場馬拉松，有起有落」）在道理上覺得是真的，但還沒有打從心裡相信。這很正常，練習會縮小這個落差。</p>
+    </div>
+  </div>
+
+  <figure>
+    <h3>行為實驗：檢驗你的預測</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 170" role="img" aria-labelledby="be-t">
+      <title id="be-t">行為實驗的步驟：預測、實驗、結果、學習</title>
+      <defs>
+        <marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="s-warn" x="10" y="20" width="170" height="130" rx="12"/>
+      <text class="tx-m tx-warn" x="24" y="42">1 · 預測</text>
+      <text class="tx" x="24" y="68">「如果我發言，</text>
+      <text class="tx" x="24" y="88">我會發抖，</text>
+      <text class="tx" x="24" y="108">大家會笑我。」</text>
+      <rect class="s-box" x="206" y="20" width="170" height="130" rx="12"/>
+      <text class="tx-m" x="220" y="42">2 · 實驗</text>
+      <text class="tx" x="220" y="68">週一報告數據，</text>
+      <text class="tx" x="220" y="88">自在地使用手勢，</text>
+      <text class="tx" x="220" y="108">之後詢問</text>
+      <text class="tx" x="220" y="128">2 位朋友</text>
+      <rect class="s-box" x="402" y="20" width="170" height="130" rx="12"/>
+      <text class="tx-m" x="416" y="42">3 · 結果</text>
+      <text class="tx" x="416" y="68">覺得很緊張。</text>
+      <text class="tx" x="416" y="88">朋友完全看不出</text>
+      <text class="tx" x="416" y="108">有任何發抖。</text>
+      <rect class="s-act" x="598" y="20" width="172" height="130" rx="12"/>
+      <text class="tx-m tx-act" x="612" y="42">4 · 學習</text>
+      <text class="tx" x="612" y="68">「我會緊張，</text>
+      <text class="tx" x="612" y="88">但遠比我以為的</text>
+      <text class="tx" x="612" y="108">還要不明顯。」</text>
+      <text class="tx" x="612" y="128"></text>
+      <line class="s-line" x1="180" y1="85" x2="202" y2="85" marker-end="url(#m4)"/>
+      <line class="s-line" x1="376" y1="85" x2="398" y2="85" marker-end="url(#m4)"/>
+      <line class="s-line" x1="572" y1="85" x2="594" y2="85" marker-end="url(#m4)"/>
+    </svg>
+    </div>
+    <figcaption><b>檢驗預測的兩種方法：</b><i>實際去做</i>，或<i>詢問</i>會誠實回答你的人。全班曾互相詢問優格可以放在冰箱外多久，答案從 30 分鐘到 24 小時都有。詢問別人也能讓你發現冒牌者症候群有多普遍。實驗絕不能有危險：害怕從大樓跳下去是健康的恐懼。</figcaption>
+  </figure>
+</section>
+
+<!-- ============ LECTURE 4 ============ -->
+<section class="lec" id="l4">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">第 4 堂課</span><span class="pill">CBT 的 C · 第三部分</span></div>
+    <h2>核心信念，以及認可與改變之間的平衡</h2>
+    <p class="prose">在來來去去的想法底下，還有更深的層次，更難察覺，影響力也更大。這堂課說明了如何找到它們、如何鬆動它們，以及為什麼改變只有在伴隨接納時才會有效。</p>
+  </div>
+
+  <figure>
+    <h3>認知的三個層次</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 330" role="img" aria-labelledby="lv-t">
+      <title id="lv-t">認知的層次：自動化思考、潛在假設與核心信念</title>
+      <polygon class="s-think" points="250,20 530,20 560,98 220,98"/>
+      <text class="tx-h" x="390" y="54" text-anchor="middle">自動化思考</text>
+      <text class="tx-s" x="390" y="76" text-anchor="middle">與情境有關 · 容易察覺</text>
+
+      <line x1="40" y1="114" x2="740" y2="114" style="stroke:var(--accent);stroke-width:1.5;stroke-dasharray:2 6"/>
+      <text class="tx-m" x="44" y="108">容易察覺 ↑</text>
+      <text class="tx-m" x="44" y="130">難以察覺 ↓</text>
+
+      <polygon class="s-hl" points="214,130 566,130 610,214 170,214"/>
+      <text class="tx-h" x="390" y="164" text-anchor="middle">潛在假設</text>
+      <text class="tx-s" x="390" y="186" text-anchor="middle">「如果……就……」的規則</text>
+
+      <polygon class="s-feel" points="164,226 616,226 666,310 114,310"/>
+      <text class="tx-h" x="390" y="262" text-anchor="middle">核心信念</text>
+      <text class="tx-s" x="390" y="284" text-anchor="middle">關於自己、他人與世界 · 驅動上面的一切</text>
+    </svg>
+    </div>
+    <div class="grid g3">
+      <div class="card"><span class="label" style="color:var(--think)">想法</span><span>「這場派對一定會壓力超大。」</span></div>
+      <div class="card"><span class="label">假設</span><span>「如果別人真的認識我，就不會喜歡我。」</span></div>
+      <div class="card"><span class="label" style="color:var(--feel)">核心信念</span><span>「我不值得被愛。」</span></div>
+    </div>
+    <figcaption><b>例子：社交焦慮。</b>其他常見的假設：「如果我惹別人不高興，他們就會拒絕我。」「如果我做不好，就不值得做。」「如果我不隨時精益求精，就不會快樂。」講師的母親開車不打方向燈，反映出「別人都想害我」這個核心信念。</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <h3>垂直向下技術</h3>
+      <div class="chain">
+        <div class="step">「我會在工作上說出蠢話。」</div>
+        <div class="arrow">如果這是真的，代表什麼？</div>
+        <div class="step">「大家會覺得我很怪。」</div>
+        <div class="arrow">如果這也是真的呢？</div>
+        <div class="step">「他們就不會想跟我做朋友。」</div>
+        <div class="arrow">那樣有什麼糟糕的？</div>
+        <div class="step">「我整天都會是一個人。」</div>
+        <div class="arrow">這說明了你是個怎樣的人？</div>
+        <div class="step core">「我不值得別人跟我做朋友。」</div>
+      </div>
+      <figcaption><b>Hannah 的晤談（影片）。</b>同學們覺得一再問同樣的問題，可能會像在審問，所以要變換說法，並隨時確認對方的狀況。</figcaption>
+    </figure>
+    <figure>
+      <h3>權衡證據降低了她的信念強度</h3>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 440 210" role="img" aria-labelledby="hb-t">
+        <title id="hb-t">對核心信念的相信程度從 100 分中的 90 分降到 40 分</title>
+        <line class="s-grid" x1="110" y1="20" x2="110" y2="150"/>
+        <line class="s-grid" x1="182.5" y1="20" x2="182.5" y2="150"/>
+        <line class="s-grid" x1="255" y1="20" x2="255" y2="150"/>
+        <line class="s-grid" x1="327.5" y1="20" x2="327.5" y2="150"/>
+        <line class="s-grid" x1="400" y1="20" x2="400" y2="150"/>
+        <text class="tx-m" x="110" y="168" text-anchor="middle">0</text>
+        <text class="tx-m" x="182.5" y="168" text-anchor="middle">25</text>
+        <text class="tx-m" x="255" y="168" text-anchor="middle">50</text>
+        <text class="tx-m" x="327.5" y="168" text-anchor="middle">75</text>
+        <text class="tx-m" x="400" y="168" text-anchor="middle">100</text>
+        <rect x="110" y="36" width="261" height="34" rx="4" style="fill:var(--feel)"/>
+        <text class="tx" x="100" y="58" text-anchor="end">之前</text>
+        <text class="tx-m" x="377" y="58">90</text>
+        <rect x="110" y="96" width="116" height="34" rx="4" style="fill:var(--act)"/>
+        <text class="tx" x="100" y="118" text-anchor="end">之後</text>
+        <text class="tx-m" x="232" y="118">40</text>
+        <text class="tx-s" x="255" y="198" text-anchor="middle">她有多相信（0–100）</text>
+      </svg>
+      </div>
+      <div class="grid g2" style="gap:8px">
+        <div class="card"><span class="label">支持</span><span style="font-size:.92rem">在學校被排擠；有時在工作上被冷落；不參加大型派對</span></div>
+        <div class="card"><span class="label">反對</span><span style="font-size:.92rem">家人關係親密；有長年的朋友；會籌辦生日聚會；為了朋友願意忍受焦慮</span></div>
+      </div>
+      <figcaption><b>這個信念沒有消失。</b>它變弱了，這才是實際的目標。核心信念是多年累積學來的，要拋開它們也需要時間。</figcaption>
+    </figure>
+  </div>
+
+  <div class="keypoints">
+    <h3>挑戰核心信念的三種方法</h3>
+    <div class="grid g3">
+      <div><b>檢視用詞</b><p class="muted" style="font-size:.95rem">替它們下定義。「不值得被愛」或「沒有價值」到底是什麼意思？什麼才算是具體的證據？</p></div>
+      <div><b>使用極端對比</b><p class="muted" style="font-size:.95rem">說出一個真正徹底失敗的人。就連連續殺人犯都有伴侶。這樣比較公平嗎？</p></div>
+      <div><b>權衡證據</b><p class="muted" style="font-size:.95rem">確認偏誤讓我們只計算符合的證據，而忽略其他證據。要求自己把兩邊都算進去。</p></div>
+    </div>
+  </div>
+
+  <figure>
+    <h3>認可：「這可以理解」，不是「我同意」</h3>
+    <p class="formula">考慮到<span class="blank">&nbsp;那件事&nbsp;</span>，你會<span class="blank">&nbsp;這樣&nbsp;</span>是可以理解的。</p>
+    <div class="grid g3">
+      <div class="card"><span class="label">過去的經驗</span><span>「考慮到你離婚了，上次約會又不順利……」</span></div>
+      <div class="card"><span class="label">脆弱之處</span><span>「考慮到你一直都比較害羞……」</span></div>
+      <div class="card"><span class="label">當下正在發生的事</span><span>「考慮到你今晚這麼焦慮……」</span></div>
+    </div>
+    <p class="muted">「……你會緊張、想取消和 Sean 的約會，是可以理解的。」</p>
+    <div class="grid g2">
+      <div class="card"><h4>找出合理的部分</h4><span style="font-size:.95rem">復發：在壓力下回到舊有的因應方式。因為被霸凌而逃學：想要保護自己的安全。你認可的是背後的原因，不是行為本身。</span></div>
+      <div class="card"><h4>為什麼有效</h4><span style="font-size:.95rem">它能強化關係，並<b>降低</b>情緒強度。在一項研究中，被告知「這個考試很難，其他人也考得很辛苦」的學生，表現比被告知「這應該很簡單」的學生更好。</span></div>
+    </div>
+    <figcaption><b>接納先於改變。</b>「別擔心，你一定會表現很好！」雖然出於好意，卻是一種否定。如果你的文化或家庭不習慣認可別人，認可可能會讓你覺得陌生。真誠的認可效果最好，也可以問問對方：「你希望我聽你說，還是幫你想辦法？」</figcaption>
+  </figure>
+</section>
+
+<!-- ============ LECTURE 5 ============ -->
+<section class="lec" id="l5">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">第 5 堂課</span><span class="pill b">CBT 的 B</span></div>
+    <h2>行為活化與暴露</h2>
+    <p class="prose">這些工具雖然最後才教，但在實際治療中通常<b>最先</b>使用，因為它們最快帶來緩解。經驗法則：情緒低落時用行為活化；焦慮時用暴露。</p>
+  </div>
+
+  <div class="grid g2">
+    <figure>
+      <h3>憂鬱如何自我延續</h3>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 440 380" role="img" aria-labelledby="dep-t">
+        <title id="dep-t">憂鬱的循環，以及行為活化從哪裡打破它</title>
+        <defs>
+          <marker id="m5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="m5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="ah-g" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="s-feel" x="150" y="14" width="140" height="56" rx="12"/>
+        <text class="tx-h" x="220" y="40" text-anchor="middle">情緒低落</text>
+        <text class="tx-s" x="220" y="58" text-anchor="middle">難過、消沉</text>
+        <rect class="s-box" x="290" y="150" width="140" height="56" rx="12"/>
+        <text class="tx-h" x="360" y="176" text-anchor="middle">想要</text>
+        <text class="tx-h" x="360" y="194" text-anchor="middle">退縮</text>
+        <rect class="s-box" x="150" y="286" width="140" height="56" rx="12"/>
+        <text class="tx" x="220" y="310" text-anchor="middle">賴在床上、</text>
+        <text class="tx" x="220" y="328" text-anchor="middle">取消計畫</text>
+        <rect class="s-box" x="10" y="150" width="140" height="56" rx="12"/>
+        <text class="tx" x="80" y="172" text-anchor="middle">獲得快樂的</text>
+        <text class="tx" x="80" y="190" text-anchor="middle">機會變少</text>
+        <text class="tx-s" x="80" y="204" text-anchor="middle"></text>
+        <path class="s-line" d="M290,50 C340,60 360,100 360,146" marker-end="url(#m5)"/>
+        <path class="s-line" d="M360,206 C360,250 340,300 294,312" marker-end="url(#m5)"/>
+        <path class="s-line" d="M150,312 C100,300 80,250 80,210" marker-end="url(#m5)"/>
+        <path class="s-line" d="M80,150 C80,100 100,60 146,50" marker-end="url(#m5)"/>
+        <line x1="262" y1="182" x2="334" y2="252"style="stroke:var(--act);stroke-width:3" marker-end="url(#m5g)"/>
+        <rect class="s-act" x="146" y="140" width="148" height="42" rx="21"/>
+        <text class="tx-h tx-act" x="220" y="166" text-anchor="middle">改為主動行動</text>
+        <text class="tx-s" x="220" y="372" text-anchor="middle">照著沒有憂鬱時的樣子行動。</text>
+      </svg>
+      </div>
+      <figcaption><b>由外而內改變情緒。</b>安排能帶來<b>愉悅感</b>（外出吃晚餐、玩桌遊、到戶外走走）或<b>成就感</b>（上課、整理環境、運動目標）的活動。課堂上用了一份「愉悅活動清單」來挑選活動。</figcaption>
+    </figure>
+    <figure>
+      <h3>為什麼行為很重要</h3>
+      <div class="stack" style="gap:10px">
+        <div class="card"><h4>「如何讓自己很悲慘」影片</h4><span style="font-size:.95rem">整天不動、作息不規律、一直盯著螢幕、沉溺在壞消息裡、設定模糊的目標、直接追求快樂、順從每一個衝動。如果行為能讓我們悲慘，也就能讓我們不那麼悲慘。</span></div>
+        <div class="card"><h4>睡眠與運動</h4><span style="font-size:.95rem">睡眠和情緒會雙向影響。有氧運動能促進大腦的生長因子，也有助於管理壓力。</span></div>
+        <div class="card"><h4>老鼠樂園實驗</h4><span style="font-size:.95rem">關在空籠子裡的老鼠會一直喝摻了鴉片類藥物的水，直到死亡；住在豐富樂園裡的老鼠則大多不碰。多做好的事，是少做不想要的事的最好方法。</span></div>
+      </div>
+    </figure>
+  </div>
+
+  <figure>
+    <h3>建立動機</h3>
+    <div class="grid g3">
+      <div class="card"><h4>從極小的一步開始</h4><span style="font-size:.95rem">把目標砍半，再砍半。先換上運動服。先開一個名為「履歷」的空白文件。</span></div>
+      <div class="card"><h4>先問大的，再問小的</h4><span style="font-size:.95rem">「這個月每天跑步？」不行。「這週挑一個下午？」感覺做得到。</span></div>
+      <div class="card"><h4>唱反調</h4><span style="font-size:.95rem">「也許閱讀可以等到明年再說。」這常常會引出「不行，我已經拖好幾年了」。</span></div>
+    </div>
+    <div class="grid g2">
+      <div class="mi">
+        <span class="label">這週多打掃一點對你有多重要？（1–10）</span>
+        <div class="track"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span class="on">9</span><span>10</span></div>
+        <span class="muted" style="font-size:.9rem">「為什麼是 9，而不是更低？」→「不然我就得付鄰居的小孩 100 美元。」</span>
+      </div>
+      <div class="mi">
+        <span class="label">你有多大的把握會去做？（1–10）</span>
+        <div class="track"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span class="on">8</span><span>9</span><span>10</span></div>
+        <span class="muted" style="font-size:.9rem">一定要問為什麼數字不是<i>更低</i>，讓對方自己說出理由。</span>
+      </div>
+    </div>
+    <figcaption><b>動機式晤談</b>（來自現場角色扮演）：展現同理心，點出現況與對方期望之間的落差，避免爭辯，順著抗拒走，並支持對方相信自己做得到。把新習慣接在對方已經在做的事情上，例如刷牙或通勤，就能挪出時間。</figcaption>
+  </figure>
+
+  <div class="keypoints" style="background:var(--warn-soft);border-color:transparent">
+    <h3>情緒達到 9–10 時：先平靜下來</h3>
+    <p>與「戰或逃」相反的是<b>潛水反射</b>，它能讓神經系統平靜下來。你可以透過感官觸發它（說出一樣你看到、聽到、摸到和聞到的東西），或<b>用冷水沖臉或手</b>。和別人在一起時，方式要溫和：「我們都先停幾秒，伸展一下或喝口水吧。」</p>
+  </div>
+
+  <figure>
+    <h3>焦慮曲線：為什麼逃避會讓恐懼持續</h3>
+    <div class="grid g2" style="gap:16px">
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 500 260" role="img" aria-labelledby="ac1-t">
+        <title id="ac1-t">一次暴露：留下來讓焦慮升到高點後下降；逃離能立即解脫，但恐懼會留下來</title>
+        <line class="s-grid" x1="50" y1="20" x2="480" y2="20"/>
+        <line class="s-grid" x1="50" y1="120" x2="480" y2="120"/>
+        <line class="s-line" x1="50" y1="220" x2="480" y2="220"/>
+        <line class="s-line" x1="50" y1="20" x2="50" y2="220"/>
+        <text class="tx-m" x="42" y="24" text-anchor="end">100</text>
+        <text class="tx-m" x="42" y="124" text-anchor="end">50</text>
+        <text class="tx-m" x="42" y="224" text-anchor="end">0</text>
+        <text class="tx-m" x="265" y="246" text-anchor="middle">待在情境中的時間 →</text>
+        <path class="ln-a" d="M50,180 C110,176 140,70 190,70 C260,70 330,170 470,180"/>
+        <path class="ln-w" d="M50,180 C100,177 130,92 168,88 L172,200 L300,200" style="stroke-dasharray:7 6"/>
+        <circle cx="170" cy="88" r="5" style="fill:var(--warn)"/>
+        <text class="tx-s tx-warn" x="178" y="154">逃離：現在解脫，</text>
+        <text class="tx-s tx-warn" x="178" y="170">恐懼留到下一次</text>
+        <text class="tx-s tx-think" x="214" y="62">留下：先升到高點……</text>
+        <text class="tx-s tx-think" x="356" y="150">……然後自己降下來</text>
+        <text class="tx-s" x="56" y="40">焦慮上升時，逃避的衝動最強烈</text>
+      </svg>
+      </div>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 500 260" role="img" aria-labelledby="ac2-t">
+        <title id="ac2-t">重複暴露：焦慮的高點一次比一次低</title>
+        <line class="s-grid" x1="50" y1="20" x2="480" y2="20"/>
+        <line class="s-grid" x1="50" y1="120" x2="480" y2="120"/>
+        <line class="s-line" x1="50" y1="220" x2="480" y2="220"/>
+        <line class="s-line" x1="50" y1="20" x2="50" y2="220"/>
+        <text class="tx-m" x="42" y="24" text-anchor="end">100</text>
+        <text class="tx-m" x="42" y="124" text-anchor="end">50</text>
+        <text class="tx-m" x="42" y="224" text-anchor="end">0</text>
+        <path class="ln-g" d="M60,190 C85,190 88,60 115,60 C142,60 150,190 180,190"/>
+        <path class="ln-g" d="M200,190 C225,190 228,110 255,110 C282,110 290,190 320,190" style="opacity:.8"/>
+        <path class="ln-g" d="M340,190 C365,190 368,150 395,150 C422,150 430,190 460,190" style="opacity:.6"/>
+        <text class="tx-m" x="115" y="48" text-anchor="middle">第 1 次</text>
+        <text class="tx-m" x="255" y="98" text-anchor="middle">第 2 次</text>
+        <text class="tx-m" x="395" y="138" text-anchor="middle">第 3 次</text>
+        <text class="tx-m" x="265" y="246" text-anchor="middle">重複暴露 →</text>
+      </svg>
+      </div>
+    </div>
+    <figcaption><b>困擾程度（SUDS，0–100）隨時間的變化。</b>這些曲線呈現的是大致的形狀，不是實測數據。逃避在當下感覺很好，長期卻讓恐懼持續。重複暴露會讓高點一次比一次低（「習慣化」）。在拒絕療法的影片中，到了第 2 天，恐慌的感覺就已經消失了。</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <h3>恐懼階層（打針）</h3>
+      <div class="ladder">
+        <div class="rung"><span class="n">低</span><span class="b" style="background:var(--act-soft)">坐在診所的候診室</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--act-soft)">看血的照片</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--hl-soft)">坐在捐血中心裡</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--hl-soft)">看針筒的照片，然後拿起一支</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--hl-soft)">看抽血的影片</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--warn-soft)">看別人扎手指或抽血</span></div>
+        <div class="rung"><span class="n">高</span><span class="b" style="background:var(--warn-soft)">自己去抽血</span></div>
+      </div>
+      <figcaption><b>系統減敏感法。</b>把害怕的情境排出順序，從最低的開始，準備好了才往上一階。可以在真實生活中、在想像中或用 VR 進行。治療師保持冷靜作為示範，個案則始終保有主導權。</figcaption>
+    </figure>
+    <figure>
+      <h3>恐懼如何習得，又如何消除</h3>
+      <div class="stack" style="gap:10px">
+        <div class="card"><span class="label">模仿</span><span style="font-size:.95rem">很多人還沒看過牙醫就害怕牙醫，這是從父母和媒體那裡學來的。</span></div>
+        <div class="card"><span class="label">聯結</span><span style="font-size:.95rem">小艾伯特被訓練成害怕白色毛茸茸的東西，方法是每次都搭配一聲巨響。</span></div>
+        <div class="card"><span class="label">因逃避而持續</span><span style="font-size:.95rem">在 University Ave 被搶之後，改走小巷，就永遠學不到那條街其實又安全了。</span></div>
+        <div class="card hl"><span class="label">透過暴露消除</span><span style="font-size:.95rem">中午時去那裡的咖啡店坐坐。在怕蛇的影片最後，病人把蛇拿在手上。當恐懼開始限制生活時，人們會選擇暴露，例如必須搭飛機去參加婚禮。</span></div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ TOOLKIT ============ -->
+<section class="lec" id="toolkit">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">總結</span><span class="pill t">工具箱</span></div>
+    <h2>五種工具，以及各自的使用時機</h2>
+  </div>
+
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 780 200" role="img" aria-labelledby="tk-t">
+      <title id="tk-t">五種 CBT 工具，從認知排到行為</title>
+      <defs>
+        <linearGradient id="gk" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" style="stop-color:var(--think)"/>
+          <stop offset="1" style="stop-color:var(--act)"/>
+        </linearGradient>
+      </defs>
+      <rect x="40" y="96" width="700" height="8" rx="4" fill="url(#gk)"/>
+      <text class="tx-m tx-think" x="40" y="130">認知</text>
+      <text class="tx-m tx-act" x="740" y="130" text-anchor="end">行為</text>
+
+      <circle cx="110" cy="100" r="9" style="fill:var(--think)"/>
+      <text class="tx" x="110" y="60" text-anchor="middle">追蹤並挑戰</text>
+      <text class="tx" x="110" y="78" text-anchor="middle">自動化思考</text>
+      <text class="tx-m" x="110" y="160" text-anchor="middle">第 2–3 堂課</text>
+
+      <circle cx="260" cy="100" r="9" style="fill:var(--think)"/>
+      <text class="tx" x="260" y="60" text-anchor="middle">挑戰</text>
+      <text class="tx" x="260" y="78" text-anchor="middle">核心信念</text>
+      <text class="tx-m" x="260" y="160" text-anchor="middle">第 4 堂課</text>
+
+      <circle cx="390" cy="100" r="9" style="fill:var(--hl)"/>
+      <text class="tx" x="390" y="60" text-anchor="middle">行為</text>
+      <text class="tx" x="390" y="78" text-anchor="middle">實驗</text>
+      <text class="tx-m" x="390" y="160" text-anchor="middle">第 3 堂課 · 介於兩者之間</text>
+
+      <circle cx="540" cy="100" r="9" style="fill:var(--act)"/>
+      <text class="tx" x="540" y="60" text-anchor="middle">行為</text>
+      <text class="tx" x="540" y="78" text-anchor="middle">活化</text>
+      <text class="tx-m" x="540" y="160" text-anchor="middle">第 5 堂課</text>
+
+      <circle cx="670" cy="100" r="9" style="fill:var(--act)"/>
+      <text class="tx" x="670" y="60" text-anchor="middle">暴露</text>
+      <text class="tx-m" x="670" y="160" text-anchor="middle">第 5 堂課</text>
+    </svg>
+    </div>
+    <figcaption><b>CBT 工具箱。</b>關係（OARS、認可）與蘇格拉底式提問支撐著每一種工具。</figcaption>
+  </figure>
+
+  <div class="which">
+    <span class="if">感到低落或憂鬱</span><span class="arr">→</span><span class="then">行為活化：安排帶來愉悅感和成就感的活動，從極小的一步開始</span>
+    <span class="if">焦慮或在逃避某件事</span><span class="arr">→</span><span class="then">暴露：循序漸進地接近，讓焦慮自然升起又落下</span>
+    <span class="if">某個想法感覺被誇大了</span><span class="arr">→</span><span class="then">思考紀錄表：列出支持與反對的證據，再寫出平衡的想法</span>
+    <span class="if">同一個主題一再出現</span><span class="arr">→</span><span class="then">用垂直向下技術找到核心信念，再挑戰它</span>
+    <span class="if">一個可怕的預測</span><span class="arr">→</span><span class="then">行為實驗：實際去做或詢問別人，再記錄你學到什麼</span>
+    <span class="if">情緒達到 9–10</span><span class="arr">→</span><span class="then">先平靜下來：運用感官或冷水</span>
+    <span class="if">有人分享了一件難受的事</span><span class="arr">→</span><span class="then">先認可（「考慮到……，這是可以理解的……」），再問開放式問題</span>
+  </div>
+</section>
+
+<nav class="pager" aria-label="上一節與下一節">
+  <a class="btn" id="pg-prev" href="#"><b aria-hidden="true">←</b><span></span></a>
+  <a class="btn primary" id="pg-next" href="#"><span></span><b aria-hidden="true">→</b></a>
+</nav>
+</main>
+
+<!-- ================= FLASH CARDS PAGE ================= -->
+<main class="page" id="page-cards" aria-labelledby="h-cards">
+<header class="top">
+  <span class="label">學習工具 · <span id="fc-count">46</span> 張字卡，涵蓋全部五堂課</span>
+  <h1 id="h-cards">學習字卡</h1>
+  <p class="lede">先讀題目，在心裡回答，再翻開字卡確認。為每張卡做標記，之後就能回頭複習還不熟的卡片。</p>
+</header>
+<div class="tool">
+  <div class="chips" id="fc-filter" role="group" aria-label="依課程篩選字卡">
+    <button type="button" class="chip" data-k="all" aria-pressed="true">全部</button>
+    <button type="button" class="chip" data-k="l1" aria-pressed="false">第 1 堂 · 治療</button>
+    <button type="button" class="chip" data-k="l2" aria-pressed="false">第 2 堂 · 想法</button>
+    <button type="button" class="chip" data-k="l3" aria-pressed="false">第 3 堂 · 更新</button>
+    <button type="button" class="chip" data-k="l4" aria-pressed="false">第 4 堂 · 核心信念</button>
+    <button type="button" class="chip" data-k="l5" aria-pressed="false">第 5 堂 · 行為</button>
+  </div>
+  <div class="row"><span class="label" id="fc-pos">第 1 張，共 46 張</span><span class="label" id="fc-known">已標記 0 張「記住了」</span></div>
+  <div class="prog" aria-hidden="true"><i id="fc-bar"></i></div>
+
+  <div class="note" id="fc-empty" hidden>這組字卡已全部標記為「記住了」。做得好！ <button type="button" class="btn sm" id="fc-empty-reset">重設標記</button></div>
+
+  <div class="fc-stage" id="fc-stage">
+    <button type="button" class="fc" id="fc" aria-label="學習字卡。按下即可翻面。">
+      <div class="fc-inner">
+        <div class="fc-face fc-front">
+          <div class="fc-top"><span class="pill" id="fc-k1">第 1 堂課</span><span class="label fc-state" id="fc-state"></span></div>
+          <p class="fc-q" id="fc-q"></p>
+          <span class="label fc-hint">點一下翻面 ↻</span>
+        </div>
+        <div class="fc-face fc-back" aria-hidden="true">
+          <div class="fc-top"><span class="pill" id="fc-k2">第 1 堂課</span><span class="label">答案</span></div>
+          <p class="fc-a" id="fc-a"></p>
+          <p class="fc-x" id="fc-x"></p>
+        </div>
+      </div>
+    </button>
+  </div>
+
+  <div class="fc-controls" id="fc-controls">
+    <button type="button" class="btn" id="fc-prev">← 上一張</button>
+    <div class="fc-mark">
+      <button type="button" class="btn" id="fc-learning">還不熟</button>
+      <button type="button" class="btn good" id="fc-got">記住了 ✓</button>
+    </div>
+    <button type="button" class="btn" id="fc-next">下一張 →</button>
+  </div>
+  <div class="row">
+    <div class="row" style="justify-content:flex-start">
+      <button type="button" class="btn ghost sm" id="fc-shuffle">隨機排序</button>
+      <label class="toggle"><input type="checkbox" id="fc-only"> 只顯示還不熟的卡片</label>
+    </div>
+    <button type="button" class="btn ghost sm" id="fc-reset">重設標記</button>
+  </div>
+  <p class="label">鍵盤：← → 切換 · 空白鍵翻面</p>
+</div>
+</main>
+
+<!-- ================= QUIZ PAGE ================= -->
+<main class="page" id="page-quiz" aria-labelledby="h-quiz">
+<header class="top">
+  <span class="label">自我測驗 · 30 題</span>
+  <h1 id="h-quiz">練習測驗</h1>
+  <p class="lede">三十題選擇題，涵蓋每一堂課。每答完一題，你都會看到是否答對，以及一段根據課程內容的簡短說明。</p>
+  <div class="meta"><span class="label" id="qz-best"></span></div>
+</header>
+<div class="tool" id="qz" aria-live="polite"></div>
+</main>
+
+<!-- ================= JOURNAL PAGE ================= -->
+<main class="page" id="page-journal" aria-labelledby="h-journal">
+<header class="top">
+  <span class="label">每日練習 · 約 10 分鐘</span>
+  <h1 id="h-journal">我的 CBT 日記</h1>
+  <p class="lede">在這裡把課堂上的工具用在自己的生活中。想回答幾題都可以；寫下一句真心話也算數。目的不是強迫自己正向思考，而是覺察、善待自己，並做一件有幫助的小事。</p>
+  <div class="meta"><span class="label" id="j-date"></span><span class="label" id="j-status"></span></div>
+</header>
+
+<p class="note warn" id="j-nostore" hidden>這個瀏覽器不允許網頁儲存資料。關閉前請先按「匯出」，以免遺失你寫下的內容。</p>
+
+<form id="jf" class="j" autocomplete="off" onsubmit="return false">
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">1</span><div><h2>自我覺察</h2><p class="muted">先覺察，再試著改變。</p></div></div>
+  <div class="prompt">
+    <label class="q" for="j-mood">你現在整體的心情如何？</label>
+    <div class="range"><span class="label">很差</span><input type="range" min="0" max="10" value="5" id="j-mood" data-f="mood"><span class="label">很好</span><output class="rv" for="j-mood">5</output></div>
+  </div>
+  <div class="prompt">
+    <span class="q">現在有哪些感受？ <span class="muted">可複選。</span></span>
+    <div class="chips" data-g="emotions" id="j-emos"></div>
+    <p class="why" id="j-theme">在課堂上，每一種情緒都指向一個主題。選一個，看看它可能在告訴你什麼。</p>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-int">最強烈的感受有多強？（0 到 10）</label>
+    <div class="range"><span class="label">0</span><input type="range" min="0" max="10" value="5" id="j-int" data-f="intensity"><span class="label">10</span><output class="rv" for="j-int">5</output></div>
+    <div class="zone-note" id="j-zone"></div>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">2</span><div><h2>今日反思</h2><p class="muted">一個取自課程內容的問題。如果不適合今天，可以換一題。</p></div></div>
+  <div class="prompt">
+    <div class="pr-top"><span class="pill" id="j-rk">第 1 堂課</span><button type="button" class="btn ghost sm" id="j-shuffle">換一題 ↻</button></div>
+    <label class="q big" id="j-rq" for="j-reflect"></label>
+    <textarea id="j-reflect" data-f="reflection" rows="4" placeholder="想到什麼就寫什麼……"></textarea>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">3</span><div><h2>拆解一個想法</h2><p class="muted">迷你思考紀錄表（第 2、3 堂課）。感受強度大約在 2–8 之間時最適合。</p></div></div>
+  <div class="prompt">
+    <div class="field"><label for="j-sit">發生了什麼事？ <span class="muted">（誘發事件）</span></label><input type="text" id="j-sit" data-f="situation" placeholder="例如：我朋友一整天都沒回我訊息"></div>
+    <div class="field"><label for="j-th">你腦中閃過了什麼？</label><textarea id="j-th" data-f="thought" rows="2" placeholder="例如：「她在生我的氣。」"></textarea></div>
+    <div class="field"><span style="font-weight:600;font-size:.95rem">看起來像是思考扭曲嗎？</span><div class="chips" data-g="distortions" id="j-dist"></div></div>
+    <div class="grid g2">
+      <div class="field"><label for="j-for">支持這個想法的證據</label><textarea id="j-for" data-f="evFor" rows="3" placeholder="只寫事實。這在法庭上站得住腳嗎？"></textarea></div>
+      <div class="field"><label for="j-ag">反對這個想法的證據</label><textarea id="j-ag" data-f="evAgainst" rows="3" placeholder="它不成立的時候、其他的解釋、你忽略的優點"></textarea></div>
+    </div>
+    <div class="field"><label for="j-bal">一個更平衡的想法</label><span class="hint">試著用「而且」而不是「但是」把兩邊連起來。</span><textarea id="j-bal" data-f="balanced" rows="2" placeholder="例如：「她還沒回我，而且她平日本來就回得比較慢。」"></textarea></div>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">4</span><div><h2>善待自己</h2><p class="muted">認可、朋友測試，以及給自己的肯定（第 1、3、4 堂課）。</p></div></div>
+  <div class="prompt">
+    <span class="q">認可自己：「這可以理解」，不是「我同意」。</span>
+    <div class="inline-f"><label for="j-ga">考慮到</label><input type="text" id="j-ga" data-f="givenA" placeholder="這週有多忙"></div>
+    <div class="inline-f"><label for="j-gb">我會</label><input type="text" id="j-gb" data-f="givenB" placeholder="覺得很累、容易不耐煩"></div>
+    <p class="preview" id="j-vprev">考慮到……，我會……是可以理解的。</p>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-fr">如果一位好朋友今天處在你的處境，你會對他說什麼？</label>
+    <textarea id="j-fr" data-f="friend" rows="3"></textarea>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-str">說出你今天展現的一個真實優點，再小都可以。</label>
+    <input type="text" id="j-str" data-f="strength" placeholder="例如：我開口求助，而不是一個人硬撐">
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">5</span><div><h2>做一件事</h2><p class="muted">由外而內改變情緒（第 5 堂課）。從極小的一步開始。</p></div></div>
+  <div class="prompt">
+    <div class="grid g2">
+      <div class="field"><label for="j-pl">一件帶來<b>愉悅感</b>的事</label><input type="text" id="j-pl" data-f="pleasure" placeholder="外出吃晚餐、到戶外散步、玩桌遊"></div>
+      <div class="field"><label for="j-ma">一件帶來<b>成就感</b>的事</label><input type="text" id="j-ma" data-f="mastery" placeholder="整理一個層架、短時間運動、上一堂課"></div>
+    </div>
+    <div class="field"><label for="j-tiny">現在把它砍半，再砍半。最小的第一步是什麼？</label><input type="text" id="j-tiny" data-f="tiny" placeholder="例如：穿上跑鞋"></div>
+    <label class="q" for="j-imp">做這件事對你有多重要？（1 到 10）</label>
+    <div class="range"><span class="label">1</span><input type="range" min="1" max="10" value="6" id="j-imp" data-f="importance"><span class="label">10</span><output class="rv" for="j-imp">6</output></div>
+    <div class="field"><label for="j-why">為什麼是這個數字，而不是更低？</label><input type="text" id="j-why" data-f="whyNotLower" placeholder="你自己的理由就是最好的動力"></div>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-av">有沒有什麼事是你一直在逃避的？在那個階梯上，你可以嘗試的最低一階是什麼？</label>
+    <textarea id="j-av" data-f="approach" rows="2" placeholder="逃避會讓恐懼持續。慢慢接近，讓焦慮自然升起又落下。"></textarea>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">6</span><div><h2>結束這一天</h2><p class="muted">以你的覺察作結，而不是下評斷。</p></div></div>
+  <div class="prompt">
+    <div class="field"><label for="j-ok">今天一件還不錯的事</label><input type="text" id="j-ok" data-f="wentOk"></div>
+    <div class="field"><label for="j-le">你對自己的一個新認識</label><input type="text" id="j-le" data-f="learned"></div>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-after">寫完之後，你的心情如何？</label>
+    <div class="range"><span class="label">很差</span><input type="range" min="0" max="10" value="5" id="j-after" data-f="moodAfter"><span class="label">很好</span><output class="rv" for="j-after">5</output></div>
+  </div>
+</section>
+
+<div class="actions">
+  <span class="label" id="j-draft">草稿會自動儲存</span>
+  <div class="grp">
+    <button type="button" class="btn ghost" id="j-clear">清除</button>
+    <button type="button" class="btn primary" id="j-save">儲存日記</button>
+  </div>
+</div>
+</form>
+
+<section class="jsec" id="j-past">
+  <div class="jsec-head"><span class="num">✦</span><div><h2>過去的日記</h2><p class="muted">保存在這台裝置的這個瀏覽器中。匯出後可以在任何地方保留一份副本。</p></div></div>
+  <div class="row"><span class="label" id="j-n"></span><button type="button" class="btn sm" id="j-export">匯出為 Markdown ↓</button></div>
+  <div class="entries" id="j-list"></div>
+</section>
+
+<p class="note" style="margin-top:28px">這本日記是根據課程內容設計的自助練習，不是心理治療。如果你正感到困難，或曾覺得自己不安全，請尋求心理健康專業人員或當地緊急救助服務的協助。</p>
+</main>
+
+<footer>根據五堂 PSY96 課程錄影的自動逐字稿整理，因此部分人名和用語可能不完全正確。例子和數字依課堂內容呈現。本內容僅為學習輔助，不是心理治療或臨床建議。</footer>
+</div>
+<div class="idbar foot"><div class="in">非官方學生筆記：PSY96: Managing Emotions with Skill · 與史丹佛大學無關，亦未獲其背書</div></div>
+<script>
+window.PSY96_DATA={"locale": "zh-TW", "lec": {"l1": "第 1 堂課", "l2": "第 2 堂課", "l3": "第 3 堂課", "l4": "第 4 堂課", "l5": "第 5 堂課", "toolkit": "總結"}, "secname": {"l1": "第 1 堂課 · 什麼是治療", "l2": "第 2 堂課 · 覺察想法", "l3": "第 3 堂課 · 更新想法", "l4": "第 4 堂課 · 核心信念", "l5": "第 5 堂課 · 活化與暴露", "toolkit": "總結 · 工具箱"}, "titles": {"guide": "學習指南", "cards": "學習字卡", "quiz": "練習測驗", "journal": "我的 CBT 日記"}, "cards": [{"k": "l1", "q": "什麼是 CBT 三角？", "a": "想法、感受與行為，三者彼此雙向影響。", "x": "想要感覺不一樣，就改變你的想法，或改變你的行動。"}, {"k": "l1", "q": "CBT 的主要目標是什麼？", "a": "在短期內教你實用的技巧，讓你最終成為自己的治療師。"}, {"k": "l1", "q": "CBT 在哪些問題上證據最充分？", "a": "焦慮（廣泛性焦慮、社交焦慮、恐懼症）、憂鬱、強迫症和暴食症。", "x": "根據一篇回顧約 270 項統合分析的研究。"}, {"k": "l1", "q": "CBT 對哪些問題有幫助，但其他治療效果更好？", "a": "ADHD、精神病、物質使用和自傷。"}, {"k": "l1", "q": "任何治療成功與否的最大預測因子是什麼？", "a": "治療同盟：與治療師之間的信任、自在與連結。"}, {"k": "l1", "q": "治療中其他的「共同因素」有哪些？", "a": "正向期待、被關注（責任感、霍桑效應），以及為面對問題保留的時間。"}, {"k": "l1", "q": "什麼是蘇格拉底式提問？", "a": "用提問代替給建議，讓對方自己得出結論。", "x": "「這種事曾經發生在你或你認識的人身上嗎？」"}, {"k": "l1", "q": "什麼是因應卡？", "a": "一張把晤談中的領悟寫下來的卡片，需要時可以拿出來看。"}, {"k": "l1", "q": "OARS 中的 O、A、R 代表什麼？", "a": "開放式問題（Open-ended questions）、肯定（Affirmations）、反映（Reflections）。", "x": "先反映、再肯定、接著問開放式問題，通常效果不錯。"}, {"k": "l2", "q": "什麼是自動化思考？", "a": "不斷在運作、不是我們選擇的、可能彼此矛盾，而且常常被扭曲的想法。", "x": "就像哈哈鏡：以真實的東西為基礎，卻被拉長變形。"}, {"k": "l2", "q": "ABC 代表什麼？", "a": "誘發事件（Activating event）→ 信念（Belief）→ 結果（Consequences）。", "x": "帶動感受（C）的是詮釋（B），而不是事件本身（A）。"}, {"k": "l2", "q": "悲傷：主題是什麼？衝動是什麼？", "a": "失落，回顧過去。衝動是退縮。"}, {"k": "l2", "q": "焦慮：主題是什麼？衝動是什麼？", "a": "威脅，展望未來。衝動是逃避。"}, {"k": "l2", "q": "憤怒：主題是什麼？衝動是什麼？", "a": "不公平。衝動是發洩。", "x": "當憤怒出現時，問問自己什麼讓你覺得不公平。"}, {"k": "l2", "q": "內疚和羞愧有什麼不同？", "a": "內疚：「我做了壞事。」羞愧：「我是壞人。」", "x": "狗會內疚，但不會羞愧。"}, {"k": "l2", "q": "災難化／預言未來", "a": "認定未來一定會很糟。", "x": "「我就是知道我拿不到這份工作。」"}, {"k": "l2", "q": "讀心術", "a": "認定自己知道別人在想什麼。", "x": "「她沒有跟我揮手，她一定在生我的氣。」"}, {"k": "l2", "q": "全有全無思考", "a": "用非黑即白、絕對化的方式看事情。", "x": "「如果我拿到 B，我的法學院生涯就毀了。」"}, {"k": "l2", "q": "不公平的比較", "a": "只拿單一面向和別人比較。", "x": "「我永遠不會像那個喜劇演員那麼有魅力。」"}, {"k": "l2", "q": "情緒化推理", "a": "把感受當成證據。", "x": "留意「我覺得……」後面接著一整句話的情況。"}, {"k": "l2", "q": "思考紀錄表的七個欄位", "a": "情境 · 情緒 · 自動化思考 · 扭曲類型 · 支持的證據 · 反對的證據 · 平衡的想法。"}, {"k": "l2", "q": "如果一個痛苦的想法符合事實呢？", "a": "不要和它爭辯。解決問題、接納它，並計畫下一步。", "x": "檢驗方法：這在法庭上站得住腳嗎？"}, {"k": "l3", "q": "思考紀錄表的「工作區間」是什麼？", "a": "情緒強度大約在 2–8（滿分 10）：有足夠的情緒可以處理，又還能清楚思考。", "x": "到了 9–10，先讓身體平靜下來。"}, {"k": "l3", "q": "我們解釋事件的三個向度", "a": "內在 vs. 外在 · 穩定 vs. 不穩定 · 全面 vs. 特定。", "x": "「都是我的錯、永遠如此、處處如此」傷害最大。"}, {"k": "l3", "q": "餐廳托盤影片中關於焦慮的兩個教訓", "a": "我們高估了壞結果發生的可能性，也低估了自己的因應能力。"}, {"k": "l3", "q": "有助於找到更好想法的提問", "a": "你會對朋友說什麼？有沒有不成立的時候？你忽略了哪些優點？最壞、最好、最實際的結果？你能應付嗎？有沒有其他解釋？"}, {"k": "l3", "q": "為什麼要用「而且」代替「但是」？", "a": "「而且」讓兩件真實的事可以並存，你不必二選一。", "x": "「你很能幹，而且有些事你做起來很吃力。」"}, {"k": "l3", "q": "行為實驗的四個步驟", "a": "預測 → 實驗 → 結果 → 學習。"}, {"k": "l3", "q": "檢驗預測的兩種方法", "a": "實際去做，或詢問會誠實回答你的人。"}, {"k": "l4", "q": "認知的三個層次", "a": "自動化思考（容易察覺）→ 潛在假設（「如果……就……」）→ 核心信念（關於自己、他人與世界）。"}, {"k": "l4", "q": "舉一個潛在假設的例子。", "a": "「如果別人真的認識我，就不會喜歡我。」", "x": "其他例子：「如果我做不好，就不值得做。」"}, {"k": "l4", "q": "什麼是垂直向下技術？", "a": "反覆問「如果這是真的，代表什麼？」，順著一個想法往下找到底層的核心信念。", "x": "變換說法，才不會像在審問。"}, {"k": "l4", "q": "挑戰核心信念的三種方法", "a": "檢視用詞（替它們下定義）、使用極端對比，以及權衡兩邊的證據。"}, {"k": "l4", "q": "挑戰核心信念時，實際的目標是什麼？", "a": "讓它變弱，而不是消除它。Hannah 的信念從 100 分中的 90 分降到 40 分。"}, {"k": "l4", "q": "認可的句型", "a": "「考慮到＿＿，你會＿＿是可以理解的。」", "x": "可以從過去的經驗、脆弱之處或當下正在發生的事著手。"}, {"k": "l4", "q": "認可等於同意嗎？", "a": "不是。你認可的是原因，不是行為：「這可以理解」，不是「我同意」。", "x": "接納先於改變。"}, {"k": "l5", "q": "經驗法則：哪種行為工具對應哪種問題？", "a": "情緒低落 → 行為活化。焦慮 → 暴露。"}, {"k": "l5", "q": "什麼是行為活化？", "a": "照著沒有憂鬱時的樣子行動，安排能帶來愉悅感或成就感的活動。", "x": "由外而內改變情緒。"}, {"k": "l5", "q": "老鼠樂園實驗", "a": "關在空籠子裡的老鼠會喝摻了鴉片類藥物的水；住在豐富樂園裡的老鼠則大多不碰。", "x": "多做好的事，是少做不想要的事的最好方法。"}, {"k": "l5", "q": "怎麼「從極小的一步開始」？", "a": "把目標砍半，再砍半。", "x": "先換上運動服。先開一個名為「履歷」的空白文件。"}, {"k": "l5", "q": "動機量尺：一定要問什麼？", "a": "「為什麼是這個數字，而不是更低？」讓對方自己說出理由。"}, {"k": "l5", "q": "什麼是潛水反射？", "a": "與「戰或逃」相反的反應，能讓神經系統平靜下來。可以用冷水沖臉或手，或透過感官來觸發。"}, {"k": "l5", "q": "為什麼逃避會讓恐懼持續？", "a": "逃離能立即解脫，所以你永遠學不到：焦慮其實會自己升到高點再降下來。"}, {"k": "l5", "q": "什麼是習慣化？", "a": "重複暴露時，焦慮的高點一次比一次低。"}, {"k": "l5", "q": "什麼是系統減敏感法？", "a": "把害怕的情境排成階層，從最低的開始，準備好了才往上一階。"}, {"k": "l5", "q": "恐懼是如何習得的？", "a": "透過模仿（從別人身上學來）和聯結（小艾伯特實驗）。逃避則讓恐懼持續。"}], "quiz": [{"k": "l1", "q": "在 CBT 三角中，哪三者彼此影響？", "o": ["記憶、夢境和習慣", "想法、感受和行為", "基因、成長環境和選擇", "過去、現在和未來"], "a": 1, "e": "每一條連結都是雙向的，所以改變你的想法或行動，就能讓你感覺不一樣。"}, {"k": "l1", "q": "根據課堂上展示的調查，大約有多少比例的美國治療師使用 CBT？", "o": ["約 15%", "約 25%", "約 50%", "約 90%"], "a": 2, "e": "大約一半。整合取向約 25%，心理動力取向約 15%。"}, {"k": "l1", "q": "在所有類型的治療中，預測良好成效的最大單一因子是什麼？", "o": ["治療同盟（信任與連結）", "治療師的資歷年數", "所使用的治療類型", "參加晤談的次數"], "a": 0, "e": "關係越穩固，成效通常也越好。這是任何治療中都重要的「共同因素」之一。"}, {"k": "l1", "q": "CBT 在下列哪一項上證據最充分？", "o": ["ADHD", "精神病", "物質使用", "社交焦慮和憂鬱"], "a": 3, "e": "證據充分的有：焦慮（廣泛性、社交、恐懼症）、憂鬱、強迫症和暴食症。對 ADHD、精神病和物質使用，CBT 有幫助，但其他治療效果更好。"}, {"k": "l1", "q": "治療中的蘇格拉底式提問是什麼？", "o": ["給出明確的專業建議", "向個案保證一切都會沒事", "透過提問讓對方得出自己的結論", "解讀個案的童年經驗"], "a": 2, "e": "自己想通「我多半會沒事」，和被別人告知，效果非常不同。"}, {"k": "l5", "q": "老鼠樂園實驗說明了什麼？", "o": ["不論環境如何，老鼠都偏好摻了鴉片類藥物的水", "多做好的事，是少做不想要的事的最好方法", "孤立對行為沒有影響", "懲罰是改變習慣最快的方法"], "a": 1, "e": "空籠子裡的老鼠一直喝摻藥的水直到死亡；豐富樂園裡的老鼠則大多不碰。"}, {"k": "l1", "q": "下列哪一個是開放式問題？", "o": ["「你週末過得好嗎？」", "「今天工作很忙嗎？」", "「你覺得好一點了嗎？」", "「跟我聊聊你的週末。」"], "a": 3, "e": "開放式問題邀請對方說故事，而不是只回答是或否。它就是 OARS 中的 O。"}, {"k": "l2", "q": "在 ABC 模式中，B 代表什麼？", "o": ["信念（Belief）", "行為（Behavior）", "身體（Body）", "界線（Boundary）"], "a": 0, "e": "誘發事件 → 信念 → 結果。信念（你的詮釋）才是帶動感受的關鍵。"}, {"k": "l2", "q": "ABC 模式糾正了哪個常見的迷思？", "o": ["信念造成事件", "事件（A）直接造成結果（C）", "情緒永遠是理性的", "行為從不影響心情"], "a": 1, "e": "「我很痛苦，因為我離婚了」跳過了 B：也就是你對離婚代表什麼的信念。"}, {"k": "l5", "q": "你的情緒達到 10 分中的 9–10 分。課堂上建議先做什麼？", "o": ["填完一整張思考紀錄表", "和這個想法爭辯，直到它消失", "先讓身體平靜下來，運用感官或冷水", "硬撐下去，做出一個重大決定"], "a": 2, "e": "在這種強度下很難清楚思考。潛水反射（用冷水沖臉或手），或說出一樣你看到、聽到、摸到和聞到的東西，都能讓神經系統平靜下來。"}, {"k": "l2", "q": "焦慮與哪個主題有關？", "o": ["失落，回顧過去", "不公平", "比較", "威脅，展望未來"], "a": 3, "e": "悲傷回顧失落；焦慮展望威脅，它的衝動是逃避。"}, {"k": "l2", "q": "內疚和羞愧有什麼不同？", "o": ["內疚是「我做了壞事」；羞愧是「我是壞人」", "內疚是「我是壞人」；羞愧是「我做了壞事」", "兩者意思相同", "內疚與別人有關；羞愧與未來有關"], "a": 0, "e": "這就是為什麼狗會內疚，但不會羞愧。"}, {"k": "l2", "q": "「她沒有跟我揮手，她一定在生我的氣。」這是哪一種扭曲？", "o": ["全有全無思考", "讀心術", "不公平的比較", "情緒化推理"], "a": 1, "e": "讀心術是認定自己知道別人在想什麼。"}, {"k": "l2", "q": "「如果我拿到 B，我的法學院生涯就毀了。」這是哪一種扭曲？", "o": ["讀心術", "情緒化推理", "全有全無思考", "不公平的比較"], "a": 2, "e": "非黑即白、絕對化的說法：只要不完美，就等於徹底失敗。"}, {"k": "l2", "q": "「我覺得我會失敗，所以我一定會失敗。」這是哪一種扭曲？", "o": ["災難化", "讀心術", "不公平的比較", "情緒化推理"], "a": 3, "e": "留意「我覺得……」後面接著一整句話的情況。感受不是證據。"}, {"k": "l2", "q": "你檢驗了一個痛苦的想法，發現它符合事實。最好的下一步是什麼？", "o": ["更用力地挑戰它，直到它改變", "解決問題並接納它", "還是假裝它被扭曲了", "忽略它"], "a": 1, "e": "不要和事實爭辯。消化它，並計畫下一步。不是每個負面想法都是扭曲的。"}, {"k": "l2", "q": "自動化思考紀錄表的最後一欄要寫什麼？", "o": ["平衡的想法", "情境", "你的情緒", "扭曲類型的名稱"], "a": 0, "e": "情境 → 情緒 → 自動化思考 → 扭曲類型 → 支持的證據 → 反對的證據 → 平衡的想法。"}, {"k": "l3", "q": "情緒強度在什麼範圍時，思考紀錄表最有效？", "o": ["0–1，幾乎沒有感覺時", "大約 2–8，工作區間", "9–10，最高點時", "只在剛睡醒時"], "a": 1, "e": "太低就沒有東西可以處理；太高則需要先平靜下來。"}, {"k": "l3", "q": "分手後，哪一種解釋最容易帶來悲傷？", "o": ["「我們漸行漸遠，這很常見。」", "「這段感情沒有成功。」", "「我沒辦法維持感情。我永遠都會是一個人。這種事總是發生在我身上。」", "「我不知道未來會怎樣。」"], "a": 2, "e": "內在、穩定、全面的解釋（都是我的錯、永遠如此、處處如此）傷害最大。"}, {"k": "l3", "q": "餐廳托盤影片顯示，焦慮會讓我們……", "o": ["低估壞結果發生的可能性", "高估壞結果發生的可能性，並低估自己的因應能力", "高估自己的因應能力", "準確地記住過去的事件"], "a": 1, "e": "Gina 猜自己有 10% 的機率打翻托盤；實際比較接近萬分之一。而且就算真的發生，她也能應付。"}, {"k": "l3", "q": "為什麼要用「而且」代替「但是」？", "o": ["聽起來比較正式", "它會抵銷前半句", "它讓兩件真實的事可以並存", "它讓每句話都變得正面"], "a": 2, "e": "「你很能幹，而且有些事你做起來很吃力。」你不必二選一。"}, {"k": "l3", "q": "行為實驗的順序是什麼？", "o": ["實驗 → 預測 → 學習 → 結果", "結果 → 預測 → 實驗 → 學習", "學習 → 實驗 → 結果 → 預測", "預測 → 實驗 → 結果 → 學習"], "a": 3, "e": "寫下讓你害怕的預測，去檢驗它，記錄發生了什麼，再寫下你學到了什麼。"}, {"k": "l3", "q": "課堂上教的兩種檢驗預測的方法是什麼？", "o": ["實際去做，或詢問會誠實回答你的人", "忽略它，或轉移注意力", "問治療師，或上網查資料", "寫下來，或大聲說出來"], "a": 0, "e": "全班曾互相詢問優格可以放在冰箱外多久，答案從 30 分鐘到 24 小時都有。"}, {"k": "l4", "q": "哪一個是最深層、最難察覺的認知層次？", "o": ["自動化思考", "潛在假設", "因應卡", "核心信念"], "a": 3, "e": "關於自己、他人與世界的核心信念，驅動著上層的假設與想法。"}, {"k": "l4", "q": "潛在假設通常是什麼形式？", "o": ["一個單字", "「如果……就……」的規則", "一個問題", "一段回憶"], "a": 1, "e": "例如：「如果別人真的認識我，就不會喜歡我。」"}, {"k": "l4", "q": "垂直向下技術的核心提問是哪一個？", "o": ["「如果這是真的，代表什麼？」", "「反對這個想法的證據是什麼？」", "「這個情緒有多強，0–10？」", "「你會對朋友說什麼？」"], "a": 0, "e": "反覆提問（並變換說法），就能順著一個想法找到底層的核心信念。"}, {"k": "l4", "q": "在 Hannah 的晤談中，她的信念從 100 分中的 90 分降到 40 分。這說明了什麼？", "o": ["這個技術失敗了，因為沒有降到 0", "實際的目標是讓核心信念變弱，而不是消除它", "核心信念可以在一次晤談中被移除", "證據不會影響信念"], "a": 1, "e": "核心信念是多年累積學來的，要拋開它們也需要時間。"}, {"k": "l4", "q": "認可是什麼意思？", "o": ["同意對方做的每一件事", "說「別擔心，你一定會表現很好！」", "盡快解決問題", "傳達「考慮到……，你會……是可以理解的」"], "a": 3, "e": "你認可的是原因，不是行為。接納先於改變。"}, {"k": "l5", "q": "選擇行為工具的經驗法則是什麼？", "o": ["情緒低落 → 暴露；焦慮 → 行為活化", "情緒低落 → 行為活化；焦慮 → 暴露", "所有問題都用暴露", "只有在用過認知工具之後才用行為工具"], "a": 1, "e": "在實際治療中，行為工具通常最先使用，因為它們最快帶來緩解。"}, {"k": "l5", "q": "重複暴露時，焦慮的高點一次比一次低。這叫做什麼？", "o": ["災難化", "模仿", "習慣化", "行為活化"], "a": 2, "e": "逃離能立即解脫，卻讓恐懼持續；留下來則讓焦慮升到高點後自然下降。"}], "emo": [{"id": "Sadness", "label": "悲傷", "theme": "悲傷指向<b>失落</b>，它回顧過去。它的衝動是退縮，所以留意自己是否正在疏遠別人或取消計畫。"}, {"id": "Anxiety", "label": "焦慮", "theme": "焦慮指向<b>威脅</b>，它展望未來。它的衝動是逃避。這裡有沒有一個你可以去檢驗的預測？"}, {"id": "Anger", "label": "憤怒", "theme": "憤怒指向<b>不公平</b>。問問自己：現在是什麼讓你覺得不公平？"}, {"id": "Guilt", "label": "內疚", "theme": "內疚說的是「我<b>做了</b>壞事」。它與行為有關，也就是說，它是可以彌補的。"}, {"id": "Shame", "label": "羞愧", "theme": "羞愧說的是「我<b>是</b>壞人」。這是核心信念等級的說法。它在法庭上站得住腳嗎？"}, {"id": "Embarrassment", "label": "尷尬", "theme": "尷尬與<b>別人會知道</b>有關。想想餐廳托盤的例子：大家通常很快就繼續吃午餐了。"}, {"id": "Frustration", "label": "挫折", "theme": "挫折代表覺得<b>受阻</b>。是什麼擋住了你？繞過它最小的下一步是什麼？"}, {"id": "Envy", "label": "嫉妒", "theme": "嫉妒來自<b>比較</b>。你是不是只拿單一面向在和別人比？"}, {"id": "Regret", "label": "後悔", "theme": "後悔指向一個感覺錯了的<b>決定</b>。如果朋友做了同樣的決定，你會對他說什麼？"}, {"id": "Calm", "label": "平靜", "theme": "值得留意的好感受。今天是什麼讓它出現的？也許值得再做一次。"}, {"id": "Content", "label": "滿足", "theme": "值得留意的好感受。今天是什麼讓它出現的？也許值得再做一次。"}, {"id": "Hopeful", "label": "充滿希望", "theme": "希望也是展望未來，但方式比較溫柔。你在期待什麼？"}, {"id": "Grateful", "label": "感恩", "theme": "值得細細品味。你感謝誰或什麼？可以讓對方知道嗎？"}], "dist": [{"id": "Catastrophizing / fortune telling", "label": "災難化／預言未來"}, {"id": "Mind reading", "label": "讀心術"}, {"id": "All-or-nothing", "label": "全有全無"}, {"id": "Unfair comparison", "label": "不公平的比較"}, {"id": "Emotional reasoning", "label": "情緒化推理"}, {"id": "None: it fits the facts", "label": "沒有：它符合事實"}], "reflect": [{"k": "l1", "q": "這週，三角中的哪一角對你來說最容易改變：一個想法，還是你做的某件事？"}, {"k": "l1", "q": "你生活中誰是好的傾聽者？他們做了什麼，讓你覺得自己被聽見了？"}, {"k": "l2", "q": "從今天挑一種感受。它指向哪個主題：失落、威脅、不公平、受阻，還是其他？"}, {"k": "l2", "q": "你上一次生氣是什麼時候？哪件事讓你覺得不公平？"}, {"k": "l2", "q": "想想今天有哪個時刻，你的詮釋影響了你的感受。你還可以怎麼解讀那個情況？"}, {"k": "l3", "q": "描述一次最近的挫折。現在重新寫下你的解釋，讓它更具體、不那麼永久。"}, {"k": "l3", "q": "寫下兩件關於你自己的真實的事，用「而且」連起來。"}, {"k": "l3", "q": "你是否正在對未來做某個預測，而且可以透過實際嘗試或詢問誠實的人來檢驗它？"}, {"k": "l3", "q": "一位善良又誠實的朋友，會怎麼評價你今天處理事情的方式？"}, {"k": "l4", "q": "用「如果……就……」的形式寫下一條你奉行的規則。你是從哪裡學來的？它現在還對你有幫助嗎？"}, {"k": "l4", "q": "有哪個關於自己的信念是你想鬆動的？你有多相信它（0–100）？寫下一個反對它的證據。"}, {"k": "l4", "q": "考慮到你最近生活中發生的一切，你這陣子的感受有哪些地方是可以理解的？"}, {"k": "l5", "q": "哪些活動總能帶給你愉悅感？哪些能帶給你成就感？這週什麼時候可以安排其中一項？"}, {"k": "l5", "q": "想一件你最近逃避的事。逃避保護你免於什麼？又讓你付出了什麼代價？"}, {"k": "l5", "q": "回想一個你已經克服的恐懼。是什麼幫助你走過來的？"}, {"k": "l5", "q": "你今天做了哪些事，是「如何讓自己很悲慘」影片會不贊同的？"}], "fields": [["reflection", "反思"], ["situation", "發生了什麼事"], ["thought", "自動化思考"], ["evFor", "支持的證據"], ["evAgainst", "反對的證據"], ["balanced", "平衡的想法"], ["validation", "認可自己"], ["friend", "我會對朋友說的話"], ["strength", "我展現的優點"], ["pleasure", "愉悅活動"], ["mastery", "成就活動"], ["tiny", "最小的第一步"], ["whyNotLower", "為什麼重要程度不是更低"], ["approach", "我一直在逃避的事"], ["wentOk", "一件還不錯的事"], ["learned", "我對自己的新認識"]], "ui": {"toFlash": "用學習字卡測試自己", "cardsMarked": "{t} 張中已標記 {n} 張「記住了」", "noCards": "沒有剩下的卡片", "cardPos": "第 {i} 張，共 {t} 張", "gotIt": "✓ 記住了", "best": "目前最高分：{n} / {t}", "qPos": "第 {i} 題，共 {t} 題", "score": "得分 {c} / {n}", "choices": "答案選項", "seeResults": "查看結果", "nextQ": "下一題", "back": "← 上一題", "correctMk": "正確", "yourPick": "你的選擇", "correct": "答對了。", "notQuite": "不太對。答案是 {L}。", "msg27": "太棒了，你已經掌握了這套工具。", "msg21": "表現很好。看看下面答錯的題目吧。", "msg15": "不錯的開始。學習字卡能幫你補足不熟的地方。", "msg0": "建議再把學習指南看一遍，然後再試一次。你會看到進步的。", "yourResult": "你的結果", "retake": "重新測驗", "shuffleRetake": "打亂順序再測一次", "practiceCards": "用學習字卡練習", "byLecture": "各堂課得分", "toReview": "要複習的題目（{n}）", "yourAnswer": "你的答案：", "correctAns": "正確答案：", "perfect": "滿分！沒有需要複習的題目。", "themeDefault": "在課堂上，每一種情緒都指向一個主題。選一個，看看它可能在告訴你什麼。", "zoneHigh": "<b>這非常強烈。寫之前先停一下。</b>先讓身體平靜下來：說出一樣你看到、聽到、摸到和聞到的東西，或用冷水沖手或臉（潛水反射）。等強度降到 9 以下，再回來處理這個想法。", "zoneWork": "<b>你正處於工作區間（大約 2–8）。</b>這時思考工具最有效，所以可以在第 3 部分花幾分鐘。", "zoneLow": "<b>現在情緒強度很低。</b>很適合做第 5 部分：安排一件愉快或有成就感的事，或記下進展順利的地方。", "draftSaved": "草稿已於 {t} 儲存", "draftsAuto": "草稿會自動儲存", "draftRestored": "已還原草稿", "from": "出自{lec}", "validation": "考慮到{a}，我會{b}是可以理解的。", "clear": "清除", "clearArm": "再點一次以清除", "cleared": "已清除表單", "writeFirst": "先寫點東西吧，一句話也可以", "cantSave": "無法在這個瀏覽器中儲存。請使用匯出。", "saved": "日記已儲存 ✓", "entry1": "{n} 篇日記", "entryN": "{n} 篇日記", "noEntries": "還沒有日記。儲存之後就會出現在這裡。", "feelings": "感受", "distSpotted": "發現的扭曲", "moodLine": "心情 {a} → {b} · 強度 {c}", "del": "刪除日記", "delArm": "再點一次以刪除", "deleted": "日記已刪除", "nothingExport": "目前沒有可匯出的內容", "exported": "已匯出 psy96-journal.md", "mdTitle": "# 我的 CBT 日記（PSY96）", "mdMood": "心情", "mdIntensity": "最強烈感受的強度", "listSep": "、"}};
+(function(){
+'use strict';
+const D=window.PSY96_DATA, U=D.ui;
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=(s,v)=>String(s).replace(/\{(\w+)\}/g,(m,k)=>v[k]!=null?v[k]:m);
+let storageOK=true;
+try{localStorage.setItem('psy96.t','1');localStorage.removeItem('psy96.t')}catch(e){storageOK=false}
+const store={
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){storageOK=false;return false}},
+  del(k){try{localStorage.removeItem(k)}catch(e){}}
+};
+const LOCALE=D.locale;
+const LEC=D.lec;
+const PILL={l1:'pill t',l2:'pill',l3:'pill',l4:'pill',l5:'pill b',toolkit:'pill t'};
+
+/* ============ LANGUAGE LINKS keep the current hash ============ */
+$$('.langs a').forEach(a=>a.addEventListener('click',e=>{if(location.hash){e.preventDefault();location.href=a.getAttribute('href')+location.hash}}));
+
+/* ============ ROUTER ============ */
+const PAGES=['guide','cards','quiz','journal'];
+const SECS=['l1','l2','l3','l4','l5','toolkit'];
+const SECNAME=D.secname, TITLES=D.titles;
+let curPage=null,curSec=null;
+function showSec(s){
+  if(s===curSec)return false;curSec=s;
+  SECS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('on',id===s)});
+  $$('#page-guide .road').forEach(a=>{if(a.getAttribute('href')==='#guide/'+s)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+  const i=SECS.indexOf(s),prev=$('#pg-prev'),next=$('#pg-next');
+  if(i>0){prev.href='#guide/'+SECS[i-1];prev.querySelector('span').textContent=SECNAME[SECS[i-1]];prev.style.visibility=''}
+  else prev.style.visibility='hidden';
+  if(i<SECS.length-1){next.href='#guide/'+SECS[i+1];next.querySelector('span').textContent=SECNAME[SECS[i+1]]}
+  else{next.href='#cards';next.querySelector('span').textContent=U.toFlash}
+  return true;
+}
+function route(){
+  let parts=(location.hash.slice(1)||'guide').split('/'),p=parts[0],sub=parts[1];
+  if(SECS.includes(p)){sub=p;p='guide'}
+  if(!PAGES.includes(p))p='guide';
+  const changed=p!==curPage;curPage=p;
+  $$('.page').forEach(el=>el.classList.toggle('on',el.id==='page-'+p));
+  $$('.tab').forEach(t=>{if(t.dataset.p===p)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current')});
+  document.title=TITLES[p]+' · PSY96';
+  if(p==='guide'){
+    const s=SECS.includes(sub)?sub:'l1';
+    const secChanged=showSec(s);
+    if(changed||!sub)window.scrollTo(0,0);
+    else if(secChanged)document.getElementById(s).scrollIntoView({block:'start'});
+  }else if(changed)window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+/* ============ FLASH CARDS ============ */
+const CARDS=D.cards.map((c,i)=>Object.assign({},c,{id:i}));
+let fcFilter='all',fcOnly=false,fcDeck=[],fcI=0;
+let known=new Set(store.get('psy96.cards.known',[]));
+const fcEl=$('#fc');
+function saveKnown(){store.set('psy96.cards.known',[...known])}
+function fcSet(){return CARDS.filter(c=>fcFilter==='all'||c.k===fcFilter)}
+function fcBuild(){fcDeck=fcSet().filter(c=>!fcOnly||!known.has(c.id));fcI=0;fcRender()}
+function unflip(){fcEl.classList.add('instant');fcEl.classList.remove('flipped');void fcEl.offsetWidth;fcEl.classList.remove('instant');$('.fc-back').setAttribute('aria-hidden','true')}
+function fcRender(){
+  unflip();
+  const set=fcSet(),kn=set.filter(c=>known.has(c.id)).length,total=fcDeck.length;
+  $('#fc-known').textContent=fmt(U.cardsMarked,{n:kn,t:set.length});
+  const empty=!total;
+  $('#fc-empty').hidden=!empty;$('#fc-stage').hidden=empty;$('#fc-controls').hidden=empty;
+  if(empty){$('#fc-pos').textContent=U.noCards;$('#fc-bar').style.width='100%';return}
+  if(fcI>=total)fcI=0;
+  const c=fcDeck[fcI];
+  $('#fc-pos').textContent=fmt(U.cardPos,{i:fcI+1,t:total});
+  $('#fc-bar').style.width=((fcI+1)/total*100)+'%';
+  ['#fc-k1','#fc-k2'].forEach(s=>{const p=$(s);p.className=PILL[c.k];p.textContent=LEC[c.k]});
+  $('#fc-q').textContent=c.q;$('#fc-a').textContent=c.a;$('#fc-x').textContent=c.x||'';
+  $('#fc-state').textContent=known.has(c.id)?U.gotIt:'';
+}
+function fcFlip(){fcEl.classList.toggle('flipped');$('.fc-back').setAttribute('aria-hidden',fcEl.classList.contains('flipped')?'false':'true')}
+function fcMove(d){if(!fcDeck.length)return;fcI=(fcI+d+fcDeck.length)%fcDeck.length;fcRender()}
+function fcMark(got){
+  if(!fcDeck.length)return;const c=fcDeck[fcI];
+  if(got)known.add(c.id);else known.delete(c.id);saveKnown();
+  if(fcOnly&&got){fcDeck.splice(fcI,1);if(fcI>=fcDeck.length)fcI=0;fcRender()}else fcMove(1);
+}
+fcEl.addEventListener('click',fcFlip);
+$('#fc-prev').onclick=()=>fcMove(-1);$('#fc-next').onclick=()=>fcMove(1);
+$('#fc-got').onclick=()=>fcMark(true);$('#fc-learning').onclick=()=>fcMark(false);
+$('#fc-shuffle').onclick=()=>{for(let i=fcDeck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fcDeck[i],fcDeck[j]]=[fcDeck[j],fcDeck[i]]}fcI=0;fcRender()};
+$('#fc-only').onchange=e=>{fcOnly=e.target.checked;fcBuild()};
+const resetMarks=()=>{known.clear();saveKnown();fcBuild()};
+$('#fc-reset').onclick=resetMarks;$('#fc-empty-reset').onclick=resetMarks;
+$('#fc-filter').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;fcFilter=b.dataset.k;$$('#fc-filter .chip').forEach(c=>c.setAttribute('aria-pressed',c===b));fcBuild()});
+$('#fc-count').textContent=CARDS.length;
+
+/* ============ QUIZ ============ */
+const QUIZ=D.quiz;
+const L='ABCD';
+let qz={order:QUIZ.map((_,i)=>i),pos:0,ans:{}};
+const qzEl=$('#qz');
+function qzBest(){const b=store.get('psy96.quiz.best',null);$('#qz-best').textContent=b==null?'':fmt(U.best,{n:b,t:QUIZ.length})}
+function qzCorrect(){return Object.keys(qz.ans).filter(i=>qz.ans[i]===QUIZ[i].a).length}
+function qzRender(){
+  if(qz.pos>=qz.order.length)return qzResults();
+  const qi=qz.order[qz.pos],q=QUIZ[qi],n=QUIZ.length,answered=Object.keys(qz.ans).length,last=qz.pos===n-1;
+  qzEl.innerHTML=
+   '<div class="row"><span class="label">'+esc(fmt(U.qPos,{i:qz.pos+1,t:n}))+'</span><span class="label" id="qz-score">'+esc(fmt(U.score,{c:qzCorrect(),n:answered}))+'</span></div>'+
+   '<div class="prog" aria-hidden="true"><i style="width:'+(qz.pos/n*100)+'%"></i></div>'+
+   '<div class="q-card"><div><span class="'+PILL[q.k]+'">'+esc(LEC[q.k])+'</span></div><p class="q-text">'+esc(q.q)+'</p>'+
+   '<div class="opts" role="group" aria-label="'+esc(U.choices)+'">'+q.o.map((o,j)=>'<button type="button" class="opt" data-j="'+j+'"><span class="k">'+L[j]+'</span><span>'+esc(o)+'</span><span class="mk"></span></button>').join('')+'</div>'+
+   '<div class="explain" hidden></div></div>'+
+   '<div class="qz-nav"><button type="button" class="btn" id="qz-back"'+(qz.pos===0?' disabled':'')+'>'+esc(U.back)+'</button>'+
+   '<button type="button" class="btn primary" id="qz-next" disabled>'+esc(last?U.seeResults:U.nextQ)+' →</button></div>';
+  $$('.opt',qzEl).forEach(b=>b.onclick=()=>qzPick(+b.dataset.j));
+  $('#qz-back').onclick=()=>{qz.pos--;qzRender()};
+  $('#qz-next').onclick=()=>{qz.pos++;qzRender();window.scrollTo({top:qzEl.offsetTop-90})};
+  if(qz.ans[qi]!==undefined)qzReveal(qi);
+}
+function qzPick(j){const qi=qz.order[qz.pos];if(qz.ans[qi]!==undefined)return;qz.ans[qi]=j;qzReveal(qi);
+  const r=$('#qz-score');if(r)r.textContent=fmt(U.score,{c:qzCorrect(),n:Object.keys(qz.ans).length});$('#qz-next').focus()}
+function qzReveal(qi){
+  const q=QUIZ[qi],j=qz.ans[qi],ok=j===q.a;
+  $$('.opt',qzEl).forEach(b=>{const k=+b.dataset.j;b.disabled=true;
+    if(k===q.a){b.classList.add('right');b.querySelector('.mk').textContent=U.correctMk}
+    else if(k===j){b.classList.add('wrong');b.querySelector('.mk').textContent=U.yourPick}
+    else b.classList.add('dim')});
+  const ex=$('.explain',qzEl);ex.hidden=false;
+  ex.innerHTML='<b class="'+(ok?'ans-right':'ans-wrong')+'">'+esc(ok?U.correct:fmt(U.notQuite,{L:L[q.a]}))+'</b>'+esc(q.e);
+  $('#qz-next').disabled=false;
+}
+function qzResults(){
+  const n=QUIZ.length,c=qzCorrect(),pct=Math.round(c/n*100);
+  const best=store.get('psy96.quiz.best',null);if(best==null||c>best)store.set('psy96.quiz.best',c);qzBest();
+  const msg=c>=27?U.msg27:c>=21?U.msg21:c>=15?U.msg15:U.msg0;
+  const bars=['l1','l2','l3','l4','l5'].map(k=>{const qs=QUIZ.map((q,i)=>[q,i]).filter(([q])=>q.k===k);const ok=qs.filter(([q,i])=>qz.ans[i]===q.a).length;
+    return '<div class="lec-bar"><a href="#guide/'+k+'">'+esc(LEC[k])+'</a><div class="prog"><i style="width:'+(ok/qs.length*100)+'%"></i></div><span class="n">'+ok+'/'+qs.length+'</span></div>'}).join('');
+  const missed=QUIZ.map((q,i)=>[q,i]).filter(([q,i])=>qz.ans[i]!==q.a);
+  qzEl.innerHTML=
+   '<div class="q-card"><span class="label">'+esc(U.yourResult)+'</span><div class="score-big">'+c+'<small> / '+n+' · '+pct+'%</small></div><p>'+esc(msg)+'</p>'+
+   '<div class="row" style="justify-content:flex-start"><button type="button" class="btn primary" id="qz-again">'+esc(U.retake)+'</button><button type="button" class="btn" id="qz-shuf">'+esc(U.shuffleRetake)+'</button><a class="btn ghost" href="#cards">'+esc(U.practiceCards)+'</a></div></div>'+
+   '<h3 style="margin-top:12px">'+esc(U.byLecture)+'</h3><div class="lec-bars">'+bars+'</div>'+
+   (missed.length?'<h3 style="margin-top:12px">'+esc(fmt(U.toReview,{n:missed.length}))+'</h3><div class="missed">'+missed.map(([q,i])=>
+     '<div class="card"><span class="label">'+esc(LEC[q.k])+'</span><p><b>'+esc(q.q)+'</b></p>'+
+     '<p class="ans-wrong">'+esc(U.yourAnswer)+esc(q.o[qz.ans[i]])+'</p><p class="ans-right">'+esc(U.correctAns)+esc(q.o[q.a])+'</p><p class="muted">'+esc(q.e)+'</p></div>').join('')+'</div>'
+     :'<p class="note">'+esc(U.perfect)+'</p>');
+  const reset=shuffle=>{const o=QUIZ.map((_,i)=>i);if(shuffle)for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]]}qz={order:o,pos:0,ans:{}};qzRender();window.scrollTo(0,0)};
+  $('#qz-again').onclick=()=>reset(false);$('#qz-shuf').onclick=()=>reset(true);
+}
+
+/* ============ KEYBOARD ============ */
+document.addEventListener('keydown',e=>{
+  const t=e.target,typing=/INPUT|TEXTAREA|SELECT/.test(t.tagName);
+  if(typing||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(curPage==='cards'){
+    if(e.key==='ArrowRight'){fcMove(1);e.preventDefault()}
+    else if(e.key==='ArrowLeft'){fcMove(-1);e.preventDefault()}
+    else if(e.key===' '&&t.tagName!=='BUTTON'){fcFlip();e.preventDefault()}
+  }else if(curPage==='quiz'){
+    const m={a:0,b:1,c:2,d:3,'1':0,'2':1,'3':2,'4':3}[e.key.toLowerCase()];
+    if(m!==undefined&&$('.opt',qzEl)){qzPick(m)}
+  }
+});
+
+/* ============ JOURNAL ============ */
+/* Feelings and distortions are stored by their English id, so entries read the same in every language. */
+const EMO=D.emo, EMOL={}, THEME={};EMO.forEach(e=>{EMOL[e.id]=e.label;THEME[e.id]=e.theme});
+const DIST=D.dist, DISTL={};DIST.forEach(d=>DISTL[d.id]=d.label);
+const REFLECT=D.reflect;
+const FIELDS=D.fields;
+const TEXTKEYS=['reflection','situation','thought','evFor','evAgainst','balanced','givenA','givenB','friend','strength','pleasure','mastery','tiny','whyNotLower','approach','wentOk','learned'];
+const jf=$('#jf');
+$('#j-emos').innerHTML=EMO.map(e=>'<button type="button" class="chip" data-v="'+esc(e.id)+'" aria-pressed="false">'+esc(e.label)+'</button>').join('');
+$('#j-dist').innerHTML=DIST.map(d=>'<button type="button" class="chip" data-v="'+esc(d.id)+'" aria-pressed="false">'+esc(d.label)+'</button>').join('');
+const today=new Date();
+$('#j-date').textContent=today.toLocaleDateString(LOCALE,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+const dayN=Math.floor((today-new Date(today.getFullYear(),0,0))/864e5);
+let rIdx=dayN%REFLECT.length,lastEmo=null;
+function setReflect(i){rIdx=(i+REFLECT.length)%REFLECT.length;const r=REFLECT[rIdx];$('#j-rq').textContent=r.q;const p=$('#j-rk');p.className=PILL[r.k];p.textContent=fmt(U.from,{lec:LEC[r.k]})}
+function validationText(a,b){return fmt(U.validation,{a:a||'…',b:b||'…'})}
+function collect(){const d={};$$('[data-f]',jf).forEach(el=>d[el.dataset.f]=el.value);
+  $$('.chips[data-g]',jf).forEach(g=>d[g.dataset.g]=$$('.chip[aria-pressed="true"]',g).map(c=>c.dataset.v));
+  d.rIdx=rIdx;d.reflectionQ=REFLECT[rIdx].q;
+  if(d.givenA.trim()||d.givenB.trim())d.validation=validationText(d.givenA.trim(),d.givenB.trim());
+  return d}
+function fill(d){$$('[data-f]',jf).forEach(el=>{if(d[el.dataset.f]!=null)el.value=d[el.dataset.f]});
+  $$('.chips[data-g]',jf).forEach(g=>{const v=d[g.dataset.g]||[];$$('.chip',g).forEach(c=>c.setAttribute('aria-pressed',v.includes(c.dataset.v)))});
+  if(typeof d.rIdx==='number')setReflect(d.rIdx);syncUI()}
+function hasContent(d){return TEXTKEYS.some(k=>d[k]&&d[k].trim())||(d.emotions&&d.emotions.length)||(d.distortions&&d.distortions.length)}
+function syncUI(){
+  $$('input[type="range"]',jf).forEach(r=>{const o=jf.querySelector('output[for="'+r.id+'"]');if(o)o.textContent=r.value});
+  const v=+$('#j-int').value,z=$('#j-zone');
+  if(v>=9){z.className='zone-note high';z.innerHTML=U.zoneHigh}
+  else if(v>=2){z.className='zone-note work';z.innerHTML=U.zoneWork}
+  else{z.className='zone-note';z.innerHTML=U.zoneLow}
+  const sel=$$('#j-emos .chip[aria-pressed="true"]').map(c=>c.dataset.v);
+  const e=sel.includes(lastEmo)?lastEmo:sel[sel.length-1];
+  $('#j-theme').innerHTML=e?THEME[e]:U.themeDefault;
+  const a=$('#j-ga').value.trim(),b=$('#j-gb').value.trim(),p=$('#j-vprev');
+  p.textContent=validationText(a,b);p.classList.toggle('has',!!(a&&b));
+}
+let draftT;
+const timeFmt=d=>d.toLocaleTimeString(LOCALE,{hour:'numeric',minute:'2-digit'});
+function status(t){$('#j-status').textContent=t}
+function saveDraft(){clearTimeout(draftT);draftT=setTimeout(()=>{const d=collect();if(hasContent(d)){if(store.set('psy96.journal.draft',d))$('#j-draft').textContent=fmt(U.draftSaved,{t:timeFmt(new Date())})}else store.del('psy96.journal.draft')},400)}
+jf.addEventListener('input',()=>{syncUI();saveDraft()});
+jf.addEventListener('click',e=>{const c=e.target.closest('.chips[data-g] .chip');if(!c)return;const on=c.getAttribute('aria-pressed')!=='true';c.setAttribute('aria-pressed',on);if(c.closest('#j-emos')&&on)lastEmo=c.dataset.v;syncUI();saveDraft()});
+$('#j-shuffle').onclick=()=>{setReflect(rIdx+1);saveDraft()};
+function clearForm(){jf.reset();$$('.chip',jf).forEach(c=>c.setAttribute('aria-pressed','false'));lastEmo=null;store.del('psy96.journal.draft');setReflect(dayN);syncUI();$('#j-draft').textContent=U.draftsAuto}
+function twoClick(btn,label,armedLabel,fn){let armed=false,t;btn.addEventListener('click',()=>{if(!armed){armed=true;btn.classList.add('armed');btn.textContent=armedLabel;t=setTimeout(()=>{armed=false;btn.classList.remove('armed');btn.textContent=label},3000)}else{clearTimeout(t);armed=false;btn.classList.remove('armed');btn.textContent=label;fn()}})}
+twoClick($('#j-clear'),U.clear,U.clearArm,()=>{clearForm();status(U.cleared)});
+let jMem=null;
+function entries(){return jMem||store.get('psy96.journal.entries',[])}
+$('#j-save').onclick=()=>{const d=collect();if(!hasContent(d)){status(U.writeFirst);return}
+  const list=entries();list.unshift({id:Date.now(),date:new Date().toISOString(),d});
+  if(!store.set('psy96.journal.entries',list)){$('#j-nostore').hidden=false;status(U.cantSave);jMem=list;jRender();return}
+  clearForm();jRender();status(U.saved);$('#j-past').scrollIntoView({behavior:'smooth',block:'start'})};
+function fmtDate(iso){const d=new Date(iso);return d.toLocaleDateString(LOCALE,{weekday:'short',month:'short',day:'numeric',year:'numeric'})+' · '+timeFmt(d)}
+const emoNames=v=>(v||[]).map(x=>EMOL[x]||x).join(U.listSep);
+const distNames=v=>(v||[]).map(x=>DISTL[x]||x).join(U.listSep);
+function jRender(){
+  const list=entries(),el=$('#j-list');
+  $('#j-n').textContent=list.length?fmt(list.length===1?U.entry1:U.entryN,{n:list.length}):'';
+  if(!list.length){el.innerHTML='<p class="note">'+esc(U.noEntries)+'</p>';return}
+  el.innerHTML=list.map(e=>{const d=e.d;
+    const rows=FIELDS.filter(([k])=>d[k]&&String(d[k]).trim()).map(([k,l])=>'<div><dt class="label">'+esc(l)+'</dt><dd>'+(k==='reflection'?'<span class="rq">'+esc(d.reflectionQ)+'</span>':'')+esc(d[k])+'</dd></div>').join('');
+    const tags=[d.emotions&&d.emotions.length?'<div><dt class="label">'+esc(U.feelings)+'</dt><dd>'+esc(emoNames(d.emotions))+'</dd></div>':'',d.distortions&&d.distortions.length?'<div><dt class="label">'+esc(U.distSpotted)+'</dt><dd>'+esc(distNames(d.distortions))+'</dd></div>':''].join('');
+    return '<details class="entry"><summary><b>'+esc(fmtDate(e.date))+'</b><span class="label">'+esc(fmt(U.moodLine,{a:d.mood,b:d.moodAfter,c:d.intensity}))+'</span></summary>'+
+      '<div class="body"><dl>'+tags+rows+'</dl><div><button type="button" class="btn sm ghost" data-del="'+e.id+'">'+esc(U.del)+'</button></div></div></details>'}).join('');
+  $$('[data-del]',el).forEach(b=>twoClick(b,U.del,U.delArm,()=>{const id=+b.dataset.del;const l=entries().filter(x=>x.id!==id);if(jMem)jMem=l;else store.set('psy96.journal.entries',l);jRender();status(U.deleted)}));
+}
+$('#j-export').onclick=()=>{const list=entries();if(!list.length){status(U.nothingExport);return}
+  let md=U.mdTitle+'\n\n';
+  list.slice().reverse().forEach(e=>{const d=e.d;md+='## '+fmtDate(e.date)+'\n\n- '+U.mdMood+': '+d.mood+'/10 → '+d.moodAfter+'/10\n- '+U.mdIntensity+': '+d.intensity+'/10\n';
+    if(d.emotions&&d.emotions.length)md+='- '+U.feelings+': '+emoNames(d.emotions)+'\n';
+    if(d.distortions&&d.distortions.length)md+='- '+U.distSpotted+': '+distNames(d.distortions)+'\n';
+    md+='\n';FIELDS.forEach(([k,l])=>{if(d[k]&&String(d[k]).trim())md+='**'+l+'**'+(k==='reflection'?' — _'+d.reflectionQ+'_':'')+'\n\n'+d[k].trim()+'\n\n'});md+='---\n\n'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='psy96-journal.md';document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);status(U.exported)};
+
+/* ============ INIT ============ */
+if(!storageOK)$('#j-nostore').hidden=false;
+setReflect(rIdx);
+const draft=store.get('psy96.journal.draft',null);if(draft){fill(draft);$('#j-draft').textContent=U.draftRestored}else syncUI();
+jRender();fcBuild();qzBest();qzRender();route();
+})();
+
+</script>
+</body>
+</html>
