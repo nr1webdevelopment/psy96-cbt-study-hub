@@ -1,0 +1,1719 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PSY96 CBT Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column like a course workbook; lecture sections stacked, each with worksheet-style figures. */
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --fg:#17202B; --muted:#5A6573; --line:#D3D9E1;
+  --accent:#2C55C9; --accent-soft:#E3EAFB; --hl:#E6A23C; --hl-soft:#FBF0DC;
+  --think:#2C55C9; --think-soft:#E3EAFB;
+  --feel:#B9436A; --feel-soft:#F8E4EB;
+  --act:#2F8357; --act-soft:#E0F1E7;
+  --warn:#C2512F; --warn-soft:#F9E5DE;
+  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161D; --surface:#1A212B; --fg:#E6EAF0; --muted:#9AA5B4; --line:#2E3846;
+    --accent:#8CA8F5; --accent-soft:#223152; --hl:#EDB45E; --hl-soft:#3A2E1A;
+    --think:#8CA8F5; --think-soft:#223152;
+    --feel:#EB8FAE; --feel-soft:#43222F;
+    --act:#78C79A; --act-soft:#1D3A2A;
+    --warn:#EE8C6C; --warn-soft:#42261D;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161D; --surface:#1A212B; --fg:#E6EAF0; --muted:#9AA5B4; --line:#2E3846;
+  --accent:#8CA8F5; --accent-soft:#223152; --hl:#EDB45E; --hl-soft:#3A2E1A;
+  --think:#8CA8F5; --think-soft:#223152;
+  --feel:#EB8FAE; --feel-soft:#43222F;
+  --act:#78C79A; --act-soft:#1D3A2A;
+  --warn:#EE8C6C; --warn-soft:#42261D;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 64px}
+.wrap{max-width:880px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.55rem,3.6vw,2.1rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:700;margin-top:8px}
+h4{font-size:1rem;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.label{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--f-mono)}
+.muted{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:18px}
+.prose{max-width:66ch}
+
+/* header */
+header.top{padding-block:48px 28px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid var(--line)}
+header.top .lede{font-size:1.12rem;max-width:62ch;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px}
+
+/* roadmap */
+.roadmap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:28px}
+.road{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--fg);min-width:0}
+.road:hover{border-color:var(--accent)}
+.road .tag{font-family:var(--f-display);font-weight:700;font-size:1.5rem;line-height:1}
+.road .t-name{font-family:var(--f-display);font-weight:500;font-size:.95rem;line-height:1.25}
+.road.k-t .tag{color:var(--hl)} .road.k-c .tag{color:var(--think)} .road.k-b .tag{color:var(--act)}
+@media (max-width:720px){.roadmap{grid-template-columns:repeat(2,minmax(0,1fr))} .road:last-child{grid-column:span 2}}
+
+/* sections */
+section.lec{padding-block:56px 8px;display:flex;flex-direction:column;gap:22px}
+.lec-head{display:flex;flex-direction:column;gap:8px}
+.lec-head .kicker{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pill{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.pill.t{background:var(--hl-soft);color:var(--fg)} .pill.b{background:var(--act-soft);color:var(--act)}
+
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px}
+figcaption{font-size:.92rem;color:var(--muted);max-width:70ch}
+figcaption b{color:var(--fg);font-family:var(--f-display);font-weight:700}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scroll svg{display:block;width:100%;height:auto;min-width:560px}
+.scroll svg.narrow{min-width:440px}
+
+/* svg styles */
+.s-box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.s-soft{fill:var(--bg);stroke:var(--line);stroke-width:1.2}
+.s-think{fill:var(--think-soft);stroke:var(--think);stroke-width:2}
+.s-feel{fill:var(--feel-soft);stroke:var(--feel);stroke-width:2}
+.s-act{fill:var(--act-soft);stroke:var(--act);stroke-width:2}
+.s-hl{fill:var(--hl-soft);stroke:var(--hl);stroke-width:2}
+.s-warn{fill:var(--warn-soft);stroke:var(--warn);stroke-width:2}
+.s-line{stroke:var(--muted);stroke-width:1.6;fill:none}
+.s-dash{stroke:var(--muted);stroke-width:1.4;fill:none;stroke-dasharray:5 5}
+.s-grid{stroke:var(--line);stroke-width:1;fill:none}
+.ah{fill:var(--muted)}
+.ah-a{fill:var(--accent)} .ah-w{fill:var(--warn)} .ah-g{fill:var(--act)}
+.tx{fill:var(--fg);font-family:var(--f-body);font-size:14px}
+.tx-s{fill:var(--muted);font-family:var(--f-body);font-size:12.5px}
+.tx-h{fill:var(--fg);font-family:var(--f-display);font-weight:700;font-size:16px}
+.tx-m{fill:var(--muted);font-family:var(--f-mono);font-size:11px;letter-spacing:.04em}
+.tx-think{fill:var(--think)} .tx-feel{fill:var(--feel)} .tx-act{fill:var(--act)} .tx-warn{fill:var(--warn)} .tx-hl{fill:var(--hl)}
+.ln-a{stroke:var(--accent);stroke-width:3;fill:none;stroke-linecap:round}
+.ln-w{stroke:var(--warn);stroke-width:3;fill:none;stroke-linecap:round}
+.ln-g{stroke:var(--act);stroke-width:3;fill:none;stroke-linecap:round}
+
+/* cards / grids */
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:720px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.g2,.g3{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .q{font-style:italic;color:var(--muted);font-size:.95rem}
+.card.hl{background:var(--hl-soft);border-color:transparent}
+
+ul.tight{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.keypoints{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+
+/* OARS */
+.oars .letter{font-family:var(--f-display);font-weight:700;font-size:2.2rem;line-height:1;color:var(--accent)}
+
+/* dialogue */
+.dialogue{display:flex;flex-direction:column;gap:8px}
+.say{display:grid;grid-template-columns:5.2em minmax(0,1fr);gap:10px;align-items:baseline}
+.say .who{font-family:var(--f-mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.say.bad .line{color:var(--warn)}
+
+/* table */
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.new{background:var(--accent-soft)}
+td.new-l{background:var(--act-soft)}
+
+/* emotion intensity scale */
+.scale{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:3px}
+.scale div{font-family:var(--f-mono);font-size:.8rem;text-align:center;padding:10px 0;border-radius:5px;font-variant-numeric:tabular-nums}
+.z0{background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.z1{background:var(--act-soft);color:var(--act)}
+.z2{background:var(--warn-soft);color:var(--warn)}
+.zones{display:grid;grid-template-columns:2fr 7fr 2fr;gap:8px;font-size:.88rem}
+.zones > div{min-width:0}
+@media (max-width:560px){.zones{grid-template-columns:minmax(0,1fr)}}
+
+/* spectrum */
+.spec{display:grid;grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr);gap:10px;align-items:center}
+.spec .bar{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--warn),var(--line) 50%,var(--act))}
+.spec .l{text-align:right}
+.spec .side{display:flex;flex-direction:column;gap:2px}
+@media (max-width:560px){.spec{grid-template-columns:minmax(0,1fr)} .spec .l{text-align:left} .spec .bar{width:100%}}
+
+/* downward arrow */
+.chain{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.chain .step{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 14px;max-width:100%}
+.chain .arrow{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);padding:4px 0 4px 18px;border-left:2px dashed var(--line);margin-left:18px}
+.chain .step.core{background:var(--feel-soft);border-color:var(--feel);font-weight:600}
+
+/* formula */
+.formula{font-family:var(--f-display);font-size:clamp(1.25rem,3.2vw,1.7rem);font-weight:500;line-height:1.35}
+.formula .blank{display:inline-block;min-width:3.5em;border-bottom:3px solid var(--hl);color:var(--hl)}
+
+/* ladder */
+.ladder{display:flex;flex-direction:column-reverse;gap:6px}
+.rung{display:grid;grid-template-columns:2.4em minmax(0,1fr);gap:10px;align-items:center}
+.rung .n{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);text-align:right}
+.rung .b{padding:8px 12px;border-radius:6px;font-size:.95rem;color:var(--fg)}
+
+/* MI scale */
+.mi{display:flex;flex-direction:column;gap:6px}
+.mi .track{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}
+.mi .track span{font-family:var(--f-mono);font-size:.75rem;text-align:center;padding:6px 0;border-radius:4px;background:var(--bg);color:var(--muted);font-variant-numeric:tabular-nums}
+.mi .track span.on{background:var(--accent);color:var(--surface);font-weight:500}
+
+/* big stat compare */
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.compare .num{font-family:var(--f-display);font-weight:700;font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+@media (max-width:440px){.compare{grid-template-columns:minmax(0,1fr)}}
+
+/* which tool */
+.which{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.3fr);gap:8px 14px;align-items:center}
+.which .if{font-family:var(--f-display);font-weight:500}
+.which .arr{color:var(--muted);font-family:var(--f-mono)}
+.which .then{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+@media (max-width:520px){.which{grid-template-columns:minmax(0,1fr)} .which .arr{display:none} .which .then{margin-bottom:8px}}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* ================= APP SHELL (added) ================= */
+body{margin:0}
+.appbar{position:sticky;top:0;z-index:30;margin-inline:-16px;padding-inline:16px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)}
+.appbar .in{max-width:880px;margin:0 auto;display:flex;align-items:center;gap:16px;min-height:62px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:1.02rem;display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg);white-space:nowrap}
+.brand .dot{width:24px;height:24px;border-radius:7px;background:conic-gradient(from 200deg,var(--think),var(--feel),var(--act),var(--think))}
+.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-family:var(--f-display);font-weight:500;font-size:.95rem;padding:8px 14px;border-radius:999px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.tab:hover{color:var(--fg);background:var(--surface)}
+.tab[aria-current="page"]{background:var(--fg);color:var(--bg)}
+@media (max-width:640px){
+  .appbar .in{flex-wrap:wrap;gap:6px;padding-block:10px}
+  .tabs{margin-left:0;width:100%}
+  .tab{flex:1 1 0;text-align:center;padding:8px 4px;font-size:.86rem}
+}
+.page{display:none}
+.page.on{display:block}
+section.lec{scroll-margin-top:80px}
+
+/* study guide: one section at a time */
+#page-guide section.lec{display:none}
+#page-guide section.lec.on{display:flex}
+.roadmap{grid-template-columns:repeat(6,minmax(0,1fr))}
+.road:last-child{grid-column:auto}
+.road[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.road.k-w .tag{color:var(--feel)}
+@media (max-width:720px){.roadmap{grid-template-columns:repeat(3,minmax(0,1fr))} .road:last-child{grid-column:auto}}
+@media (max-width:420px){.roadmap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:48px}
+.pager .btn{flex:0 1 auto;min-width:0}
+.pager .btn span{overflow:hidden;text-overflow:ellipsis}
+@media (max-width:520px){.pager{flex-direction:column-reverse} .pager .btn{justify-content:center}}
+.study-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.study-strip a{display:flex;flex-direction:column;gap:4px;padding:14px;border-radius:10px;border:1px dashed var(--line);text-decoration:none;color:var(--fg)}
+.study-strip a:hover{border-style:solid;border-color:var(--accent)}
+.study-strip b{font-family:var(--f-display)}
+.study-strip span{font-size:.9rem;color:var(--muted)}
+@media (max-width:560px){.study-strip{grid-template-columns:minmax(0,1fr)}}
+
+/* buttons, chips, progress */
+.btn{font-family:var(--f-display);font-weight:500;font-size:.95rem;line-height:1.2;border:1px solid var(--line);background:var(--surface);color:var(--fg);
+  padding:10px 16px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;white-space:nowrap}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.good{background:var(--act);border-color:var(--act);color:var(--surface)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 12px;font-size:.86rem}
+.btn.armed{background:var(--warn);border-color:var(--warn);color:var(--surface)}
+.btn:disabled{opacity:.4;cursor:default}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.chip:hover{color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog > i{display:block;height:100%;width:0;background:var(--accent);border-radius:3px;transition:width .3s ease}
+.tool{display:flex;flex-direction:column;gap:16px;padding-top:28px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.note{font-size:.95rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.note.warn{background:var(--warn-soft);border-color:transparent;color:var(--fg)}
+.toggle{display:inline-flex;gap:8px;align-items:center;font-size:.92rem;color:var(--muted);cursor:pointer}
+.toggle input{accent-color:var(--accent);width:16px;height:16px}
+
+/* ================= FLASH CARDS ================= */
+.fc-stage{perspective:1600px}
+.fc{display:block;width:100%;border:0;padding:0;margin:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;border-radius:18px}
+.fc-inner{display:grid;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.fc.flipped .fc-inner{transform:rotateY(180deg)}
+.fc.instant .fc-inner{transition:none}
+.fc-face{grid-area:1/1;min-height:320px;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);
+  background:var(--surface);padding:clamp(20px,4vw,34px);display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 0 var(--line),0 14px 34px -22px rgb(0 0 0 / .35)}
+.fc-back{transform:rotateY(180deg);background:var(--accent-soft);border-color:transparent}
+.fc-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.fc-q{font-family:var(--f-display);font-weight:700;font-size:clamp(1.4rem,3.6vw,2rem);line-height:1.22;letter-spacing:-.01em;margin-block:auto;text-wrap:balance}
+.fc-a{font-size:clamp(1.08rem,2.4vw,1.25rem);line-height:1.5;margin-top:auto}
+.fc-x{color:var(--muted);font-style:italic;margin-bottom:auto}
+.fc-hint{align-self:flex-start}
+.fc-state{color:var(--act)}
+.fc-controls{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fc-mark{display:flex;gap:8px}
+@media (max-width:560px){
+  .fc-face{min-height:280px}
+  .fc-controls{display:grid;grid-template-columns:1fr 1fr}
+  .fc-mark{grid-column:1/-1;order:-1;display:grid;grid-template-columns:1fr 1fr}
+  .fc-controls .btn{justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){.fc-inner{transition:none}}
+
+/* ================= QUIZ ================= */
+.q-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,30px);display:flex;flex-direction:column;gap:18px}
+.q-text{font-family:var(--f-display);font-weight:700;font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.28;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:10px;align-items:start;text-align:left;padding:13px 14px;border:1px solid var(--line);border-radius:12px;
+  background:var(--bg);color:var(--fg);font:inherit;font-size:1rem;line-height:1.45;cursor:pointer}
+.opt .k{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;text-align:center;padding:1px 0;margin-top:2px}
+.opt .mk{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;padding-top:3px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--act-soft);border-color:var(--act)} .opt.right .mk{color:var(--act)}
+.opt.wrong{background:var(--warn-soft);border-color:var(--warn)} .opt.wrong .mk{color:var(--warn)}
+.opt.dim{opacity:.55}
+.explain{border-left:3px solid var(--accent);padding:2px 0 2px 14px}
+.explain b{font-family:var(--f-display)}
+.qz-nav{display:flex;justify-content:space-between;gap:10px}
+.score-big{font-family:var(--f-display);font-weight:700;font-size:clamp(3rem,10vw,5rem);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.score-big small{font-size:.4em;color:var(--muted);letter-spacing:0}
+.lec-bars{display:flex;flex-direction:column;gap:10px}
+.lec-bar{display:grid;grid-template-columns:6.5em minmax(0,1fr) 3em;gap:10px;align-items:center;font-size:.92rem}
+.lec-bar .prog{height:10px}
+.lec-bar .n{font-family:var(--f-mono);font-size:.8rem;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.missed{display:flex;flex-direction:column;gap:10px}
+.missed .card p{margin:0}
+.ans-wrong{color:var(--warn)} .ans-right{color:var(--act)}
+
+/* ================= JOURNAL ================= */
+.jsec{display:flex;flex-direction:column;gap:12px;padding-top:30px}
+.jsec-head{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start}
+.jsec-head .num{width:36px;height:36px;border-radius:10px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--f-display);font-weight:700}
+.jsec-head h2{font-size:1.45rem}
+.jsec-head p{margin-top:4px}
+.prompt{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.prompt .q{font-family:var(--f-display);font-weight:500;font-size:1.05rem;line-height:1.35}
+.prompt .q.big{font-size:1.25rem;font-weight:700}
+.prompt .why{color:var(--muted);font-size:.93rem}
+.pr-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field > label{font-size:.95rem;font-weight:600}
+.field .hint{font-size:.85rem;color:var(--muted)}
+.j textarea,.j input[type="text"]{width:100%;font:inherit;font-size:1rem;line-height:1.5;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.j textarea{resize:vertical;min-height:80px}
+.j textarea::placeholder,.j input::placeholder{color:var(--muted);opacity:.75}
+.j textarea:focus,.j input[type="text"]:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.range{display:grid;grid-template-columns:auto minmax(0,1fr) auto 2.2em;gap:10px;align-items:center}
+.range input{width:100%;accent-color:var(--accent);margin:0}
+.rv{font-family:var(--f-display);font-weight:700;font-size:1.35rem;text-align:right;font-variant-numeric:tabular-nums}
+.zone-note{border-radius:10px;padding:12px 14px;font-size:.95rem;background:var(--bg)}
+.zone-note.work{background:var(--act-soft)}
+.zone-note.high{background:var(--warn-soft)}
+.zone-note b{font-family:var(--f-display)}
+.inline-f{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;font-family:var(--f-display);font-size:1.05rem}
+.inline-f input[type="text"]{flex:1 1 220px;width:auto}
+.preview{font-style:italic;color:var(--muted);font-size:.98rem}
+.preview.has{color:var(--fg)}
+.actions{position:sticky;bottom:12px;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:24px;
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px -14px rgb(0 0 0 / .3)}
+.actions .grp{display:flex;gap:8px;flex-wrap:wrap}
+.entries{display:flex;flex-direction:column;gap:10px}
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.entry summary{cursor:pointer;padding:14px 16px;display:flex;gap:6px 14px;justify-content:space-between;align-items:center;flex-wrap:wrap;list-style:none}
+.entry summary::-webkit-details-marker{display:none}
+.entry summary b{font-family:var(--f-display)}
+.entry[open] summary{border-bottom:1px solid var(--line)}
+.entry .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.entry dl{margin:0;display:flex;flex-direction:column;gap:12px}
+.entry dd{margin:2px 0 0;white-space:pre-wrap}
+.entry .rq{display:block;font-style:italic;color:var(--muted);white-space:normal}
+
+/* ================= STANFORD RED + BLACK THEME =================
+   Cardinal red #8C1515 · Black #2E2D29 · Cool grey #53565A · Fog #F4F4F4
+   Palo Alto green #175E54 (used only for "correct / behaviors")      */
+:root{
+  --bg:#F4F4F4; --surface:#FFFFFF; --fg:#2E2D29; --muted:#53565A; --line:#D5D5D4;
+  --accent:#8C1515; --accent-soft:#F6E8E8; --hl:#B83A4B; --hl-soft:#EFEDE6;
+  --think:#2E2D29; --think-soft:#EAEAEA;
+  --feel:#8C1515; --feel-soft:#F6E8E8;
+  --act:#175E54; --act-soft:#E2EEEB;
+  --warn:#B1040E; --warn-soft:#FBE7E8;
+  --bar-bg:#2E2D29; --bar-fg:#FFFFFF; --bar-muted:#C0C0BF; --cardinal:#8C1515;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1918; --surface:#262523; --fg:#F4F4F4; --muted:#ABABA9; --line:#43423E;
+    --accent:#EE6A72; --accent-soft:#3B1A1C; --hl:#E07F89; --hl-soft:#2F2C27;
+    --think:#EAEAEA; --think-soft:#353431;
+    --feel:#EE6A72; --feel-soft:#3B1A1C;
+    --act:#59B3A9; --act-soft:#17302C;
+    --warn:#FF7A7A; --warn-soft:#421C1D;
+    --bar-bg:#0F0E0D; --bar-fg:#FFFFFF; --bar-muted:#ABABA9; --cardinal:#8C1515;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1918; --surface:#262523; --fg:#F4F4F4; --muted:#ABABA9; --line:#43423E;
+  --accent:#EE6A72; --accent-soft:#3B1A1C; --hl:#E07F89; --hl-soft:#2F2C27;
+  --think:#EAEAEA; --think-soft:#353431;
+  --feel:#EE6A72; --feel-soft:#3B1A1C;
+  --act:#59B3A9; --act-soft:#17302C;
+  --warn:#FF7A7A; --warn-soft:#421C1D;
+  --bar-bg:#0F0E0D; --bar-fg:#FFFFFF; --bar-muted:#ABABA9; --cardinal:#8C1515;
+  color-scheme:dark;
+}
+/* identity strip + black nav bar, in the spirit of stanford.edu's header */
+.idbar{margin-inline:-16px;padding:7px 16px;background:var(--cardinal);color:#fff}
+.idbar .in{max-width:880px;margin:0 auto;font-family:var(--f-body);font-size:.92rem;font-weight:600;letter-spacing:.01em}
+.appbar{background:var(--bar-bg);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:4px solid var(--cardinal)}
+.brand{color:var(--bar-fg)}
+.brand .dot{background:var(--cardinal);border-radius:4px;box-shadow:inset 0 0 0 2px rgb(255 255 255 / .9)}
+.tab{color:var(--bar-muted);border-radius:6px}
+.tab:hover{color:var(--bar-fg);background:rgb(255 255 255 / .1)}
+.tab[aria-current="page"]{background:var(--cardinal);color:#fff}
+header.top > .label:first-child{color:var(--accent);font-weight:500}
+h1{color:var(--fg)}
+.btn{border-radius:6px}
+.btn.primary{color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{background:var(--cardinal);border-color:var(--cardinal)}}
+:root[data-theme="dark"] .btn.primary{background:var(--cardinal);border-color:var(--cardinal)}
+.btn.good{color:#fff}
+.road{border-radius:6px;border-top:4px solid var(--line)}
+.road[aria-current="true"]{border-top-color:var(--accent)}
+.road.k-t .tag,.road.k-w .tag{color:var(--hl)}
+.fc-face,.q-card,.prompt,figure,.card{border-radius:8px}
+.fc-front{border-top:4px solid var(--accent)}
+.jsec-head .num{background:var(--cardinal);color:#fff;border-radius:6px}
+.prog > i{background:var(--accent)}
+</style>
+</head>
+<body>
+<div class="idbar"><div class="in">Unofficial student notes for PSY96: Managing Emotions with Skill · not affiliated with or endorsed by Stanford University</div></div>
+<div class="appbar"><div class="in">
+  <a class="brand" href="#guide"><span class="dot" aria-hidden="true"></span>PSY96 · CBT Study Hub</a>
+  <nav class="tabs" aria-label="Pages">
+    <a class="tab" data-p="guide" href="#guide" aria-current="page">Study Guide</a>
+    <a class="tab" data-p="cards" href="#cards">Flash Cards</a>
+    <a class="tab" data-p="quiz" href="#quiz">Quiz</a>
+    <a class="tab" data-p="journal" href="#journal">Journal</a>
+  </nav>
+</div></div>
+<div class="wrap">
+<main class="page on" id="page-guide" aria-label="Study guide">
+<header class="top">
+  <span class="label">Stanford Continuing Studies · PSY96 · Spring 2026</span>
+  <h1>Managing Emotions with Skill</h1>
+  <p class="lede">A visual study guide to the five lectures of an introduction to Cognitive Behavioral Therapy (CBT), taught by Dr. Natalie Solomon. The course works through the letters of CBT in order: first the <b>T</b> (therapy), then the <b>C</b> (cognitive), then the <b>B</b> (behavioral).</p>
+  <div class="meta">
+    <span class="label">5 lectures · about 2 hours each</span>
+    <span class="label">Pick a lecture below</span>
+    <span class="label">Made from the class recordings</span>
+  </div>
+  <nav class="roadmap" aria-label="Lectures">
+    <a class="road k-t" href="#guide/l1"><span class="label">Lecture 1</span><span class="tag">T</span><span class="t-name">What therapy is and why it works</span></a>
+    <a class="road k-c" href="#guide/l2"><span class="label">Lecture 2</span><span class="tag">C</span><span class="t-name">Noticing and testing thoughts</span></a>
+    <a class="road k-c" href="#guide/l3"><span class="label">Lecture 3</span><span class="tag">C</span><span class="t-name">Updating thoughts, testing predictions</span></a>
+    <a class="road k-c" href="#guide/l4"><span class="label">Lecture 4</span><span class="tag">C</span><span class="t-name">Core beliefs and validation</span></a>
+    <a class="road k-b" href="#guide/l5"><span class="label">Lecture 5</span><span class="tag">B</span><span class="t-name">Activation and exposure</span></a>
+      <a class="road k-w" href="#guide/toolkit"><span class="label">Wrap-up</span><span class="tag">✦</span><span class="t-name">The toolkit: which tool, when</span></a>
+  </nav>
+
+  <div class="study-strip">
+    <a href="#cards"><b>Study Flash Cards →</b><span>46 cards to drill the key ideas</span></a>
+    <a href="#quiz"><b>Practice Quiz →</b><span>30 multiple-choice questions</span></a>
+    <a href="#journal"><b>My CBT Journal →</b><span>Use the tools on your own day</span></a>
+  </div>
+</header>
+
+<!-- ============ LECTURE 1 ============ -->
+<section class="lec" id="l1">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">Lecture 1</span><span class="pill t">The T in CBT</span></div>
+    <h2>What therapy is, and where CBT fits</h2>
+    <p class="prose">The first class explained what modern therapy is, where CBT sits among other approaches, and what makes any therapy work. It introduced the triangle that the rest of the course builds on.</p>
+  </div>
+
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 560 400" role="img" aria-labelledby="tri-t">
+      <title id="tri-t">The CBT triangle: thoughts, feelings and behaviors each affect the others in both directions</title>
+      <defs>
+        <marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <!-- edges -->
+      <line class="s-line" x1="238" y1="122" x2="128" y2="270" marker-start="url(#m1)" marker-end="url(#m1)"/>
+      <line class="s-line" x1="322" y1="122" x2="432" y2="270" marker-start="url(#m1)" marker-end="url(#m1)"/>
+      <line class="s-line" x1="178" y1="318" x2="382" y2="318" marker-start="url(#m1)" marker-end="url(#m1)"/>
+      <!-- nodes -->
+      <rect class="s-think" x="185" y="30" width="190" height="92" rx="14"/>
+      <text class="tx-h tx-think" x="280" y="62" text-anchor="middle">Thoughts</text>
+      <text class="tx-s" x="280" y="84" text-anchor="middle">“Nobody likes me.”</text>
+      <text class="tx-s" x="280" y="102" text-anchor="middle">“I’ll fail these quizzes.”</text>
+
+      <rect class="s-feel" x="20" y="272" width="160" height="92" rx="14"/>
+      <text class="tx-h tx-feel" x="100" y="304" text-anchor="middle">Feelings</text>
+      <text class="tx-s" x="100" y="326" text-anchor="middle">Sad, down</text>
+      <text class="tx-s" x="100" y="344" text-anchor="middle">Anxious, restless</text>
+
+      <rect class="s-act" x="380" y="272" width="160" height="92" rx="14"/>
+      <text class="tx-h tx-act" x="460" y="304" text-anchor="middle">Behaviors</text>
+      <text class="tx-s" x="460" y="326" text-anchor="middle">Isolate, stay in bed</text>
+      <text class="tx-s" x="460" y="344" text-anchor="middle">Avoid the reading</text>
+
+      <text class="tx-m" x="280" y="226" text-anchor="middle">CHANGE ONE CORNER</text>
+      <text class="tx-m" x="280" y="242" text-anchor="middle">AND THE OTHERS SHIFT</text>
+      <text class="tx-s" x="280" y="388" text-anchor="middle">Withdrawing means no new evidence, so “nobody likes me” never gets tested.</text>
+    </svg>
+    </div>
+    <figcaption><b>The CBT triangle.</b> Each link runs both ways, and research supports every link. If you want to feel differently, you have two ways in: change what you think, or change what you do.</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 440 200" role="img" aria-labelledby="ty-t">
+        <title id="ty-t">Approach used by US therapists: about 50% CBT, 25% integrative, 15% psychodynamic</title>
+        <line class="s-grid" x1="130" y1="20" x2="130" y2="160"/>
+        <line class="s-grid" x1="250" y1="20" x2="250" y2="160"/>
+        <line class="s-grid" x1="370" y1="20" x2="370" y2="160"/>
+        <text class="tx-m" x="130" y="178" text-anchor="middle">0%</text>
+        <text class="tx-m" x="250" y="178" text-anchor="middle">25%</text>
+        <text class="tx-m" x="370" y="178" text-anchor="middle">50%</text>
+        <rect x="130" y="30" width="240" height="28" rx="4" style="fill:var(--accent)"/>
+        <text class="tx" x="120" y="49" text-anchor="end">CBT</text>
+        <text class="tx-m" x="378" y="49">~50%</text>
+        <rect x="130" y="74" width="120" height="28" rx="4" style="fill:var(--muted)"/>
+        <text class="tx" x="120" y="93" text-anchor="end">Integrative</text>
+        <text class="tx-m" x="258" y="93">~25%</text>
+        <rect x="130" y="118" width="72" height="28" rx="4" style="fill:var(--muted)"/>
+        <text class="tx" x="120" y="137" text-anchor="end">Psychodynamic</text>
+        <text class="tx-m" x="210" y="137">~15%</text>
+      </svg>
+      </div>
+      <figcaption><b>What US therapists practice</b>, according to the survey shown in class. The figures don’t add to 100% because some therapists use other approaches.</figcaption>
+    </figure>
+    <figure>
+      <div class="stack" style="gap:10px">
+        <h4>How well CBT works</h4>
+        <div class="card" style="background:var(--act-soft);border-color:transparent"><span class="label" style="color:var(--act)">Strong evidence</span><span>Anxiety (general, social, phobias), depression, OCD, bulimia</span></div>
+        <div class="card" style="background:var(--hl-soft);border-color:transparent"><span class="label">Helps, but other treatments do better</span><span>ADHD, psychosis, substance use, self-injury</span></div>
+      </div>
+      <figcaption><b>The research picture</b> comes from a review of about 270 meta-analyses. CBT is skills-based and short-term: the goal is that you eventually become your own therapist.</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <h3>What makes any therapy work</h3>
+    <div class="scroll">
+    <svg class="narrow" viewBox="0 0 520 210" role="img" aria-labelledby="cf-t">
+      <title id="cf-t">Common factors in therapy, with the therapeutic alliance as the biggest predictor</title>
+      <circle cx="140" cy="105" r="88" class="s-hl"/>
+      <text class="tx-h" x="140" y="96" text-anchor="middle">The alliance</text>
+      <text class="tx-s" x="140" y="116" text-anchor="middle">trust, comfort,</text>
+      <text class="tx-s" x="140" y="132" text-anchor="middle">connection</text>
+      <text class="tx-m" x="140" y="160" text-anchor="middle">BIGGEST PREDICTOR</text>
+      <rect class="s-box" x="270" y="18" width="232" height="50" rx="10"/>
+      <text class="tx" x="286" y="40">Positive expectations</text>
+      <text class="tx-s" x="286" y="58">“This might work for me”</text>
+      <rect class="s-box" x="270" y="80" width="232" height="50" rx="10"/>
+      <text class="tx" x="286" y="102">Being observed</text>
+      <text class="tx-s" x="286" y="120">Accountability (the Hawthorne effect)</text>
+      <rect class="s-box" x="270" y="142" width="232" height="50" rx="10"/>
+      <text class="tx" x="286" y="164">Facing the problem</text>
+      <text class="tx-s" x="286" y="182">Protected time for a hard topic</text>
+    </svg>
+    </div>
+    <figcaption><b>Common factors.</b> These matter whatever kind of therapy is being used. If the relationship is strong, the outcome is likely to be strong too. The instructor said the research is still unclear on whether an AI can provide that human connection.</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <h3>The Socratic method: questions, not advice</h3>
+      <div class="dialogue">
+        <div class="say bad"><span class="who">Well-meant</span><span class="line">“Don’t be silly, you’ll be fine.”</span></div>
+        <div class="say"><span class="who">Therapist</span><span>What are you afraid would happen on the highway?</span></div>
+        <div class="say"><span class="who">Client</span><span>I’ll panic, lose control and veer off.</span></div>
+        <div class="say"><span class="who">Therapist</span><span>Has that ever happened to you, or to someone you know?</span></div>
+        <div class="say"><span class="who">Client</span><span>No… only in a movie. I’ll most likely be fine.</span></div>
+      </div>
+      <figcaption>Coming to “I’ll be fine” yourself works very differently from being told it. In the job-search video, the client realized he’d sent only 4 applications, then wrote a <b>coping card</b> to keep the insight.</figcaption>
+    </figure>
+    <figure class="oars">
+      <h3>OARS: building the relationship</h3>
+      <div class="stack" style="gap:12px">
+        <div style="display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:10px"><span class="letter">O</span><div><b>Open-ended questions</b><br><span class="muted">“Tell me about your weekend,” not “Did you have a good weekend?”</span></div></div>
+        <div style="display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:10px"><span class="letter">A</span><div><b>Affirmations</b><br><span class="muted">Name a real strength. Look for where the person cares: “It sounds like your mom matters to you.”</span></div></div>
+        <div style="display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:10px"><span class="letter">R</span><div><b>Reflections</b><br><span class="muted">“It sounds like you’re frustrated your roommate isn’t pulling their weight.”</span></div></div>
+      </div>
+      <figcaption>A reflection, then an affirmation, then an open question tends to work well. Affirmations can be subtle and should fit the person’s culture: “What did you eat for dinner?” can mean “I love you.”</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ LECTURE 2 ============ -->
+<section class="lec" id="l2">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">Lecture 2</span><span class="pill">The C in CBT · Part 1</span></div>
+    <h2>Noticing thoughts, and testing them</h2>
+    <p class="prose"><b>Automatic thoughts</b> run constantly, aren’t chosen, can contradict each other, and are often distorted. A distorted thought is like a fun-house mirror: based on something real, but stretched. This class showed how much these thoughts shape how we feel, and how to test them.</p>
+  </div>
+
+  <figure>
+    <h3>The ABC model</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 300" role="img" aria-labelledby="abc-t">
+      <title id="abc-t">ABC model: the same activating event leads to different consequences depending on the belief</title>
+      <defs>
+        <marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <text class="tx-m" x="100" y="22" text-anchor="middle">A · ACTIVATING EVENT</text>
+      <text class="tx-m" x="390" y="22" text-anchor="middle">B · BELIEF</text>
+      <text class="tx-m" x="670" y="22" text-anchor="middle">C · CONSEQUENCES</text>
+
+      <rect class="s-hl" x="20" y="112" width="160" height="70" rx="12"/>
+      <text class="tx-h" x="100" y="144" text-anchor="middle">Divorce</text>
+      <text class="tx-s" x="100" y="164" text-anchor="middle">Something hard happens</text>
+
+      <rect class="s-act" x="270" y="40" width="240" height="90" rx="12"/>
+      <text class="tx-m tx-act" x="286" y="62">RATIONAL</text>
+      <text class="tx" x="286" y="86">“This is really unfortunate</text>
+      <text class="tx" x="286" y="106">and painful, but I’ll be okay.”</text>
+
+      <rect class="s-warn" x="270" y="170" width="240" height="90" rx="12"/>
+      <text class="tx-m tx-warn" x="286" y="192">IRRATIONAL (DISTORTED)</text>
+      <text class="tx" x="286" y="216">“I will never have love again.”</text>
+      <text class="tx-s" x="286" y="238">Fortune telling: nobody knows that</text>
+
+      <rect class="s-box" x="580" y="40" width="180" height="90" rx="12"/>
+      <text class="tx" x="596" y="66">Hopeful, some grief</text>
+      <text class="tx-s" x="596" y="88">Plans the future,</text>
+      <text class="tx-s" x="596" y="106">reaches out to people</text>
+
+      <rect class="s-box" x="580" y="170" width="180" height="90" rx="12"/>
+      <text class="tx" x="596" y="196">Hopeless, depressed</text>
+      <text class="tx-s" x="596" y="218">Isolates, pulls back,</text>
+      <text class="tx-s" x="596" y="236">feels stuck</text>
+
+      <path class="s-line" d="M180,135 C220,135 230,85 266,85" marker-end="url(#m2)"/>
+      <path class="s-line" d="M180,160 C220,160 230,215 266,215" marker-end="url(#m2)"/>
+      <line class="s-line" x1="510" y1="85" x2="576" y2="85" marker-end="url(#m2)"/>
+      <line class="s-line" x1="510" y1="215" x2="576" y2="215" marker-end="url(#m2)"/>
+      <text class="tx-s" x="390" y="290" text-anchor="middle">The myth is that A causes C directly (“I’m miserable because I got divorced”). That skips B.</text>
+    </svg>
+    </div>
+    <figcaption><b>It’s the interpretation that drives the feeling.</b> A simpler example: a loud noise at night. If you think “a burglar,” you feel scared. If you think “the cat knocked something over,” you feel annoyed. This isn’t about forced positive thinking. It’s about noticing your interpretation.</figcaption>
+  </figure>
+
+  <figure>
+    <h3>Emotions point to themes</h3>
+    <div class="grid g3">
+      <div class="card"><span class="label" style="color:var(--feel)">Sadness</span><span>Loss · <i>looks back</i></span><span class="mono muted" style="font-size:.78rem">URGE → WITHDRAW</span></div>
+      <div class="card"><span class="label" style="color:var(--feel)">Anxiety</span><span>Threat · <i>looks ahead</i></span><span class="mono muted" style="font-size:.78rem">URGE → AVOID</span></div>
+      <div class="card"><span class="label" style="color:var(--feel)">Anger</span><span>Unfairness</span><span class="mono muted" style="font-size:.78rem">URGE → LASH OUT</span></div>
+      <div class="card"><span class="label">Guilt</span><span>“I <i>did</i> something bad”</span></div>
+      <div class="card"><span class="label">Shame</span><span>“I <i>am</i> bad”</span></div>
+      <div class="card"><span class="label">Embarrassment</span><span>Others will know</span></div>
+      <div class="card"><span class="label">Frustration</span><span>Feeling blocked</span></div>
+      <div class="card"><span class="label">Envy</span><span>Comparison</span></div>
+      <div class="card"><span class="label">Regret</span><span>A wrong decision</span></div>
+    </div>
+    <figcaption><b>A dog can feel guilty, but not ashamed.</b> When anger shows up, ask what feels unfair. The urges listed here come back in Lecture 5, where the behavioral tools aim to break them.</figcaption>
+  </figure>
+
+  <figure>
+    <h3>Is the thought distorted? A decision flow</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 420" role="img" aria-labelledby="ev-t">
+      <title id="ev-t">Flowchart for evaluating a thought</title>
+      <defs>
+        <marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="s-think" x="270" y="14" width="240" height="56" rx="12"/>
+      <text class="tx-h" x="390" y="40" text-anchor="middle">Notice the thought</text>
+      <text class="tx-s" x="390" y="58" text-anchor="middle">“My sister doesn’t want to connect with me”</text>
+
+      <line class="s-line" x1="390" y1="70" x2="390" y2="102" marker-end="url(#m3)"/>
+      <polygon class="s-hl" points="390,106 510,150 390,194 270,150"/>
+      <text class="tx-h" x="390" y="146" text-anchor="middle">Does it fit</text>
+      <text class="tx-h" x="390" y="166" text-anchor="middle">the facts?</text>
+
+      <path class="s-line" d="M270,150 L130,150 L130,224" marker-end="url(#m3)"/>
+      <text class="tx-m" x="200" y="142" text-anchor="middle">NO, IT’S DISTORTED</text>
+      <line class="s-line" x1="390" y1="194" x2="390" y2="224" marker-end="url(#m3)"/>
+      <text class="tx-m" x="398" y="214">CAN’T TELL</text>
+      <path class="s-line" d="M510,150 L650,150 L650,224" marker-end="url(#m3)"/>
+      <text class="tx-m" x="580" y="142" text-anchor="middle">YES, IT FITS</text>
+
+      <rect class="s-box" x="30" y="228" width="200" height="118" rx="12"/>
+      <text class="tx-h" x="46" y="254">Challenge it</text>
+      <text class="tx-s" x="46" y="276">List evidence for and against</text>
+      <text class="tx-s" x="46" y="294">Write a balanced thought</text>
+      <text class="tx-s" x="46" y="318" style="font-style:italic">“We usually talk more, but she</text>
+      <text class="tx-s" x="46" y="334" style="font-style:italic">said she’s been busy.”</text>
+
+      <rect class="s-box" x="290" y="228" width="200" height="118" rx="12"/>
+      <text class="tx-h" x="306" y="254">Is it useful?</text>
+      <text class="tx-s" x="306" y="276">If it doesn’t help you,</text>
+      <text class="tx-s" x="306" y="294">update it anyway</text>
+      <text class="tx-s" x="306" y="318" style="font-style:italic">“I feel bad for my patients,</text>
+      <text class="tx-s" x="306" y="334" style="font-style:italic">I’m the least experienced.”</text>
+
+      <rect class="s-box" x="550" y="228" width="200" height="118" rx="12"/>
+      <text class="tx-h" x="566" y="254">Solve and accept</text>
+      <text class="tx-s" x="566" y="276">Don’t argue with the facts.</text>
+      <text class="tx-s" x="566" y="294">Process it, plan next steps</text>
+      <text class="tx-s" x="566" y="318" style="font-style:italic">“She told me she doesn’t</text>
+      <text class="tx-s" x="566" y="334" style="font-style:italic">want contact and blocked me.”</text>
+
+      <text class="tx-s" x="390" y="392" text-anchor="middle">Test: would it hold up in court? Thoughts get more distorted under stress.</text>
+    </svg>
+    </div>
+    <figcaption><b>Don’t assume a thought is wrong.</b> Thoughts shaped by real experiences of racism or sexism, for example, may fit the facts. Look at the evidence before deciding.</figcaption>
+  </figure>
+
+  <div class="stack" style="gap:12px">
+    <h3>Common thinking distortions</h3>
+    <div class="grid g2">
+      <div class="card"><h4>Catastrophizing / fortune telling</h4><span class="q">“I just know I’m not going to get this job.”</span><span class="muted" style="font-size:.9rem">Being sure the future will go badly.</span></div>
+      <div class="card"><h4>Mind reading</h4><span class="q">“She didn’t wave back. She must be mad at me.”</span><span class="muted" style="font-size:.9rem">Being sure what others think.</span></div>
+      <div class="card"><h4>All-or-nothing thinking</h4><span class="q">“If I get a B, my law-school experience is ruined.”</span><span class="muted" style="font-size:.9rem">Black-and-white, absolute terms.</span></div>
+      <div class="card"><h4>Unfair comparisons</h4><span class="q">“I’ll never be as charismatic as that comedian.”</span><span class="muted" style="font-size:.9rem">Comparing yourself on one domain only.</span></div>
+      <div class="card"><h4>Emotional reasoning</h4><span class="q">“I feel like I’m going to fail, so I will.”</span><span class="muted" style="font-size:.9rem">Watch for “I feel like…” followed by a whole sentence.</span></div>
+      <div class="card"><h4>They overlap</h4><span class="q">“If I have another panic attack, I’ll have a breakdown.”</span><span class="muted" style="font-size:.9rem">All-or-nothing and fortune telling at once.</span></div>
+    </div>
+  </div>
+
+  <figure>
+    <h3>The automatic thought record</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Situation</th><th>Emotions</th><th>Automatic thoughts</th><th>Distortion</th><th>Evidence for</th><th>Evidence against</th><th>Balanced thought</th></tr></thead>
+        <tbody><tr>
+          <td>Reading a math passage over and over</td>
+          <td>Sad, anxious, ashamed</td>
+          <td>“I’m stupid. I’ll fail the test. People would judge me.”</td>
+          <td>Fortune telling, mind reading</td>
+          <td class="new">Failed a math test before; got a C on the last one</td>
+          <td class="new">Passed every other test; this text was hard; was tired; understood other chapters</td>
+          <td class="new-l">“I’ve failed one test <i>and</i> passed many. This text was hard and I was tired. It doesn’t mean I’m stupid.”</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <figcaption><b>The homework worksheet.</b> The shaded columns are new in this class. A balanced thought can simply combine the evidence for and the evidence against.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ LECTURE 3 ============ -->
+<section class="lec" id="l3">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">Lecture 3</span><span class="pill">The C in CBT · Part 2</span></div>
+    <h2>Updating thoughts and testing predictions</h2>
+    <p class="prose">This class covered when to use a thought record, how the way we explain events affects us, how to come up with a better thought, and how to test fearful predictions in real life.</p>
+  </div>
+
+  <figure>
+    <h3>When to do a thought record</h3>
+    <div class="scale" aria-label="Emotional intensity scale 0 to 10">
+      <div class="z0">0</div><div class="z0">1</div>
+      <div class="z1">2</div><div class="z1">3</div><div class="z1">4</div><div class="z1">5</div><div class="z1">6</div><div class="z1">7</div><div class="z1">8</div>
+      <div class="z2">9</div><div class="z2">10</div>
+    </div>
+    <div class="zones">
+      <div><span class="label">Too low</span><br><span class="muted">No emotional charge to work with</span></div>
+      <div><span class="label" style="color:var(--act)">The working zone</span><br>Some emotion, but you can still think clearly. Thought records and the other cognitive tools work best here.</div>
+      <div><span class="label" style="color:var(--warn)">Too high</span><br><span class="muted">Panic, sobbing, rage. Calm down first (see Lecture 5).</span></div>
+    </div>
+    <figcaption><b>Emotional intensity, 0–10.</b> In Lecture 3 the working zone was about 2–8. Lecture 5 put the upper limit at around 9.</figcaption>
+  </figure>
+
+  <figure>
+    <h3>How we explain events: three dimensions</h3>
+    <div class="stack" style="gap:16px">
+      <div class="spec">
+        <div class="side l"><b>Internal</b><span class="q muted" style="font-style:italic;font-size:.9rem">“I can’t keep a relationship.”</span></div>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="side"><b>External</b><span class="muted" style="font-style:italic;font-size:.9rem">“We grew apart; it happens to half of marriages.”</span></div>
+      </div>
+      <div class="spec">
+        <div class="side l"><b>Stable</b><span class="muted" style="font-style:italic;font-size:.9rem">“I’ll always be alone.”</span></div>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="side"><b>Unstable</b><span class="muted" style="font-style:italic;font-size:.9rem">“I don’t know what the future holds.”</span></div>
+      </div>
+      <div class="spec">
+        <div class="side l"><b>Global</b><span class="muted" style="font-style:italic;font-size:.9rem">“This always happens to me.”</span></div>
+        <div class="bar" aria-hidden="true"></div>
+        <div class="side"><b>Specific</b><span class="muted" style="font-style:italic;font-size:.9rem">“This relationship didn’t work.”</span></div>
+      </div>
+    </div>
+    <figcaption><b>The left side brings more sadness and anxiety.</b> Seeing a setback as all about you, permanent and everywhere hurts the most. The goal isn’t to blame everything on outside factors, just to notice when you lean hard to the left. A classmate pointed out the overlap with Seligman’s “3 Ps” (personalization, permanence, pervasiveness).</figcaption>
+  </figure>
+
+  <figure>
+    <h3>The cafeteria-tray video: two lessons about anxiety</h3>
+    <div class="compare">
+      <div class="card"><span class="label">Gina’s first guess</span><span class="num" style="color:var(--warn)">10%</span><span class="muted">chance of dropping her tray</span></div>
+      <div class="card"><span class="label">After counting her real lunches</span><span class="num" style="color:var(--act)">~1 in 10,000</span><span class="muted">a rough estimate from the session</span></div>
+    </div>
+    <div class="grid g2">
+      <div class="card hl"><h4>1. We overestimate how likely bad outcomes are</h4><span>Thousands of lunches, and she has never dropped a tray.</span></div>
+      <div class="card hl"><h4>2. We underestimate how well we’d cope</h4><span>If it did happen: a mess, a few looks, then everyone goes back to eating.</span></div>
+    </div>
+    <figcaption><b>Class reaction:</b> the probability math felt blunt. Exploring the social fear (“What do <i>you</i> do when someone else drops a tray?”) seemed more helpful. Nobody responds well to being told they’re illogical.</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <div class="keypoints">
+      <h3>Questions for finding a better thought</h3>
+      <ul class="tight">
+        <li>What would you tell a friend in this situation?</li>
+        <li>Have there been times when this wasn’t true?</li>
+        <li>Are you ignoring any of your strengths?</li>
+        <li>What are the <b>worst, best and most realistic</b> outcomes?</li>
+        <li>If the worst happened, could you cope?</li>
+        <li>Is there another explanation?</li>
+        <li>Are you blaming yourself for something outside your control?</li>
+      </ul>
+    </div>
+    <div class="keypoints">
+      <h3>Say “and” instead of “but”</h3>
+      <p><span class="muted">“You’re competent, <s>but</s> you struggle with some things.”</span></p>
+      <p><b>“You’re competent <span style="color:var(--accent)">and</span> you struggle with some things.”</b></p>
+      <p class="muted" style="font-size:.95rem">“And” lets two true things stand together, so you don’t have to pick one. It’s also a core rule of improv and is useful at work. In the live role play, a new thought (“Life is a marathon, with ups and downs”) felt true in theory but not yet in the gut. That’s normal, and practice closes the gap.</p>
+    </div>
+  </div>
+
+  <figure>
+    <h3>Behavioral experiments: test the prediction</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 170" role="img" aria-labelledby="be-t">
+      <title id="be-t">Behavioral experiment steps: prediction, experiment, outcome, learning</title>
+      <defs>
+        <marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="s-warn" x="10" y="20" width="170" height="130" rx="12"/>
+      <text class="tx-m tx-warn" x="24" y="42">1 · PREDICTION</text>
+      <text class="tx" x="24" y="68">“If I speak up, I’ll</text>
+      <text class="tx" x="24" y="88">shake and people</text>
+      <text class="tx" x="24" y="108">will laugh.”</text>
+      <rect class="s-box" x="206" y="20" width="170" height="130" rx="12"/>
+      <text class="tx-m" x="220" y="42">2 · EXPERIMENT</text>
+      <text class="tx" x="220" y="68">Present data on</text>
+      <text class="tx" x="220" y="88">Monday, gesture</text>
+      <text class="tx" x="220" y="108">freely, then ask</text>
+      <text class="tx" x="220" y="128">2 friends</text>
+      <rect class="s-box" x="402" y="20" width="170" height="130" rx="12"/>
+      <text class="tx-m" x="416" y="42">3 · OUTCOME</text>
+      <text class="tx" x="416" y="68">Felt nervous.</text>
+      <text class="tx" x="416" y="88">Friends couldn’t</text>
+      <text class="tx" x="416" y="108">see any shaking.</text>
+      <rect class="s-act" x="598" y="20" width="172" height="130" rx="12"/>
+      <text class="tx-m tx-act" x="612" y="42">4 · LEARNING</text>
+      <text class="tx" x="612" y="68">“I feel nervous,</text>
+      <text class="tx" x="612" y="88">but it’s much less</text>
+      <text class="tx" x="612" y="108">obvious than I</text>
+      <text class="tx" x="612" y="128">think.”</text>
+      <line class="s-line" x1="180" y1="85" x2="202" y2="85" marker-end="url(#m4)"/>
+      <line class="s-line" x1="376" y1="85" x2="398" y2="85" marker-end="url(#m4)"/>
+      <line class="s-line" x1="572" y1="85" x2="594" y2="85" marker-end="url(#m4)"/>
+    </svg>
+    </div>
+    <figcaption><b>Two ways to test a prediction:</b> <i>do it</i>, or <i>poll</i> people who will be honest with you. The class polled itself on how long a yogurt can sit out of the fridge, with answers ranging from 30 minutes to 24 hours. Polling also shows how common impostor syndrome is. Experiments are never unsafe: being afraid to jump off a building is a healthy fear.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ LECTURE 4 ============ -->
+<section class="lec" id="l4">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">Lecture 4</span><span class="pill">The C in CBT · Part 3</span></div>
+    <h2>Core beliefs, and the balance of validation and change</h2>
+    <p class="prose">Under the passing thoughts are deeper layers that are harder to notice and have more influence. This class showed how to find them and how to loosen them, and why change only works alongside acceptance.</p>
+  </div>
+
+  <figure>
+    <h3>Three levels of cognition</h3>
+    <div class="scroll">
+    <svg viewBox="0 0 780 330" role="img" aria-labelledby="lv-t">
+      <title id="lv-t">Levels of cognition: automatic thoughts, underlying assumptions, and core beliefs</title>
+      <polygon class="s-think" points="250,20 530,20 560,98 220,98"/>
+      <text class="tx-h" x="390" y="54" text-anchor="middle">Automatic thoughts</text>
+      <text class="tx-s" x="390" y="76" text-anchor="middle">tied to the situation · easy to notice</text>
+
+      <line x1="40" y1="114" x2="740" y2="114" style="stroke:var(--accent);stroke-width:1.5;stroke-dasharray:2 6"/>
+      <text class="tx-m" x="44" y="108">EASY TO NOTICE ↑</text>
+      <text class="tx-m" x="44" y="130">HARD TO NOTICE ↓</text>
+
+      <polygon class="s-hl" points="214,130 566,130 610,214 170,214"/>
+      <text class="tx-h" x="390" y="164" text-anchor="middle">Underlying assumptions</text>
+      <text class="tx-s" x="390" y="186" text-anchor="middle">“if… then…” rules</text>
+
+      <polygon class="s-feel" points="164,226 616,226 666,310 114,310"/>
+      <text class="tx-h" x="390" y="262" text-anchor="middle">Core beliefs</text>
+      <text class="tx-s" x="390" y="284" text-anchor="middle">about self, others and the world · drive everything above</text>
+    </svg>
+    </div>
+    <div class="grid g3">
+      <div class="card"><span class="label" style="color:var(--think)">Thought</span><span>“This party is going to be so stressful.”</span></div>
+      <div class="card"><span class="label">Assumption</span><span>“If people really get to know me, they won’t like me.”</span></div>
+      <div class="card"><span class="label" style="color:var(--feel)">Core belief</span><span>“I’m unlovable.”</span></div>
+    </div>
+    <figcaption><b>Example: social anxiety.</b> Other common assumptions: “If I upset people, they’ll reject me.” “If I can’t do it well, it’s not worth doing.” “If I’m not always optimizing, I can’t be happy.” The instructor’s mother not using her turn signal pointed to the core belief “others are out to get me.”</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <h3>The downward arrow</h3>
+      <div class="chain">
+        <div class="step">“I’ll say something stupid at work.”</div>
+        <div class="arrow">IF THAT WERE TRUE, WHAT WOULD IT MEAN?</div>
+        <div class="step">“People would think I’m weird.”</div>
+        <div class="arrow">AND IF THAT WERE TRUE?</div>
+        <div class="step">“They wouldn’t want to be friends.”</div>
+        <div class="arrow">WHAT WOULD BE SO BAD ABOUT THAT?</div>
+        <div class="step">“I’d be on my own all day.”</div>
+        <div class="arrow">WHAT DOES THAT SAY ABOUT YOU?</div>
+        <div class="step core">“I’m not worth being friends with.”</div>
+      </div>
+      <figcaption><b>Hannah’s session (video).</b> The class felt that asking the same question over and over can feel like an interrogation, so vary your wording and check in as you go.</figcaption>
+    </figure>
+    <figure>
+      <h3>Weighing the evidence lowered her belief</h3>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 440 210" role="img" aria-labelledby="hb-t">
+        <title id="hb-t">Belief in the core belief fell from 90 to 40 out of 100</title>
+        <line class="s-grid" x1="110" y1="20" x2="110" y2="150"/>
+        <line class="s-grid" x1="182.5" y1="20" x2="182.5" y2="150"/>
+        <line class="s-grid" x1="255" y1="20" x2="255" y2="150"/>
+        <line class="s-grid" x1="327.5" y1="20" x2="327.5" y2="150"/>
+        <line class="s-grid" x1="400" y1="20" x2="400" y2="150"/>
+        <text class="tx-m" x="110" y="168" text-anchor="middle">0</text>
+        <text class="tx-m" x="182.5" y="168" text-anchor="middle">25</text>
+        <text class="tx-m" x="255" y="168" text-anchor="middle">50</text>
+        <text class="tx-m" x="327.5" y="168" text-anchor="middle">75</text>
+        <text class="tx-m" x="400" y="168" text-anchor="middle">100</text>
+        <rect x="110" y="36" width="261" height="34" rx="4" style="fill:var(--feel)"/>
+        <text class="tx" x="100" y="58" text-anchor="end">Before</text>
+        <text class="tx-m" x="377" y="58">90</text>
+        <rect x="110" y="96" width="116" height="34" rx="4" style="fill:var(--act)"/>
+        <text class="tx" x="100" y="118" text-anchor="end">After</text>
+        <text class="tx-m" x="232" y="118">40</text>
+        <text class="tx-s" x="255" y="198" text-anchor="middle">How strongly she believed it (0–100)</text>
+      </svg>
+      </div>
+      <div class="grid g2" style="gap:8px">
+        <div class="card"><span class="label">For</span><span style="font-size:.92rem">Left out at school; sometimes excluded at work; skips big parties</span></div>
+        <div class="card"><span class="label">Against</span><span style="font-size:.92rem">Close family; long-term friends; organizes birthdays; puts up with anxiety for her friends</span></div>
+      </div>
+      <figcaption><b>The belief didn’t disappear.</b> It got weaker, which is the realistic goal. Core beliefs are learned over years, so unlearning them also takes time.</figcaption>
+    </figure>
+  </div>
+
+  <div class="keypoints">
+    <h3>Three ways to challenge a core belief</h3>
+    <div class="grid g3">
+      <div><b>Look at the words</b><p class="muted" style="font-size:.95rem">Define them. What does “unlovable” or “worthless” actually mean? What would count as concrete evidence?</p></div>
+      <div><b>Use extreme contrasts</b><p class="muted" style="font-size:.95rem">Name someone who is truly a total failure. Even serial killers have partners. Is the comparison fair?</p></div>
+      <div><b>Weigh the evidence</b><p class="muted" style="font-size:.95rem">Confirmation bias means we count the evidence that fits and dismiss the rest. Make yourself count both sides.</p></div>
+    </div>
+  </div>
+
+  <figure>
+    <h3>Validation: “it makes sense,” not “I agree”</h3>
+    <p class="formula">Given <span class="blank">&nbsp;that&nbsp;</span>, it makes sense that you <span class="blank">&nbsp;this&nbsp;</span>.</p>
+    <div class="grid g3">
+      <div class="card"><span class="label">Past events</span><span>“Given your divorce and the last date going badly…”</span></div>
+      <div class="card"><span class="label">Vulnerabilities</span><span>“Given that you’ve always been shy…”</span></div>
+      <div class="card"><span class="label">What’s happening now</span><span>“Given how anxious you are tonight…”</span></div>
+    </div>
+    <p class="muted">“…it makes sense that you’re nervous and want to cancel your date with Sean.”</p>
+    <div class="grid g2">
+      <div class="card"><h4>Find the part that makes sense</h4><span style="font-size:.95rem">Relapse: going back to an old way of coping under stress. Skipping school because of bullying: wanting to be safe. You validate the reason, not the behavior.</span></div>
+      <div class="card"><h4>Why it works</h4><span style="font-size:.95rem">It strengthens the relationship and <b>lowers</b> emotional intensity. In a study, students told “this test is hard, others struggled too” did better than students told “this should be easy.”</span></div>
+    </div>
+    <figcaption><b>Acceptance comes before change.</b> “Don’t worry, you’ll be great!” is kind but invalidating. Validation can feel unfamiliar if your culture or family didn’t use it. It works best when it’s genuine, and asking “Do you want me to listen, or help solve it?” helps too.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ LECTURE 5 ============ -->
+<section class="lec" id="l5">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">Lecture 5</span><span class="pill b">The B in CBT</span></div>
+    <h2>Behavioral activation and exposure</h2>
+    <p class="prose">These tools are taught last, but in real treatment they usually come <b>first</b>, because they bring relief fastest. The rule of thumb: for low mood, use behavioral activation; for anxiety, use exposure.</p>
+  </div>
+
+  <div class="grid g2">
+    <figure>
+      <h3>How depression keeps itself going</h3>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 440 380" role="img" aria-labelledby="dep-t">
+        <title id="dep-t">Depression cycle, and where behavioral activation breaks it</title>
+        <defs>
+          <marker id="m5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="m5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="ah-g" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="s-feel" x="150" y="14" width="140" height="56" rx="12"/>
+        <text class="tx-h" x="220" y="40" text-anchor="middle">Low mood</text>
+        <text class="tx-s" x="220" y="58" text-anchor="middle">sad, down</text>
+        <rect class="s-box" x="290" y="150" width="140" height="56" rx="12"/>
+        <text class="tx-h" x="360" y="176" text-anchor="middle">Urge to</text>
+        <text class="tx-h" x="360" y="194" text-anchor="middle">withdraw</text>
+        <rect class="s-box" x="150" y="286" width="140" height="56" rx="12"/>
+        <text class="tx" x="220" y="310" text-anchor="middle">Stay in bed,</text>
+        <text class="tx" x="220" y="328" text-anchor="middle">cancel plans</text>
+        <rect class="s-box" x="10" y="150" width="140" height="56" rx="12"/>
+        <text class="tx" x="80" y="172" text-anchor="middle">Fewer chances</text>
+        <text class="tx" x="80" y="190" text-anchor="middle">for pleasure</text>
+        <text class="tx-s" x="80" y="204" text-anchor="middle"></text>
+        <path class="s-line" d="M290,50 C340,60 360,100 360,146" marker-end="url(#m5)"/>
+        <path class="s-line" d="M360,206 C360,250 340,300 294,312" marker-end="url(#m5)"/>
+        <path class="s-line" d="M150,312 C100,300 80,250 80,210" marker-end="url(#m5)"/>
+        <path class="s-line" d="M80,150 C80,100 100,60 146,50" marker-end="url(#m5)"/>
+        <line x1="262" y1="182" x2="334" y2="252"style="stroke:var(--act);stroke-width:3" marker-end="url(#m5g)"/>
+        <rect class="s-act" x="146" y="140" width="148" height="42" rx="21"/>
+        <text class="tx-h tx-act" x="220" y="166" text-anchor="middle">Activate instead</text>
+        <text class="tx-s" x="220" y="372" text-anchor="middle">Act the way you would if you weren’t depressed.</text>
+      </svg>
+      </div>
+      <figcaption><b>Change mood from the outside in.</b> Schedule activities that bring <b>pleasure</b> (dinner out, board games, being outdoors) or <b>mastery</b> (a class, tidying, exercise goals). The class used a Pleasurable Activities Checklist to pick one.</figcaption>
+    </figure>
+    <figure>
+      <h3>Why behavior matters</h3>
+      <div class="stack" style="gap:10px">
+        <div class="card"><h4>“How to be miserable” video</h4><span style="font-size:.95rem">Stay still, keep an irregular sleep schedule, stay on screens, dwell on bad news, set vague goals, chase happiness directly, follow every impulse. If behavior can make us miserable, it can also make us less so.</span></div>
+        <div class="card"><h4>Sleep and exercise</h4><span style="font-size:.95rem">Sleep and mood affect each other in both directions. Aerobic exercise promotes brain growth factors and helps manage stress.</span></div>
+        <div class="card"><h4>The Rat Park study</h4><span style="font-size:.95rem">Rats in empty cages drank opioid-laced water until they died. Rats in an enriched park mostly avoided it. Doing more of something good is the best way to do less of something unwanted.</span></div>
+      </div>
+    </figure>
+  </div>
+
+  <figure>
+    <h3>Building motivation</h3>
+    <div class="grid g3">
+      <div class="card"><h4>Start tiny</h4><span style="font-size:.95rem">Cut the goal in half, then in half again. Put on your workout clothes. Open a blank document named “CV.”</span></div>
+      <div class="card"><h4>Ask big, then small</h4><span style="font-size:.95rem">“Run every day this month?” No. “One afternoon this week?” That feels doable.</span></div>
+      <div class="card"><h4>Argue the other side</h4><span style="font-size:.95rem">“Maybe reading can wait until next year.” This often prompts “No, I’ve put it off for years.”</span></div>
+    </div>
+    <div class="grid g2">
+      <div class="mi">
+        <span class="label">How important is it to clean more this week? (1–10)</span>
+        <div class="track"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span class="on">9</span><span>10</span></div>
+        <span class="muted" style="font-size:.9rem">“Why 9 and not lower?” → “Otherwise I pay the neighbor’s kid $100.”</span>
+      </div>
+      <div class="mi">
+        <span class="label">How confident are you that you’ll do it? (1–10)</span>
+        <div class="track"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span class="on">8</span><span>9</span><span>10</span></div>
+        <span class="muted" style="font-size:.9rem">Always ask why the number isn’t <i>lower</i>, so the person states their own reasons.</span>
+      </div>
+    </div>
+    <figcaption><b>Motivational interviewing</b> (from a live role play): show empathy, point out the gap between how things are and how the person wants them to be, avoid arguing, roll with resistance, and support their sense that they can do it. Make time by attaching the new habit to something they already do, like brushing teeth or commuting.</figcaption>
+  </figure>
+
+  <div class="keypoints" style="background:var(--warn-soft);border-color:transparent">
+    <h3>When emotion hits 9–10: calm down first</h3>
+    <p>The opposite of fight-or-flight is the <b>dive reflex</b>, which calms the nervous system. You can trigger it through the senses (name one thing you see, hear, feel and smell) or with <b>cold water on your face or hands</b>. With others, keep it gentle: “Let’s all take a few seconds, maybe stretch or have a sip of water.”</p>
+  </div>
+
+  <figure>
+    <h3>The anxiety curve: why avoidance keeps fear alive</h3>
+    <div class="grid g2" style="gap:16px">
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 500 260" role="img" aria-labelledby="ac1-t">
+        <title id="ac1-t">One exposure: staying lets anxiety peak and fall; escaping gives instant relief but the fear stays</title>
+        <line class="s-grid" x1="50" y1="20" x2="480" y2="20"/>
+        <line class="s-grid" x1="50" y1="120" x2="480" y2="120"/>
+        <line class="s-line" x1="50" y1="220" x2="480" y2="220"/>
+        <line class="s-line" x1="50" y1="20" x2="50" y2="220"/>
+        <text class="tx-m" x="42" y="24" text-anchor="end">100</text>
+        <text class="tx-m" x="42" y="124" text-anchor="end">50</text>
+        <text class="tx-m" x="42" y="224" text-anchor="end">0</text>
+        <text class="tx-m" x="265" y="246" text-anchor="middle">TIME IN THE SITUATION →</text>
+        <path class="ln-a" d="M50,180 C110,176 140,70 190,70 C260,70 330,170 470,180"/>
+        <path class="ln-w" d="M50,180 C100,177 130,92 168,88 L172,200 L300,200" style="stroke-dasharray:7 6"/>
+        <circle cx="170" cy="88" r="5" style="fill:var(--warn)"/>
+        <text class="tx-s tx-warn" x="178" y="154">Escape: relief now,</text>
+        <text class="tx-s tx-warn" x="178" y="170">fear stays for next time</text>
+        <text class="tx-s tx-think" x="214" y="62">Stay: it peaks…</text>
+        <text class="tx-s tx-think" x="356" y="150">…then falls on its own</text>
+        <text class="tx-s" x="56" y="40">The urge to avoid is strongest while anxiety rises</text>
+      </svg>
+      </div>
+      <div class="scroll">
+      <svg class="narrow" viewBox="0 0 500 260" role="img" aria-labelledby="ac2-t">
+        <title id="ac2-t">Repeated exposures: the anxiety peak gets lower each time</title>
+        <line class="s-grid" x1="50" y1="20" x2="480" y2="20"/>
+        <line class="s-grid" x1="50" y1="120" x2="480" y2="120"/>
+        <line class="s-line" x1="50" y1="220" x2="480" y2="220"/>
+        <line class="s-line" x1="50" y1="20" x2="50" y2="220"/>
+        <text class="tx-m" x="42" y="24" text-anchor="end">100</text>
+        <text class="tx-m" x="42" y="124" text-anchor="end">50</text>
+        <text class="tx-m" x="42" y="224" text-anchor="end">0</text>
+        <path class="ln-g" d="M60,190 C85,190 88,60 115,60 C142,60 150,190 180,190"/>
+        <path class="ln-g" d="M200,190 C225,190 228,110 255,110 C282,110 290,190 320,190" style="opacity:.8"/>
+        <path class="ln-g" d="M340,190 C365,190 368,150 395,150 C422,150 430,190 460,190" style="opacity:.6"/>
+        <text class="tx-m" x="115" y="48" text-anchor="middle">1ST TIME</text>
+        <text class="tx-m" x="255" y="98" text-anchor="middle">2ND</text>
+        <text class="tx-m" x="395" y="138" text-anchor="middle">3RD</text>
+        <text class="tx-m" x="265" y="246" text-anchor="middle">REPEATED EXPOSURES →</text>
+      </svg>
+      </div>
+    </div>
+    <figcaption><b>Distress (SUDS, 0–100) over time.</b> These curves show the general shape, not measured data. Avoiding feels good in the moment and keeps the fear going in the long run. Repeating the exposure lowers the peak each time (“habituation”). In the rejection-therapy video, the panicky feeling was already gone by day 2.</figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <figure>
+      <h3>Fear hierarchy (needles)</h3>
+      <div class="ladder">
+        <div class="rung"><span class="n">low</span><span class="b" style="background:var(--act-soft)">Sit in the doctor’s waiting room</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--act-soft)">Look at pictures of blood</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--hl-soft)">Sit in a blood donation clinic</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--hl-soft)">Look at pictures of syringes, then hold one</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--hl-soft)">Watch a video of a blood draw</span></div>
+        <div class="rung"><span class="n"></span><span class="b" style="background:var(--warn-soft)">Watch someone else get a finger prick or blood draw</span></div>
+        <div class="rung"><span class="n">high</span><span class="b" style="background:var(--warn-soft)">Get your own blood drawn</span></div>
+      </div>
+      <figcaption><b>Systematic desensitization.</b> Rank the feared situations, start at the bottom, and move up only when ready. It can be done in real life, in imagination, or in VR. The therapist stays calm as a model, and the client stays in control.</figcaption>
+    </figure>
+    <figure>
+      <h3>How fears are learned, and unlearned</h3>
+      <div class="stack" style="gap:10px">
+        <div class="card"><span class="label">Modeling</span><span style="font-size:.95rem">Many people fear the dentist before ever going, picked up from parents and the media.</span></div>
+        <div class="card"><span class="label">Association</span><span style="font-size:.95rem">Little Albert was taught to fear white fluffy things by pairing them with a loud bang.</span></div>
+        <div class="card"><span class="label">Kept alive by avoidance</span><span style="font-size:.95rem">After a mugging on University Ave, taking side streets means you never learn the street is safe again.</span></div>
+        <div class="card hl"><span class="label">Unlearned through exposure</span><span style="font-size:.95rem">Sit in a café there at midday. The snake-phobia video ended with the patient holding the snake. People choose exposure when the fear starts limiting their life, like needing to fly to a wedding.</span></div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ TOOLKIT ============ -->
+<section class="lec" id="toolkit">
+  <div class="lec-head">
+    <div class="kicker"><span class="label">Wrap-up</span><span class="pill t">The toolkit</span></div>
+    <h2>Five tools, and when to use each</h2>
+  </div>
+
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 780 200" role="img" aria-labelledby="tk-t">
+      <title id="tk-t">The five CBT tools placed from cognitive to behavioral</title>
+      <defs>
+        <linearGradient id="gk" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" style="stop-color:var(--think)"/>
+          <stop offset="1" style="stop-color:var(--act)"/>
+        </linearGradient>
+      </defs>
+      <rect x="40" y="96" width="700" height="8" rx="4" fill="url(#gk)"/>
+      <text class="tx-m tx-think" x="40" y="130">COGNITIVE</text>
+      <text class="tx-m tx-act" x="740" y="130" text-anchor="end">BEHAVIORAL</text>
+
+      <circle cx="110" cy="100" r="9" style="fill:var(--think)"/>
+      <text class="tx" x="110" y="60" text-anchor="middle">Track and challenge</text>
+      <text class="tx" x="110" y="78" text-anchor="middle">automatic thoughts</text>
+      <text class="tx-m" x="110" y="160" text-anchor="middle">LECTURES 2–3</text>
+
+      <circle cx="260" cy="100" r="9" style="fill:var(--think)"/>
+      <text class="tx" x="260" y="60" text-anchor="middle">Challenge</text>
+      <text class="tx" x="260" y="78" text-anchor="middle">core beliefs</text>
+      <text class="tx-m" x="260" y="160" text-anchor="middle">LECTURE 4</text>
+
+      <circle cx="390" cy="100" r="9" style="fill:var(--hl)"/>
+      <text class="tx" x="390" y="60" text-anchor="middle">Behavioral</text>
+      <text class="tx" x="390" y="78" text-anchor="middle">experiments</text>
+      <text class="tx-m" x="390" y="160" text-anchor="middle">LECTURE 3 · IN BETWEEN</text>
+
+      <circle cx="540" cy="100" r="9" style="fill:var(--act)"/>
+      <text class="tx" x="540" y="60" text-anchor="middle">Behavioral</text>
+      <text class="tx" x="540" y="78" text-anchor="middle">activation</text>
+      <text class="tx-m" x="540" y="160" text-anchor="middle">LECTURE 5</text>
+
+      <circle cx="670" cy="100" r="9" style="fill:var(--act)"/>
+      <text class="tx" x="670" y="60" text-anchor="middle">Exposure</text>
+      <text class="tx-m" x="670" y="160" text-anchor="middle">LECTURE 5</text>
+    </svg>
+    </div>
+    <figcaption><b>The CBT toolkit.</b> The relationship (OARS, validation) and the Socratic method support every one of these tools.</figcaption>
+  </figure>
+
+  <div class="which">
+    <span class="if">Feeling down or depressed</span><span class="arr">→</span><span class="then">Behavioral activation: schedule pleasure and mastery, starting tiny</span>
+    <span class="if">Anxious or avoiding something</span><span class="arr">→</span><span class="then">Exposure: approach gradually and let anxiety rise and fall</span>
+    <span class="if">A thought feels exaggerated</span><span class="arr">→</span><span class="then">Thought record: evidence for and against, then a balanced thought</span>
+    <span class="if">The same theme keeps coming back</span><span class="arr">→</span><span class="then">Downward arrow to the core belief, then challenge it</span>
+    <span class="if">A scary prediction</span><span class="arr">→</span><span class="then">Behavioral experiment: do it or poll people, then record what you learned</span>
+    <span class="if">Emotion at 9–10</span><span class="arr">→</span><span class="then">Calm down first: use the senses or cold water</span>
+    <span class="if">Someone shares something hard</span><span class="arr">→</span><span class="then">Validate first (“Given…, it makes sense…”), then ask open questions</span>
+  </div>
+</section>
+
+<nav class="pager" aria-label="Previous and next section">
+  <a class="btn" id="pg-prev" href="#"><b aria-hidden="true">←</b><span></span></a>
+  <a class="btn primary" id="pg-next" href="#"><span></span><b aria-hidden="true">→</b></a>
+</nav>
+</main>
+
+<!-- ================= FLASH CARDS PAGE ================= -->
+<main class="page" id="page-cards" aria-labelledby="h-cards">
+<header class="top">
+  <span class="label">Study tool · <span id="fc-count">46</span> cards from all five lectures</span>
+  <h1 id="h-cards">Study Flash Cards</h1>
+  <p class="lede">Read the prompt, answer it in your head, then flip the card to check. Mark each one so you can come back to the cards you’re still learning.</p>
+</header>
+<div class="tool">
+  <div class="chips" id="fc-filter" role="group" aria-label="Filter cards by lecture">
+    <button type="button" class="chip" data-k="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-k="l1" aria-pressed="false">L1 · Therapy</button>
+    <button type="button" class="chip" data-k="l2" aria-pressed="false">L2 · Thoughts</button>
+    <button type="button" class="chip" data-k="l3" aria-pressed="false">L3 · Updating</button>
+    <button type="button" class="chip" data-k="l4" aria-pressed="false">L4 · Core beliefs</button>
+    <button type="button" class="chip" data-k="l5" aria-pressed="false">L5 · Behavioral</button>
+  </div>
+  <div class="row"><span class="label" id="fc-pos">Card 1 of 46</span><span class="label" id="fc-known">0 marked “got it”</span></div>
+  <div class="prog" aria-hidden="true"><i id="fc-bar"></i></div>
+
+  <div class="note" id="fc-empty" hidden>Every card in this set is marked “got it.” Nice work. <button type="button" class="btn sm" id="fc-empty-reset">Reset marks</button></div>
+
+  <div class="fc-stage" id="fc-stage">
+    <button type="button" class="fc" id="fc" aria-label="Flash card. Press to flip.">
+      <div class="fc-inner">
+        <div class="fc-face fc-front">
+          <div class="fc-top"><span class="pill" id="fc-k1">Lecture 1</span><span class="label fc-state" id="fc-state"></span></div>
+          <p class="fc-q" id="fc-q"></p>
+          <span class="label fc-hint">Tap to flip ↻</span>
+        </div>
+        <div class="fc-face fc-back" aria-hidden="true">
+          <div class="fc-top"><span class="pill" id="fc-k2">Lecture 1</span><span class="label">Answer</span></div>
+          <p class="fc-a" id="fc-a"></p>
+          <p class="fc-x" id="fc-x"></p>
+        </div>
+      </div>
+    </button>
+  </div>
+
+  <div class="fc-controls" id="fc-controls">
+    <button type="button" class="btn" id="fc-prev">← Prev</button>
+    <div class="fc-mark">
+      <button type="button" class="btn" id="fc-learning">Still learning</button>
+      <button type="button" class="btn good" id="fc-got">Got it ✓</button>
+    </div>
+    <button type="button" class="btn" id="fc-next">Next →</button>
+  </div>
+  <div class="row">
+    <div class="row" style="justify-content:flex-start">
+      <button type="button" class="btn ghost sm" id="fc-shuffle">Shuffle</button>
+      <label class="toggle"><input type="checkbox" id="fc-only"> Only cards I’m still learning</label>
+    </div>
+    <button type="button" class="btn ghost sm" id="fc-reset">Reset marks</button>
+  </div>
+  <p class="label">Keyboard: ← → to move · Space to flip</p>
+</div>
+</main>
+
+<!-- ================= QUIZ PAGE ================= -->
+<main class="page" id="page-quiz" aria-labelledby="h-quiz">
+<header class="top">
+  <span class="label">Self-test · 30 questions</span>
+  <h1 id="h-quiz">Practice Quiz</h1>
+  <p class="lede">Thirty multiple-choice questions across every lecture. After each answer you’ll see whether you got it and a short explanation from the class material.</p>
+  <div class="meta"><span class="label" id="qz-best"></span></div>
+</header>
+<div class="tool" id="qz" aria-live="polite"></div>
+</main>
+
+<!-- ================= JOURNAL PAGE ================= -->
+<main class="page" id="page-journal" aria-labelledby="h-journal">
+<header class="top">
+  <span class="label">Daily practice · about 10 minutes</span>
+  <h1 id="h-journal">My CBT Journal</h1>
+  <p class="lede">A place to use the class tools on your own life. Answer as many or as few prompts as you like; one honest line counts. The aim isn’t forced positive thinking. It’s noticing, being kind to yourself, and doing one small thing that helps.</p>
+  <div class="meta"><span class="label" id="j-date"></span><span class="label" id="j-status"></span></div>
+</header>
+
+<p class="note warn" id="j-nostore" hidden>This browser isn’t letting the page save. Use “Export” before you close it so you don’t lose your writing.</p>
+
+<form id="jf" class="j" autocomplete="off" onsubmit="return false">
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">1</span><div><h2>Check in</h2><p class="muted">Notice first, before trying to change anything.</p></div></div>
+  <div class="prompt">
+    <label class="q" for="j-mood">How is your mood overall right now?</label>
+    <div class="range"><span class="label">Low</span><input type="range" min="0" max="10" value="5" id="j-mood" data-f="mood"><span class="label">Great</span><output class="rv" for="j-mood">5</output></div>
+  </div>
+  <div class="prompt">
+    <span class="q">Which feelings are here? <span class="muted">Pick any.</span></span>
+    <div class="chips" data-g="emotions" id="j-emos"></div>
+    <p class="why" id="j-theme">In class, each emotion pointed to a theme. Pick one to see what it might be telling you.</p>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-int">How intense is the strongest feeling, from 0 to 10?</label>
+    <div class="range"><span class="label">0</span><input type="range" min="0" max="10" value="5" id="j-int" data-f="intensity"><span class="label">10</span><output class="rv" for="j-int">5</output></div>
+    <div class="zone-note" id="j-zone"></div>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">2</span><div><h2>Today’s reflection</h2><p class="muted">A question drawn from the lectures. Pick a different one if it doesn’t fit today.</p></div></div>
+  <div class="prompt">
+    <div class="pr-top"><span class="pill" id="j-rk">Lecture 1</span><button type="button" class="btn ghost sm" id="j-shuffle">Different question ↻</button></div>
+    <label class="q big" id="j-rq" for="j-reflect"></label>
+    <textarea id="j-reflect" data-f="reflection" rows="4" placeholder="Write whatever comes up…"></textarea>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">3</span><div><h2>Untangle a thought</h2><p class="muted">A mini thought record (Lectures 2 and 3). Best when the feeling is somewhere around 2–8.</p></div></div>
+  <div class="prompt">
+    <div class="field"><label for="j-sit">What happened? <span class="muted">(the activating event)</span></label><input type="text" id="j-sit" data-f="situation" placeholder="e.g. My friend didn’t reply to my message all day"></div>
+    <div class="field"><label for="j-th">What went through your mind?</label><textarea id="j-th" data-f="thought" rows="2" placeholder="e.g. “She’s annoyed with me.”"></textarea></div>
+    <div class="field"><span style="font-weight:600;font-size:.95rem">Does it look like a thinking distortion?</span><div class="chips" data-g="distortions" id="j-dist"></div></div>
+    <div class="grid g2">
+      <div class="field"><label for="j-for">Evidence for the thought</label><textarea id="j-for" data-f="evFor" rows="3" placeholder="Facts only. Would it hold up in court?"></textarea></div>
+      <div class="field"><label for="j-ag">Evidence against it</label><textarea id="j-ag" data-f="evAgainst" rows="3" placeholder="Times it wasn’t true, other explanations, strengths you’re ignoring"></textarea></div>
+    </div>
+    <div class="field"><label for="j-bal">A more balanced thought</label><span class="hint">Try joining both sides with “and” instead of “but.”</span><textarea id="j-bal" data-f="balanced" rows="2" placeholder="e.g. “She hasn’t replied yet, and she’s usually slow on workdays.”"></textarea></div>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">4</span><div><h2>Be kind to yourself</h2><p class="muted">Validation, the friend test, and an affirmation (Lectures 1, 3 and 4).</p></div></div>
+  <div class="prompt">
+    <span class="q">Validate yourself: “it makes sense,” not “I agree.”</span>
+    <div class="inline-f"><label for="j-ga">Given</label><input type="text" id="j-ga" data-f="givenA" placeholder="how busy this week has been"></div>
+    <div class="inline-f"><label for="j-gb">it makes sense that I</label><input type="text" id="j-gb" data-f="givenB" placeholder="feel tired and short-tempered"></div>
+    <p class="preview" id="j-vprev">Given …, it makes sense that I ….</p>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-fr">If a close friend were in your situation today, what would you tell them?</label>
+    <textarea id="j-fr" data-f="friend" rows="3"></textarea>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-str">Name one real strength you showed today, however small.</label>
+    <input type="text" id="j-str" data-f="strength" placeholder="e.g. I asked for help instead of struggling alone">
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">5</span><div><h2>Do one thing</h2><p class="muted">Change mood from the outside in (Lecture 5). Start tiny.</p></div></div>
+  <div class="prompt">
+    <div class="grid g2">
+      <div class="field"><label for="j-pl">Something for <b>pleasure</b></label><input type="text" id="j-pl" data-f="pleasure" placeholder="dinner out, a walk outside, a board game"></div>
+      <div class="field"><label for="j-ma">Something for <b>mastery</b></label><input type="text" id="j-ma" data-f="mastery" placeholder="tidy one shelf, a short workout, a class"></div>
+    </div>
+    <div class="field"><label for="j-tiny">Now cut it in half, then in half again. What’s the tiny first step?</label><input type="text" id="j-tiny" data-f="tiny" placeholder="e.g. put on my running shoes"></div>
+    <label class="q" for="j-imp">How important is it to you to do this, from 1 to 10?</label>
+    <div class="range"><span class="label">1</span><input type="range" min="1" max="10" value="6" id="j-imp" data-f="importance"><span class="label">10</span><output class="rv" for="j-imp">6</output></div>
+    <div class="field"><label for="j-why">Why that number, and not lower?</label><input type="text" id="j-why" data-f="whyNotLower" placeholder="Your own reasons are the best motivation"></div>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-av">Is there something you’ve been avoiding? What’s the lowest rung on that ladder you could try?</label>
+    <textarea id="j-av" data-f="approach" rows="2" placeholder="Avoiding keeps the fear alive. Approach slowly and let the anxiety rise and fall."></textarea>
+  </div>
+</section>
+
+<section class="jsec">
+  <div class="jsec-head"><span class="num">6</span><div><h2>Close the day</h2><p class="muted">End on what you noticed, not on a verdict.</p></div></div>
+  <div class="prompt">
+    <div class="field"><label for="j-ok">One thing that went okay today</label><input type="text" id="j-ok" data-f="wentOk"></div>
+    <div class="field"><label for="j-le">One thing you learned about yourself</label><input type="text" id="j-le" data-f="learned"></div>
+  </div>
+  <div class="prompt">
+    <label class="q" for="j-after">Now that you’ve written, how is your mood?</label>
+    <div class="range"><span class="label">Low</span><input type="range" min="0" max="10" value="5" id="j-after" data-f="moodAfter"><span class="label">Great</span><output class="rv" for="j-after">5</output></div>
+  </div>
+</section>
+
+<div class="actions">
+  <span class="label" id="j-draft">Drafts save automatically</span>
+  <div class="grp">
+    <button type="button" class="btn ghost" id="j-clear">Clear</button>
+    <button type="button" class="btn primary" id="j-save">Save entry</button>
+  </div>
+</div>
+</form>
+
+<section class="jsec" id="j-past">
+  <div class="jsec-head"><span class="num">✦</span><div><h2>Past entries</h2><p class="muted">Kept in this browser on this device. Export them to keep a copy anywhere.</p></div></div>
+  <div class="row"><span class="label" id="j-n"></span><button type="button" class="btn sm" id="j-export">Export as Markdown ↓</button></div>
+  <div class="entries" id="j-list"></div>
+</section>
+
+<p class="note" style="margin-top:28px">This journal is a self-help practice based on the class material, not therapy. If you’re struggling or ever feel unsafe, please reach out to a mental health professional or your local emergency services.</p>
+</main>
+
+<footer>Made from automatic transcripts of the five PSY96 class recordings, so a few names and phrases may be imperfect. Examples and numbers are as presented in class. This is a study aid, not therapy or clinical advice.</footer>
+</div>
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let storageOK=true;
+try{localStorage.setItem('psy96.t','1');localStorage.removeItem('psy96.t')}catch(e){storageOK=false}
+const store={
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){storageOK=false;return false}},
+  del(k){try{localStorage.removeItem(k)}catch(e){}}
+};
+const LEC={l1:'Lecture 1',l2:'Lecture 2',l3:'Lecture 3',l4:'Lecture 4',l5:'Lecture 5',toolkit:'Wrap-up'};
+const PILL={l1:'pill t',l2:'pill',l3:'pill',l4:'pill',l5:'pill b',toolkit:'pill t'};
+
+/* ============ ROUTER ============ */
+const PAGES=['guide','cards','quiz','journal'];
+const SECS=['l1','l2','l3','l4','l5','toolkit'];
+const SECNAME={l1:'Lecture 1 · What therapy is',l2:'Lecture 2 · Noticing thoughts',l3:'Lecture 3 · Updating thoughts',l4:'Lecture 4 · Core beliefs',l5:'Lecture 5 · Activation & exposure',toolkit:'Wrap-up · The toolkit'};
+const TITLES={guide:'Study Guide',cards:'Study Flash Cards',quiz:'Practice Quiz',journal:'My CBT Journal'};
+let curPage=null,curSec=null;
+function showSec(s){
+  if(s===curSec)return false;curSec=s;
+  SECS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('on',id===s)});
+  $$('#page-guide .road').forEach(a=>{if(a.getAttribute('href')==='#guide/'+s)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+  const i=SECS.indexOf(s),prev=$('#pg-prev'),next=$('#pg-next');
+  if(i>0){prev.href='#guide/'+SECS[i-1];prev.querySelector('span').textContent=SECNAME[SECS[i-1]];prev.style.visibility=''}
+  else prev.style.visibility='hidden';
+  if(i<SECS.length-1){next.href='#guide/'+SECS[i+1];next.querySelector('span').textContent=SECNAME[SECS[i+1]]}
+  else{next.href='#cards';next.querySelector('span').textContent='Test yourself with flash cards'}
+  return true;
+}
+function route(){
+  let parts=(location.hash.slice(1)||'guide').split('/'),p=parts[0],sub=parts[1];
+  if(SECS.includes(p)){sub=p;p='guide'}
+  if(!PAGES.includes(p))p='guide';
+  const changed=p!==curPage;curPage=p;
+  $$('.page').forEach(el=>el.classList.toggle('on',el.id==='page-'+p));
+  $$('.tab').forEach(t=>{if(t.dataset.p===p)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current')});
+  document.title=TITLES[p]+' · PSY96';
+  if(p==='guide'){
+    const s=SECS.includes(sub)?sub:'l1';
+    const secChanged=showSec(s);
+    if(changed||!sub)window.scrollTo(0,0);
+    else if(secChanged)document.getElementById(s).scrollIntoView({block:'start'});
+  }else if(changed)window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+/* ============ FLASH CARDS ============ */
+const CARDS=[
+ {k:'l1',q:'What is the CBT triangle?',a:'Thoughts, feelings and behaviors, each affecting the others in both directions.',x:'To feel differently, change what you think or change what you do.'},
+ {k:'l1',q:'What is the main goal of CBT?',a:'To teach practical skills, short-term, so that eventually you become your own therapist.'},
+ {k:'l1',q:'Where does CBT have the strongest evidence?',a:'Anxiety (general, social, phobias), depression, OCD and bulimia.',x:'From a review of about 270 meta-analyses.'},
+ {k:'l1',q:'Where does CBT help, but other treatments do better?',a:'ADHD, psychosis, substance use and self-injury.'},
+ {k:'l1',q:'What is the biggest predictor of success in any therapy?',a:'The therapeutic alliance: trust, comfort and connection with the therapist.'},
+ {k:'l1',q:'Name the other “common factors” in therapy.',a:'Positive expectations, being observed (accountability, the Hawthorne effect) and protected time to face the problem.'},
+ {k:'l1',q:'What is the Socratic method?',a:'Asking questions instead of giving advice, so the person reaches their own conclusion.',x:'“Has that ever happened to you, or to someone you know?”'},
+ {k:'l1',q:'What is a coping card?',a:'A written card that captures an insight from a session, so you can come back to it when you need it.'},
+ {k:'l1',q:'What do O, A and R stand for in OARS?',a:'Open-ended questions, Affirmations, Reflections.',x:'A reflection, then an affirmation, then an open question tends to work well.'},
+ {k:'l2',q:'What are automatic thoughts?',a:'Thoughts that run constantly, aren’t chosen, can contradict each other and are often distorted.',x:'Like a fun-house mirror: based on something real, but stretched.'},
+ {k:'l2',q:'What does ABC stand for?',a:'Activating event → Belief → Consequences.',x:'It’s the interpretation (B), not the event (A), that drives the feeling (C).'},
+ {k:'l2',q:'Sadness: what theme, and what urge?',a:'Loss, looking back. The urge is to withdraw.'},
+ {k:'l2',q:'Anxiety: what theme, and what urge?',a:'Threat, looking ahead. The urge is to avoid.'},
+ {k:'l2',q:'Anger: what theme, and what urge?',a:'Unfairness. The urge is to lash out.',x:'When anger shows up, ask what feels unfair.'},
+ {k:'l2',q:'Guilt vs. shame?',a:'Guilt: “I did something bad.” Shame: “I am bad.”',x:'A dog can feel guilty, but not ashamed.'},
+ {k:'l2',q:'Catastrophizing / fortune telling',a:'Being sure the future will go badly.',x:'“I just know I’m not going to get this job.”'},
+ {k:'l2',q:'Mind reading',a:'Being sure you know what other people think.',x:'“She didn’t wave back. She must be mad at me.”'},
+ {k:'l2',q:'All-or-nothing thinking',a:'Seeing things in black-and-white, absolute terms.',x:'“If I get a B, my law-school experience is ruined.”'},
+ {k:'l2',q:'Unfair comparisons',a:'Comparing yourself to someone on just one domain.',x:'“I’ll never be as charismatic as that comedian.”'},
+ {k:'l2',q:'Emotional reasoning',a:'Treating a feeling as if it were proof.',x:'Watch for “I feel like…” followed by a whole sentence.'},
+ {k:'l2',q:'The seven columns of a thought record',a:'Situation · Emotions · Automatic thoughts · Distortion · Evidence for · Evidence against · Balanced thought.'},
+ {k:'l2',q:'What if a painful thought fits the facts?',a:'Don’t argue with it. Problem-solve, accept, and plan next steps.',x:'Test: would it hold up in court?'},
+ {k:'l3',q:'What is the “working zone” for thought records?',a:'About 2–8 out of 10: enough emotion to work with, but you can still think clearly.',x:'At 9–10, calm your body down first.'},
+ {k:'l3',q:'Three dimensions of how we explain events',a:'Internal vs. external · Stable vs. unstable · Global vs. specific.',x:'“It’s me, it’s forever, it’s everywhere” hurts the most.'},
+ {k:'l3',q:'Two lessons about anxiety from the cafeteria-tray video',a:'We overestimate how likely bad outcomes are, and underestimate how well we’d cope.'},
+ {k:'l3',q:'Questions that help find a better thought',a:'What would you tell a friend? Has it ever not been true? What strengths are you ignoring? Worst, best, most realistic outcome? Could you cope? Is there another explanation?'},
+ {k:'l3',q:'Why say “and” instead of “but”?',a:'“And” lets two true things stand together, so you don’t have to pick one.',x:'“You’re competent and you struggle with some things.”'},
+ {k:'l3',q:'Four steps of a behavioral experiment',a:'Prediction → Experiment → Outcome → Learning.'},
+ {k:'l3',q:'Two ways to test a prediction',a:'Do it, or poll people who will be honest with you.'},
+ {k:'l4',q:'Three levels of cognition',a:'Automatic thoughts (easy to notice) → Underlying assumptions (“if… then…”) → Core beliefs (about self, others and the world).'},
+ {k:'l4',q:'Give an example of an underlying assumption.',a:'“If people really get to know me, they won’t like me.”',x:'Others: “If I can’t do it well, it’s not worth doing.”'},
+ {k:'l4',q:'What is the downward arrow?',a:'Repeatedly asking “If that were true, what would it mean?” to follow a thought down to its core belief.',x:'Vary the wording so it doesn’t feel like an interrogation.'},
+ {k:'l4',q:'Three ways to challenge a core belief',a:'Look at the words (define them), use extreme contrasts, and weigh the evidence on both sides.'},
+ {k:'l4',q:'What’s the realistic goal when challenging a core belief?',a:'To weaken it, not erase it. Hannah’s belief dropped from 90 to 40 out of 100.'},
+ {k:'l4',q:'The validation formula',a:'“Given ___, it makes sense that you ___.”',x:'Draw on past events, vulnerabilities, or what’s happening now.'},
+ {k:'l4',q:'Is validation the same as agreeing?',a:'No. You validate the reason, not the behavior: “it makes sense,” not “I agree.”',x:'Acceptance comes before change.'},
+ {k:'l5',q:'Rule of thumb: which behavioral tool for which problem?',a:'Low mood → behavioral activation. Anxiety → exposure.'},
+ {k:'l5',q:'What is behavioral activation?',a:'Acting the way you would if you weren’t depressed, by scheduling activities that bring pleasure or mastery.',x:'Change mood from the outside in.'},
+ {k:'l5',q:'The Rat Park study',a:'Rats in empty cages drank opioid-laced water; rats in an enriched park mostly avoided it.',x:'Doing more of something good is the best way to do less of something unwanted.'},
+ {k:'l5',q:'How do you “start tiny”?',a:'Cut the goal in half, then in half again.',x:'Put on your workout clothes. Open a blank document named “CV.”'},
+ {k:'l5',q:'Motivation scaling: what do you always ask?',a:'“Why that number, and not lower?” so the person states their own reasons.'},
+ {k:'l5',q:'What is the dive reflex?',a:'The opposite of fight-or-flight: it calms the nervous system. Trigger it with cold water on your face or hands, or through your senses.'},
+ {k:'l5',q:'Why does avoidance keep fear alive?',a:'Escaping gives instant relief, so you never learn that the anxiety would have peaked and fallen on its own.'},
+ {k:'l5',q:'What is habituation?',a:'With repeated exposure, the anxiety peak gets lower each time.'},
+ {k:'l5',q:'What is systematic desensitization?',a:'Rank feared situations in a hierarchy, start at the bottom, and move up only when ready.'},
+ {k:'l5',q:'How are fears learned?',a:'Through modeling (picking them up from others) and association (Little Albert). Avoidance keeps them going.'}
+].map((c,i)=>Object.assign(c,{id:i}));
+
+let fcFilter='all',fcOnly=false,fcDeck=[],fcI=0;
+let known=new Set(store.get('psy96.cards.known',[]));
+const fcEl=$('#fc');
+function saveKnown(){store.set('psy96.cards.known',[...known])}
+function fcSet(){return CARDS.filter(c=>fcFilter==='all'||c.k===fcFilter)}
+function fcBuild(){fcDeck=fcSet().filter(c=>!fcOnly||!known.has(c.id));fcI=0;fcRender()}
+function unflip(){fcEl.classList.add('instant');fcEl.classList.remove('flipped');void fcEl.offsetWidth;fcEl.classList.remove('instant');$('.fc-back').setAttribute('aria-hidden','true')}
+function fcRender(){
+  unflip();
+  const set=fcSet(),kn=set.filter(c=>known.has(c.id)).length,total=fcDeck.length;
+  $('#fc-known').textContent=kn+' of '+set.length+' marked “got it”';
+  const empty=!total;
+  $('#fc-empty').hidden=!empty;$('#fc-stage').hidden=empty;$('#fc-controls').hidden=empty;
+  if(empty){$('#fc-pos').textContent='No cards left';$('#fc-bar').style.width='100%';return}
+  if(fcI>=total)fcI=0;
+  const c=fcDeck[fcI];
+  $('#fc-pos').textContent='Card '+(fcI+1)+' of '+total;
+  $('#fc-bar').style.width=((fcI+1)/total*100)+'%';
+  ['#fc-k1','#fc-k2'].forEach(s=>{const p=$(s);p.className=PILL[c.k];p.textContent=LEC[c.k]});
+  $('#fc-q').textContent=c.q;$('#fc-a').textContent=c.a;$('#fc-x').textContent=c.x||'';
+  $('#fc-state').textContent=known.has(c.id)?'✓ Got it':'';
+}
+function fcFlip(){fcEl.classList.toggle('flipped');$('.fc-back').setAttribute('aria-hidden',fcEl.classList.contains('flipped')?'false':'true')}
+function fcMove(d){if(!fcDeck.length)return;fcI=(fcI+d+fcDeck.length)%fcDeck.length;fcRender()}
+function fcMark(got){
+  if(!fcDeck.length)return;const c=fcDeck[fcI];
+  if(got)known.add(c.id);else known.delete(c.id);saveKnown();
+  if(fcOnly&&got){fcDeck.splice(fcI,1);if(fcI>=fcDeck.length)fcI=0;fcRender()}else fcMove(1);
+}
+fcEl.addEventListener('click',fcFlip);
+$('#fc-prev').onclick=()=>fcMove(-1);$('#fc-next').onclick=()=>fcMove(1);
+$('#fc-got').onclick=()=>fcMark(true);$('#fc-learning').onclick=()=>fcMark(false);
+$('#fc-shuffle').onclick=()=>{for(let i=fcDeck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fcDeck[i],fcDeck[j]]=[fcDeck[j],fcDeck[i]]}fcI=0;fcRender()};
+$('#fc-only').onchange=e=>{fcOnly=e.target.checked;fcBuild()};
+const resetMarks=()=>{known.clear();saveKnown();fcBuild()};
+$('#fc-reset').onclick=resetMarks;$('#fc-empty-reset').onclick=resetMarks;
+$('#fc-filter').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;fcFilter=b.dataset.k;$$('#fc-filter .chip').forEach(c=>c.setAttribute('aria-pressed',c===b));fcBuild()});
+$('#fc-count').textContent=CARDS.length;
+
+/* ============ QUIZ ============ */
+const QUIZ=[
+ {k:'l1',q:'In the CBT triangle, which three things influence each other?',o:['Memories, dreams and habits','Thoughts, feelings and behaviors','Genes, upbringing and choices','Past, present and future'],a:1,e:'Each link runs both ways, so you can feel differently by changing what you think or what you do.'},
+ {k:'l1',q:'According to the survey shown in class, roughly what share of US therapists practice CBT?',o:['About 15%','About 25%','About 50%','About 90%'],a:2,e:'About half. Integrative was around 25% and psychodynamic around 15%.'},
+ {k:'l1',q:'Across all kinds of therapy, what is the biggest single predictor of a good outcome?',o:['The therapeutic alliance (trust and connection)','The therapist’s years of experience','The specific type of therapy used','How many sessions are attended'],a:0,e:'If the relationship is strong, the outcome is likely to be strong too. It’s one of the “common factors” that matter in any therapy.'},
+ {k:'l1',q:'For which of these does CBT have the strongest evidence?',o:['ADHD','Psychosis','Substance use','Social anxiety and depression'],a:3,e:'Strong evidence: anxiety (general, social, phobias), depression, OCD and bulimia. For ADHD, psychosis and substance use, CBT helps but other treatments do better.'},
+ {k:'l1',q:'What is the Socratic method in therapy?',o:['Giving clear, expert advice','Reassuring the client that things will be fine','Asking questions so the person reaches their own conclusion','Interpreting the client’s childhood'],a:2,e:'Reaching “I’ll most likely be fine” yourself works very differently from being told it.'},
+ {k:'l5',q:'What did the Rat Park study suggest?',o:['Rats prefer opioid water whatever their surroundings','Doing more of something good is the best way to do less of something unwanted','Isolation has no effect on behavior','Punishment is the fastest way to change a habit'],a:1,e:'Rats in empty cages drank the opioid water until they died; rats in an enriched park mostly avoided it.'},
+ {k:'l1',q:'Which of these is an open-ended question?',o:['“Did you have a good weekend?”','“Was work busy today?”','“Are you feeling better?”','“Tell me about your weekend.”'],a:3,e:'Open-ended questions invite a story instead of a yes or no. They’re the O in OARS.'},
+ {k:'l2',q:'In the ABC model, what does the B stand for?',o:['Belief','Behavior','Body','Boundary'],a:0,e:'Activating event → Belief → Consequences. The belief (your interpretation) is what drives the feeling.'},
+ {k:'l2',q:'What common myth does the ABC model correct?',o:['That beliefs cause events','That the event (A) directly causes the consequence (C)','That emotions are always rational','That behavior never changes mood'],a:1,e:'“I’m miserable because I got divorced” skips B: the belief about what the divorce means.'},
+ {k:'l5',q:'Your emotion is at 9–10 out of 10. What did the class recommend doing first?',o:['Fill out a full thought record','Argue with the thought until it goes away','Calm your body first, using your senses or cold water','Push through and make a big decision'],a:2,e:'At that intensity it’s hard to think clearly. The dive reflex (cold water on face or hands) or naming one thing you see, hear, feel and smell calms the nervous system.'},
+ {k:'l2',q:'Anxiety is linked to which theme?',o:['Loss, looking back','Unfairness','Comparison','Threat, looking ahead'],a:3,e:'Sadness looks back at loss; anxiety looks ahead at threat, and its urge is to avoid.'},
+ {k:'l2',q:'What’s the difference between guilt and shame?',o:['Guilt is “I did something bad”; shame is “I am bad”','Guilt is “I am bad”; shame is “I did something bad”','They mean the same thing','Guilt is about others; shame is about the future'],a:0,e:'That’s why a dog can feel guilty, but not ashamed.'},
+ {k:'l2',q:'“She didn’t wave back. She must be mad at me.” Which distortion is this?',o:['All-or-nothing thinking','Mind reading','Unfair comparison','Emotional reasoning'],a:1,e:'Mind reading means being sure you know what other people think.'},
+ {k:'l2',q:'“If I get a B, my law-school experience is ruined.” Which distortion is this?',o:['Mind reading','Emotional reasoning','All-or-nothing thinking','Unfair comparison'],a:2,e:'Black-and-white, absolute terms: anything short of perfect counts as total failure.'},
+ {k:'l2',q:'“I feel like I’m going to fail, so I will.” Which distortion is this?',o:['Catastrophizing','Mind reading','Unfair comparison','Emotional reasoning'],a:3,e:'Watch for “I feel like…” followed by a whole sentence. A feeling isn’t evidence.'},
+ {k:'l2',q:'You check a painful thought and it fits the facts. What’s the best next step?',o:['Challenge it harder until it changes','Problem-solve and accept it','Pretend it’s distorted anyway','Ignore it'],a:1,e:'Don’t argue with the facts. Process it and plan next steps. Not every negative thought is distorted.'},
+ {k:'l2',q:'What goes in the last column of the automatic thought record?',o:['A balanced thought','The situation','Your emotions','The name of the distortion'],a:0,e:'Situation → emotions → automatic thoughts → distortion → evidence for → evidence against → balanced thought.'},
+ {k:'l3',q:'At what emotional intensity do thought records work best?',o:['0–1, when you feel almost nothing','About 2–8, the working zone','9–10, at the peak','Only right after waking up'],a:1,e:'Too low and there’s nothing to work with; too high and you need to calm down first.'},
+ {k:'l3',q:'After a breakup, which explanation tends to bring the most sadness?',o:['“We grew apart; it happens.”','“This relationship didn’t work.”','“I can’t keep a relationship. I’ll always be alone. This always happens to me.”','“I don’t know what the future holds.”'],a:2,e:'Internal, stable and global explanations (all about me, permanent, everywhere) hurt the most.'},
+ {k:'l3',q:'The cafeteria-tray video showed that anxiety makes us…',o:['underestimate how likely bad outcomes are','overestimate how likely bad outcomes are, and underestimate how well we’d cope','overestimate how well we’d cope','remember past events accurately'],a:1,e:'Gina guessed a 10% chance of dropping her tray; the real rate was closer to 1 in 10,000. And if it happened, she’d cope.'},
+ {k:'l3',q:'Why use “and” instead of “but”?',o:['It sounds more formal','It cancels out the first half of the sentence','It lets two true things stand together','It makes every statement positive'],a:2,e:'“You’re competent and you struggle with some things.” You don’t have to pick one.'},
+ {k:'l3',q:'What is the order of a behavioral experiment?',o:['Experiment → Prediction → Learning → Outcome','Outcome → Prediction → Experiment → Learning','Learning → Experiment → Outcome → Prediction','Prediction → Experiment → Outcome → Learning'],a:3,e:'Write the fearful prediction, test it, record what happened, then write down what you learned.'},
+ {k:'l3',q:'What are the two ways to test a prediction, as taught in class?',o:['Do it, or poll people who’ll be honest with you','Ignore it, or distract yourself','Ask a therapist, or read about it','Write it down, or say it out loud'],a:0,e:'The class polled itself on how long yogurt can sit out of the fridge, with answers from 30 minutes to 24 hours.'},
+ {k:'l4',q:'Which is the deepest, hardest-to-notice level of cognition?',o:['Automatic thoughts','Underlying assumptions','Coping cards','Core beliefs'],a:3,e:'Core beliefs about self, others and the world drive the assumptions and thoughts above them.'},
+ {k:'l4',q:'Underlying assumptions usually take which form?',o:['A single word','“If… then…” rules','A question','A memory'],a:1,e:'For example: “If people really get to know me, then they won’t like me.”'},
+ {k:'l4',q:'Which question drives the downward arrow technique?',o:['“If that were true, what would it mean?”','“What’s the evidence against that?”','“How intense is that emotion, 0–10?”','“What would you tell a friend?”'],a:0,e:'Asked repeatedly (with varied wording), it follows a thought down to the core belief underneath.'},
+ {k:'l4',q:'In Hannah’s session, her belief dropped from 90 to 40 out of 100. What does that show?',o:['The technique failed because it didn’t reach 0','The realistic goal is to weaken a core belief, not erase it','Core beliefs can be removed in one session','Evidence doesn’t affect beliefs'],a:1,e:'Core beliefs are learned over years, so unlearning them takes time too.'},
+ {k:'l4',q:'What does validation mean?',o:['Agreeing with everything the person does','Saying “Don’t worry, you’ll be great!”','Fixing the problem as fast as possible','Communicating “Given…, it makes sense that you…”'],a:3,e:'You validate the reason, not the behavior. Acceptance comes before change.'},
+ {k:'l5',q:'What’s the rule of thumb for choosing a behavioral tool?',o:['Low mood → exposure; anxiety → behavioral activation','Low mood → behavioral activation; anxiety → exposure','Use exposure for everything','Only use behavioral tools after cognitive ones'],a:1,e:'In real treatment, behavioral tools often come first because they bring relief fastest.'},
+ {k:'l5',q:'When you repeat an exposure, the anxiety peak gets lower each time. What is this called?',o:['Catastrophizing','Modeling','Habituation','Behavioral activation'],a:2,e:'Escaping brings instant relief but keeps the fear alive; staying lets the anxiety peak and fall.'}
+];
+const L='ABCD';
+let qz={order:QUIZ.map((_,i)=>i),pos:0,ans:{}};
+const qzEl=$('#qz');
+function qzBest(){const b=store.get('psy96.quiz.best',null);$('#qz-best').textContent=b==null?'':'Best score so far: '+b+' / '+QUIZ.length}
+function qzCorrect(){return Object.keys(qz.ans).filter(i=>qz.ans[i]===QUIZ[i].a).length}
+function qzRender(){
+  if(qz.pos>=qz.order.length)return qzResults();
+  const qi=qz.order[qz.pos],q=QUIZ[qi],n=QUIZ.length,answered=Object.keys(qz.ans).length,last=qz.pos===n-1;
+  qzEl.innerHTML=
+   '<div class="row"><span class="label">Question '+(qz.pos+1)+' of '+n+'</span><span class="label">Score '+qzCorrect()+' / '+answered+'</span></div>'+
+   '<div class="prog" aria-hidden="true"><i style="width:'+(qz.pos/n*100)+'%"></i></div>'+
+   '<div class="q-card"><div><span class="'+PILL[q.k]+'">'+LEC[q.k]+'</span></div><p class="q-text">'+esc(q.q)+'</p>'+
+   '<div class="opts" role="group" aria-label="Answer choices">'+q.o.map((o,j)=>'<button type="button" class="opt" data-j="'+j+'"><span class="k">'+L[j]+'</span><span>'+esc(o)+'</span><span class="mk"></span></button>').join('')+'</div>'+
+   '<div class="explain" hidden></div></div>'+
+   '<div class="qz-nav"><button type="button" class="btn" id="qz-back"'+(qz.pos===0?' disabled':'')+'>← Back</button>'+
+   '<button type="button" class="btn primary" id="qz-next" disabled>'+(last?'See my results':'Next question')+' →</button></div>';
+  $$('.opt',qzEl).forEach(b=>b.onclick=()=>qzPick(+b.dataset.j));
+  $('#qz-back').onclick=()=>{qz.pos--;qzRender()};
+  $('#qz-next').onclick=()=>{qz.pos++;qzRender();window.scrollTo({top:qzEl.offsetTop-90})};
+  if(qz.ans[qi]!==undefined)qzReveal(qi);
+}
+function qzPick(j){const qi=qz.order[qz.pos];if(qz.ans[qi]!==undefined)return;qz.ans[qi]=j;qzReveal(qi);
+  const r=$('.row .label:last-child',qzEl);if(r)r.textContent='Score '+qzCorrect()+' / '+Object.keys(qz.ans).length;$('#qz-next').focus()}
+function qzReveal(qi){
+  const q=QUIZ[qi],j=qz.ans[qi],ok=j===q.a;
+  $$('.opt',qzEl).forEach(b=>{const k=+b.dataset.j;b.disabled=true;
+    if(k===q.a){b.classList.add('right');b.querySelector('.mk').textContent='Correct'}
+    else if(k===j){b.classList.add('wrong');b.querySelector('.mk').textContent='Your pick'}
+    else b.classList.add('dim')});
+  const ex=$('.explain',qzEl);ex.hidden=false;
+  ex.innerHTML='<b class="'+(ok?'ans-right':'ans-wrong')+'">'+(ok?'Correct. ':'Not quite. The answer is '+L[q.a]+'. ')+'</b>'+esc(q.e);
+  $('#qz-next').disabled=false;
+}
+function qzResults(){
+  const n=QUIZ.length,c=qzCorrect(),pct=Math.round(c/n*100);
+  const best=store.get('psy96.quiz.best',null);if(best==null||c>best)store.set('psy96.quiz.best',c);qzBest();
+  const msg=c>=27?'Excellent. You’ve got the toolkit down.':c>=21?'Solid work. Look over the ones you missed below.':c>=15?'A good start. The flash cards will help close the gaps.':'Worth another pass through the study guide, then try again. You’ll see the difference.';
+  const bars=['l1','l2','l3','l4','l5'].map(k=>{const qs=QUIZ.map((q,i)=>[q,i]).filter(([q])=>q.k===k);const ok=qs.filter(([q,i])=>qz.ans[i]===q.a).length;
+    return '<div class="lec-bar"><a href="#guide/'+k+'">'+LEC[k]+'</a><div class="prog"><i style="width:'+(ok/qs.length*100)+'%"></i></div><span class="n">'+ok+'/'+qs.length+'</span></div>'}).join('');
+  const missed=QUIZ.map((q,i)=>[q,i]).filter(([q,i])=>qz.ans[i]!==q.a);
+  qzEl.innerHTML=
+   '<div class="q-card"><span class="label">Your result</span><div class="score-big">'+c+'<small> / '+n+' · '+pct+'%</small></div><p>'+msg+'</p>'+
+   '<div class="row" style="justify-content:flex-start"><button type="button" class="btn primary" id="qz-again">Retake quiz</button><button type="button" class="btn" id="qz-shuf">Shuffle and retake</button><a class="btn ghost" href="#cards">Practice with flash cards</a></div></div>'+
+   '<h3 style="margin-top:12px">Score by lecture</h3><div class="lec-bars">'+bars+'</div>'+
+   (missed.length?'<h3 style="margin-top:12px">Questions to review ('+missed.length+')</h3><div class="missed">'+missed.map(([q,i])=>
+     '<div class="card"><span class="label">'+LEC[q.k]+'</span><p><b>'+esc(q.q)+'</b></p>'+
+     '<p class="ans-wrong">Your answer: '+esc(q.o[qz.ans[i]])+'</p><p class="ans-right">Correct: '+esc(q.o[q.a])+'</p><p class="muted">'+esc(q.e)+'</p></div>').join('')+'</div>'
+     :'<p class="note">A perfect score. Nothing to review.</p>');
+  const reset=shuffle=>{const o=QUIZ.map((_,i)=>i);if(shuffle)for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]]}qz={order:o,pos:0,ans:{}};qzRender();window.scrollTo(0,0)};
+  $('#qz-again').onclick=()=>reset(false);$('#qz-shuf').onclick=()=>reset(true);
+}
+
+/* ============ KEYBOARD ============ */
+document.addEventListener('keydown',e=>{
+  const t=e.target,typing=/INPUT|TEXTAREA|SELECT/.test(t.tagName);
+  if(typing||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(curPage==='cards'){
+    if(e.key==='ArrowRight'){fcMove(1);e.preventDefault()}
+    else if(e.key==='ArrowLeft'){fcMove(-1);e.preventDefault()}
+    else if(e.key===' '&&t.tagName!=='BUTTON'){fcFlip();e.preventDefault()}
+  }else if(curPage==='quiz'){
+    const m={a:0,b:1,c:2,d:3,'1':0,'2':1,'3':2,'4':3}[e.key.toLowerCase()];
+    if(m!==undefined&&$('.opt',qzEl)){qzPick(m)}
+  }
+});
+
+/* ============ JOURNAL ============ */
+const EMO=['Sadness','Anxiety','Anger','Guilt','Shame','Embarrassment','Frustration','Envy','Regret','Calm','Content','Hopeful','Grateful'];
+const THEME={
+ Sadness:'Sadness points to <b>loss</b> and looks back. Its urge is to withdraw, so notice if you’re pulling away from people or plans.',
+ Anxiety:'Anxiety points to <b>threat</b> and looks ahead. Its urge is to avoid. Is there a prediction here you could test?',
+ Anger:'Anger points to <b>unfairness</b>. Ask yourself: what feels unfair right now?',
+ Guilt:'Guilt says “I <b>did</b> something bad.” It’s about an action, which means it can be repaired.',
+ Shame:'Shame says “I <b>am</b> bad.” That’s a core-belief-sized claim. Would it hold up in court?',
+ Embarrassment:'Embarrassment is about <b>others knowing</b>. Remember the cafeteria tray: people usually go back to their lunch.',
+ Frustration:'Frustration means feeling <b>blocked</b>. What’s in the way, and what’s the tiniest next step around it?',
+ Envy:'Envy comes from <b>comparison</b>. Are you comparing yourself on just one domain?',
+ Regret:'Regret points to a <b>decision</b> that feels wrong. What would you tell a friend who’d made the same one?',
+ Calm:'A good feeling worth noticing. What helped it show up today? That might be worth doing again.',
+ Content:'A good feeling worth noticing. What helped it show up today? That might be worth doing again.',
+ Hopeful:'Hope looks ahead too, in a kinder way. What are you looking forward to?',
+ Grateful:'Worth savoring. Who or what are you grateful for, and could you let them know?'
+};
+const DIST=['Catastrophizing / fortune telling','Mind reading','All-or-nothing','Unfair comparison','Emotional reasoning','None: it fits the facts'];
+const REFLECT=[
+ {k:'l1',q:'Which corner of the triangle feels easiest for you to change this week: a thought, or something you do?'},
+ {k:'l1',q:'Who in your life is a good listener? What do they do that helps you feel heard?'},
+ {k:'l2',q:'Pick one feeling from today. What theme does it point to: loss, threat, unfairness, being blocked, or something else?'},
+ {k:'l2',q:'When did you last feel angry? What felt unfair about it?'},
+ {k:'l2',q:'Think of a moment today when your interpretation shaped how you felt. What’s another way you could have read the situation?'},
+ {k:'l3',q:'Describe a recent setback. Now rewrite your explanation of it so it’s more specific and less permanent.'},
+ {k:'l3',q:'Write two true things about yourself, joined by “and.”'},
+ {k:'l3',q:'Is there a prediction you’re making about the future that you could test, either by trying it or by asking someone honest?'},
+ {k:'l3',q:'What would a kind, honest friend say about how you handled today?'},
+ {k:'l4',q:'Write down a rule you live by in “If… then…” form. Where did you learn it, and is it still helping you?'},
+ {k:'l4',q:'What’s one belief about yourself you’d like to loosen? How strongly do you believe it, 0–100? Write one piece of evidence against it.'},
+ {k:'l4',q:'Given everything going on in your life right now, what makes sense about how you’ve been feeling lately?'},
+ {k:'l5',q:'Which activities reliably give you a sense of pleasure? Which give you a sense of mastery? When could you fit one in this week?'},
+ {k:'l5',q:'Think of something you avoided recently. What did avoiding it protect you from, and what did it cost you?'},
+ {k:'l5',q:'Recall a fear you’ve outgrown. What helped you get past it?'},
+ {k:'l5',q:'What did you do today that the “how to be miserable” video would disapprove of?'}
+];
+const FIELDS=[['reflection','Reflection'],['situation','What happened'],['thought','Automatic thought'],['evFor','Evidence for'],['evAgainst','Evidence against'],['balanced','Balanced thought'],
+ ['validation','Self-validation'],['friend','What I’d tell a friend'],['strength','A strength I showed'],['pleasure','Pleasure activity'],['mastery','Mastery activity'],['tiny','Tiny first step'],
+ ['whyNotLower','Why that importance number, not lower'],['approach','Something I’ve been avoiding'],['wentOk','Something that went okay'],['learned','What I learned about myself']];
+const TEXTKEYS=['reflection','situation','thought','evFor','evAgainst','balanced','givenA','givenB','friend','strength','pleasure','mastery','tiny','whyNotLower','approach','wentOk','learned'];
+const jf=$('#jf');
+$('#j-emos').innerHTML=EMO.map(v=>'<button type="button" class="chip" data-v="'+v+'" aria-pressed="false">'+v+'</button>').join('');
+$('#j-dist').innerHTML=DIST.map(v=>'<button type="button" class="chip" data-v="'+v+'" aria-pressed="false">'+v+'</button>').join('');
+const today=new Date();
+$('#j-date').textContent=today.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+const dayN=Math.floor((today-new Date(today.getFullYear(),0,0))/864e5);
+let rIdx=dayN%REFLECT.length,lastEmo=null;
+function setReflect(i){rIdx=(i+REFLECT.length)%REFLECT.length;const r=REFLECT[rIdx];$('#j-rq').textContent=r.q;const p=$('#j-rk');p.className=PILL[r.k];p.textContent='From '+LEC[r.k]}
+function collect(){const d={};$$('[data-f]',jf).forEach(el=>d[el.dataset.f]=el.value);
+  $$('.chips[data-g]',jf).forEach(g=>d[g.dataset.g]=$$('.chip[aria-pressed="true"]',g).map(c=>c.dataset.v));
+  d.rIdx=rIdx;d.reflectionQ=REFLECT[rIdx].q;
+  if(d.givenA.trim()||d.givenB.trim())d.validation='Given '+(d.givenA.trim()||'…')+', it makes sense that I '+(d.givenB.trim()||'…')+'.';
+  return d}
+function fill(d){$$('[data-f]',jf).forEach(el=>{if(d[el.dataset.f]!=null)el.value=d[el.dataset.f]});
+  $$('.chips[data-g]',jf).forEach(g=>{const v=d[g.dataset.g]||[];$$('.chip',g).forEach(c=>c.setAttribute('aria-pressed',v.includes(c.dataset.v)))});
+  if(typeof d.rIdx==='number')setReflect(d.rIdx);syncUI()}
+function hasContent(d){return TEXTKEYS.some(k=>d[k]&&d[k].trim())||(d.emotions&&d.emotions.length)||(d.distortions&&d.distortions.length)}
+function syncUI(){
+  $$('input[type="range"]',jf).forEach(r=>{const o=jf.querySelector('output[for="'+r.id+'"]');if(o)o.textContent=r.value});
+  const v=+$('#j-int').value,z=$('#j-zone');
+  if(v>=9){z.className='zone-note high';z.innerHTML='<b>That’s very intense. Pause before writing.</b> Calm your body first: name one thing you can see, hear, feel and smell, or run cold water over your hands or face (the dive reflex). Come back to the thought once it eases below 9.'}
+  else if(v>=2){z.className='zone-note work';z.innerHTML='<b>You’re in the working zone (about 2–8).</b> This is when the thought tools work best, so section 3 is a good place to spend a few minutes.'}
+  else{z.className='zone-note';z.innerHTML='<b>Low charge right now.</b> A good moment for section 5: plan something pleasant or satisfying, or note what’s going well.'}
+  const sel=$$('#j-emos .chip[aria-pressed="true"]').map(c=>c.dataset.v);
+  const e=sel.includes(lastEmo)?lastEmo:sel[sel.length-1];
+  $('#j-theme').innerHTML=e?THEME[e]:'In class, each emotion pointed to a theme. Pick one to see what it might be telling you.';
+  const a=$('#j-ga').value.trim(),b=$('#j-gb').value.trim(),p=$('#j-vprev');
+  p.textContent='Given '+(a||'…')+', it makes sense that I '+(b||'…')+'.';p.classList.toggle('has',!!(a&&b));
+}
+let draftT;
+function status(t){$('#j-status').textContent=t}
+function saveDraft(){clearTimeout(draftT);draftT=setTimeout(()=>{const d=collect();if(hasContent(d)){if(store.set('psy96.journal.draft',d))$('#j-draft').textContent='Draft saved '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}else store.del('psy96.journal.draft')},400)}
+jf.addEventListener('input',()=>{syncUI();saveDraft()});
+jf.addEventListener('click',e=>{const c=e.target.closest('.chips[data-g] .chip');if(!c)return;const on=c.getAttribute('aria-pressed')!=='true';c.setAttribute('aria-pressed',on);if(c.closest('#j-emos')&&on)lastEmo=c.dataset.v;syncUI();saveDraft()});
+$('#j-shuffle').onclick=()=>{setReflect(rIdx+1);saveDraft()};
+function clearForm(){jf.reset();$$('.chip',jf).forEach(c=>c.setAttribute('aria-pressed','false'));lastEmo=null;store.del('psy96.journal.draft');setReflect(dayN);syncUI();$('#j-draft').textContent='Drafts save automatically'}
+function twoClick(btn,label,armedLabel,fn){let armed=false,t;btn.addEventListener('click',()=>{if(!armed){armed=true;btn.classList.add('armed');btn.textContent=armedLabel;t=setTimeout(()=>{armed=false;btn.classList.remove('armed');btn.textContent=label},3000)}else{clearTimeout(t);armed=false;btn.classList.remove('armed');btn.textContent=label;fn()}})}
+twoClick($('#j-clear'),'Clear','Tap again to clear',()=>{clearForm();status('Form cleared')});
+$('#j-save').onclick=()=>{const d=collect();if(!hasContent(d)){status('Write something first, even one line');return}
+  const list=store.get('psy96.journal.entries',[]);list.unshift({id:Date.now(),date:new Date().toISOString(),d});
+  if(!store.set('psy96.journal.entries',list)){$('#j-nostore').hidden=false;status('Couldn’t save in this browser. Use Export.');jMem=list;jRender();return}
+  clearForm();jRender();status('Entry saved ✓');$('#j-past').scrollIntoView({behavior:'smooth',block:'start'})};
+let jMem=null;
+function entries(){return jMem||store.get('psy96.journal.entries',[])}
+function fmtDate(iso){const d=new Date(iso);return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'})+' · '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}
+function jRender(){
+  const list=entries(),el=$('#j-list');
+  $('#j-n').textContent=list.length?list.length+(list.length===1?' entry':' entries'):'';
+  if(!list.length){el.innerHTML='<p class="note">No entries yet. When you save one, it shows up here.</p>';return}
+  el.innerHTML=list.map(e=>{const d=e.d;
+    const rows=FIELDS.filter(([k])=>d[k]&&String(d[k]).trim()).map(([k,l])=>'<div><dt class="label">'+esc(l)+'</dt><dd>'+(k==='reflection'?'<span class="rq">'+esc(d.reflectionQ)+'</span>':'')+esc(d[k])+'</dd></div>').join('');
+    const tags=[d.emotions&&d.emotions.length?'<div><dt class="label">Feelings</dt><dd>'+esc(d.emotions.join(', '))+'</dd></div>':'',d.distortions&&d.distortions.length?'<div><dt class="label">Distortion spotted</dt><dd>'+esc(d.distortions.join(', '))+'</dd></div>':''].join('');
+    return '<details class="entry"><summary><b>'+esc(fmtDate(e.date))+'</b><span class="label">Mood '+esc(d.mood)+' → '+esc(d.moodAfter)+' · Intensity '+esc(d.intensity)+'</span></summary>'+
+      '<div class="body"><dl>'+tags+rows+'</dl><div><button type="button" class="btn sm ghost" data-del="'+e.id+'">Delete entry</button></div></div></details>'}).join('');
+  $$('[data-del]',el).forEach(b=>twoClick(b,'Delete entry','Tap again to delete',()=>{const id=+b.dataset.del;const l=entries().filter(x=>x.id!==id);if(jMem)jMem=l;else store.set('psy96.journal.entries',l);jRender();status('Entry deleted')}));
+}
+$('#j-export').onclick=()=>{const list=entries();if(!list.length){status('Nothing to export yet');return}
+  let md='# My CBT Journal (PSY96)\n\n';
+  list.slice().reverse().forEach(e=>{const d=e.d;md+='## '+fmtDate(e.date)+'\n\n- Mood: '+d.mood+'/10 → '+d.moodAfter+'/10\n- Strongest feeling intensity: '+d.intensity+'/10\n';
+    if(d.emotions&&d.emotions.length)md+='- Feelings: '+d.emotions.join(', ')+'\n';
+    if(d.distortions&&d.distortions.length)md+='- Distortion spotted: '+d.distortions.join(', ')+'\n';
+    md+='\n';FIELDS.forEach(([k,l])=>{if(d[k]&&String(d[k]).trim())md+='**'+l+'**'+(k==='reflection'?' — _'+d.reflectionQ+'_':'')+'\n\n'+d[k].trim()+'\n\n'});md+='---\n\n'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='psy96-journal.md';document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);status('Exported psy96-journal.md')};
+
+/* ============ INIT ============ */
+if(!storageOK)$('#j-nostore').hidden=false;
+setReflect(rIdx);
+const draft=store.get('psy96.journal.draft',null);if(draft){fill(draft);$('#j-draft').textContent='Draft restored'}else syncUI();
+jRender();fcBuild();qzBest();qzRender();route();
+})();
+
+</script>
+</body>
+</html>
